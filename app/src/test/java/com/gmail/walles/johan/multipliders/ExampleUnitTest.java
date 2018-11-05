@@ -1,8 +1,9 @@
 package com.gmail.walles.johan.multipliders;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +13,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        Assert.assertThat(2 + 2, is(4));
     }
 }
