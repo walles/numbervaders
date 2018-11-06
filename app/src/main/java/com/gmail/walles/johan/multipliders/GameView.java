@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class GameView extends View {
     private static final Random random = new Random();
+    private final Model model = new Model();
 
     /**
      * The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}.
@@ -32,6 +33,14 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // FIXME: Clear the canvas with a black background
         canvas.drawColor(random.nextInt());
+
+        model.updateTo(System.currentTimeMillis());
+
+        model.drawOn(canvas);
+
+        // Trigger the next frame
+        invalidate();
     }
 }
