@@ -13,6 +13,9 @@ class Shot implements GameObject {
     private final double dx;
     private final double dy;
 
+    private final double initialSignumX;
+    private final double initialSignumY;
+
     private boolean dead = false;
 
     private double x;
@@ -30,6 +33,10 @@ class Shot implements GameObject {
         this.targetX = targetX;
         this.targetY = targetY;
 
+        // Must match the signum calculations in stepMs()
+        initialSignumX = Math.signum(x - targetX);
+        initialSignumY = Math.signum(y - targetY);
+
         double angle = Math.atan2(targetY - y, targetX - x);
         this.dx = Math.cos(angle);
         this.dy = Math.sin(angle);
@@ -42,16 +49,14 @@ class Shot implements GameObject {
 
     @Override
     public void stepMs(long deltaMs) {
-        double signumXBefore = Math.signum(x - targetX);
-        double signumYBefore = Math.signum(y - targetY);
-
         x += PERCENT_PER_MS * deltaMs * dx;
         y += PERCENT_PER_MS * deltaMs * dy;
 
-        double signumXAfter = Math.signum(x - targetX);
-        double signumYAfter = Math.signum(y - targetY);
+        // Must match the signum calculations in the constructor
+        double signumX = Math.signum(x - targetX);
+        double signumY = Math.signum(y - targetY);
 
-        if (signumXBefore != signumXAfter || signumYBefore != signumYAfter) {
+        if (signumX != initialSignumX || signumY != initialSignumY) {
             // FIXME: Found our target, do something more interesting than just disappearing
             dead = true;
         }
