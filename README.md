@@ -7,6 +7,7 @@ them by typing the correct answer.
 * Add a level-failed screen
 * Add a level-success screen
 * Add starry background
+* Adapt challenges font size to screen
 * Profile game for memory allocations
 * Profile game for CPU usage while drawing
 * Hide controls by default so that we get the full-screen experience,
