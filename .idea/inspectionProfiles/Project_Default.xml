@@ -24,6 +24,13 @@
     <inspection_tool class="ClassWithMultipleLoggers" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="loggerNamesString" value="java.util.logging.Logger,org.slf4j.Logger,org.apache.commons.logging.Log,org.apache.log4j.Logger" />
     </inspection_tool>
+    <inspection_tool class="CloneCallsConstructors" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="CloneInNonCloneableClass" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="CloneReturnsClassType" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="CloneableImplementsClone" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="m_ignoreCloneableDueToInheritance" value="false" />
+    </inspection_tool>
+    <inspection_tool class="CollectionsFieldAccessReplaceableByMethodCall" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ConditionSignal" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ConstantAssertCondition" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ConstantConditions" enabled="true" level="WARNING" enabled_by_default="true">
@@ -35,12 +42,29 @@
       <option name="ignoreOnVolatileVariables" value="false" />
     </inspection_tool>
     <inspection_tool class="DriverManagerGetConnection" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="DuplicateCondition" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoreSideEffectConditions" value="true" />
+    </inspection_tool>
+    <inspection_tool class="EmptyClass" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignorableAnnotations">
+        <value />
+      </option>
+      <option name="ignoreClassWithParameterization" value="false" />
+      <option name="ignoreThrowables" value="true" />
+      <option name="commentsAreContent" value="true" />
+    </inspection_tool>
+    <inspection_tool class="EmptyDirectory" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="EmptyInitializer" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="EmptySynchronizedStatement" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ExpectedExceptionNeverThrown" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ExtendsThread" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="FieldAccessedSynchronizedAndUnsynchronized" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="countGettersAndSetters" value="false" />
     </inspection_tool>
+    <inspection_tool class="GroovyEmptyCatchBlock" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="GroovyEmptyFinallyBlock" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="GroovyEmptySyncBlock" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="GroovyEmptyTryBlock" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="HibernateResource" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="insideTryAllowed" value="false" />
     </inspection_tool>
@@ -49,6 +73,7 @@
       <option name="insideTryAllowed" value="false" />
     </inspection_tool>
     <inspection_tool class="IgnoredJUnitTest" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="InstanceGuardedByStatic" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JDBCResource" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="insideTryAllowed" value="false" />
     </inspection_tool>
@@ -72,6 +97,8 @@
     <inspection_tool class="MultipleExceptionsDeclaredOnTestMethod" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NakedNotify" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NestedSynchronizedStatement" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="NonFinalUtilityClass" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="NonPublicClone" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NonStaticFinalLogger" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="loggerClassName" value="" />
     </inspection_tool>
@@ -83,6 +110,12 @@
     <inspection_tool class="ParameterizedParametersStaticCollection" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PlaceholderCountMatchesArgumentCount" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="PublicFieldAccessedInSynchronizedContext" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PublicMethodNotExposedInInterface" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignorableAnnotations">
+        <value />
+      </option>
+      <option name="onlyWarnIfContainingClassImplementsAnInterface" value="false" />
+    </inspection_tool>
     <inspection_tool class="SafeLock" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SharedThreadLocalRandom" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SignalWithoutCorrespondingAwait" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -90,8 +123,10 @@
     <inspection_tool class="SocketResource" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="insideTryAllowed" value="false" />
     </inspection_tool>
+    <inspection_tool class="StaticGuardedByInstance" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="StaticSuite" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="StringConcatenationArgumentToLogCall" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="StringEqualsEmptyString" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SuperTearDownInFinally" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SynchronizationOnStaticField" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SynchronizeOnLock" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -118,9 +153,19 @@
     <inspection_tool class="ThreadStopSuspendResume" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ThreadWithDefaultRunMethod" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ThreadYield" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="TrivialStringConcatenation" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnconditionalWait" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UnconstructableTestCase" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UnnecessaryDefault" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UseOfClone" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="UseOfObsoleteAssert" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UtilityClassWithPublicConstructor" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UtilityClassWithoutPrivateConstructor" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignorableAnnotations">
+        <value />
+      </option>
+      <option name="ignoreClassesWithOnlyMain" value="false" />
+    </inspection_tool>
     <inspection_tool class="VolatileArrayField" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="VolatileLongOrDoubleField" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WaitCalledOnCondition" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -129,5 +174,10 @@
     <inspection_tool class="WaitOrAwaitWithoutTimeout" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WaitWhileHoldingTwoLocks" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="WaitWithoutCorrespondingNotify" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="WeakerAccess" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="SUGGEST_PACKAGE_LOCAL_FOR_MEMBERS" value="false" />
+      <option name="SUGGEST_PACKAGE_LOCAL_FOR_TOP_CLASSES" value="false" />
+      <option name="SUGGEST_PRIVATE_FOR_INNERS" value="false" />
+    </inspection_tool>
   </profile>
 </component>
