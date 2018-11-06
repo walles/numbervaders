@@ -1,6 +1,9 @@
 package com.gmail.walles.johan.multipliders;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -16,6 +19,8 @@ public class KeyboardView extends View {
      * We never give the keyboard more height than this.
      */
     private static final double MAX_HEIGHT_PERCENT = 30;
+
+    private final Paint paint;
 
     /**
      * The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}.
@@ -34,6 +39,10 @@ public class KeyboardView extends View {
 
     public KeyboardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override
@@ -51,5 +60,34 @@ public class KeyboardView extends View {
         }
 
         setMeasuredDimension(width, height);
+        float rowHeight = height / 4f;
+        paint.setTextSize(rowHeight * 0.9f);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.drawColor(Color.BLACK);
+
+        float keyWidth = paint.getTextSize() * 2f;
+
+        float x0 = getWidth() / 2 - keyWidth;
+        float x1 = getWidth() / 2;
+        float x2 = getWidth() / 2 + keyWidth;
+
+        float y0 = getHeight() / 4f;
+        float y1 = 2 * getHeight() / 4f;
+        float y2 = 3 * getHeight() / 4f;
+        float y3 = 4 * getHeight() / 4f;
+
+        canvas.drawText("0", x1, y3, paint);
+        canvas.drawText("1", x0, y2, paint);
+        canvas.drawText("2", x1, y2, paint);
+        canvas.drawText("3", x2, y2, paint);
+        canvas.drawText("4", x0, y1, paint);
+        canvas.drawText("5", x1, y1, paint);
+        canvas.drawText("6", x2, y1, paint);
+        canvas.drawText("7", x0, y0, paint);
+        canvas.drawText("8", x1, y0, paint);
+        canvas.drawText("9", x2, y0, paint);
     }
 }
