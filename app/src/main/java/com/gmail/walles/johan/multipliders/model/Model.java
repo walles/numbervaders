@@ -3,14 +3,10 @@ package com.gmail.walles.johan.multipliders.model;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-/**
- * Coordinate system is Y=[0%-100%] where 0% is on top and 100% is on bottom, X coordinates are as
- * wide as Y coordinates are high but go from left to right with 0% being in the middle of the
- * screen.
- */
-public class Model {
+public class Model implements Shooter {
     private static final long NEVER_UPDATED = 0L;
 
     /**
@@ -24,8 +20,8 @@ public class Model {
      */
     private static final int FALLING_OBJECTS_SPACING_PERCENT = 17;
 
-    private List<FallingText> incoming = new ArrayList<>();
-    private Cannon cannon = new Cannon();
+    private List<GameObject> stuff = new ArrayList<>();
+    private Cannon cannon = new Cannon(this);
 
     private long lastUpdatedToMs = NEVER_UPDATED;
 
@@ -49,10 +45,21 @@ public class Model {
             deltaMs = MAX_STEP_MS;
         }
 
-        addMoreChallenges();
+        if (shouldAddChallenge()) {
+            addMoreChallenges();
+        }
 
-        for (FallingText object: incoming) {
+        for (GameObject object: stuff) {
             object.stepMs(deltaMs);
+        }
+
+        // Stepping can kill some objects
+        Iterator<GameObject> iter = stuff.iterator();
+        while (iter.hasNext()) {
+            GameObject object = iter.next();
+            if (object.isDead()) {
+                iter.remove();
+            }
         }
         cannon.stepMs(deltaMs);
 
@@ -60,19 +67,15 @@ public class Model {
     }
 
     private void addMoreChallenges() {
-        if (shouldAddChallenge()) {
-            incoming.add(new FallingText());
-        }
+        stuff.add(new FallingText());
     }
 
     private boolean shouldAddChallenge() {
-        if (incoming.isEmpty()) {
-            // No objects,
-            return true;
-        }
+        for (GameObject object: stuff) {
+            if (!(object instanceof FallingText)) {
+                continue;
+            }
 
-        // Find highest y coordinate
-        for (FallingText object: incoming) {
             if (object.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
                 // Something's in the way
                 return false;
@@ -87,12 +90,18 @@ public class Model {
      */
     public void drawOn(Canvas canvas) {
         cannon.drawOn(canvas);
-        for (FallingText object: incoming) {
+        for (GameObject object: stuff) {
             object.drawOn(canvas);
         }
     }
 
     public void insertDigit(int digit) {
         cannon.addDigit(digit);
+    }
+
+    @Override
+    public void fireShot(String digits) {
+        // FIXME: Aim for an actual target
+        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), 0, 100));
     }
 }

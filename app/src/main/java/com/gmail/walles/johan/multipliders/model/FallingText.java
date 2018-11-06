@@ -42,6 +42,12 @@ public class FallingText implements GameObject {
         canvas.drawText(text, screenX, screenY, paint);
     }
 
+    @Override
+    public boolean isDead() {
+        return false;
+    }
+
+    @Override
     public double getY() {
         return y;
     }

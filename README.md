@@ -15,6 +15,10 @@ them by typing the correct answer.
   good for production. Verify that we can easily show the controls
   when they are hidden.
 * Pause game while controls are visible
+* Add a license
+* Make an icon
+* Make a "Feature Graphics"
+* Publish on Google Play
 
 
 ## DONE
