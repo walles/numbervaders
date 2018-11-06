@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 public class Model implements Shooter {
     private static final long NEVER_UPDATED = 0L;
@@ -131,15 +130,16 @@ public class Model implements Shooter {
 
     @Nullable
     private GameObject findTarget() {
+        GameObject target = null;
         for (GameObject object: stuff) {
             if (!(object instanceof FallingText)) {
                 continue;
             }
 
-            // For now we'll just shoot at whatever
-            return object;
+            // For now we'll just shoot at the last object, which tends to be the highest-up one
+            target = object;
         }
 
-        return null;
+        return target;
     }
 }
