@@ -9,6 +9,9 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class KeyboardView extends View {
     /**
      * This is how high we want the keyboard.
@@ -21,6 +24,35 @@ public class KeyboardView extends View {
     private static final double MAX_HEIGHT_PERCENT = 30;
 
     private final Paint paint;
+
+    private static class Key {
+        private final int number;
+        private final float x;
+        private final float y;
+
+        /**
+         * Key height in pixels.
+         */
+        private float height;
+
+        private Key(int number, float x, float y, float height) {
+            this.number = number;
+            this.x = x;
+            this.y = y;
+            this.height = height;
+        }
+
+        public float distanceSquaredTo(float x, float y) {
+            float dx = x - this.x;
+            float dy = y - (this.y - height);
+            return dx * dx + dy * dy;
+        }
+
+        public void drawOn(Canvas canvas, Paint paint) {
+            canvas.drawText(Integer.toString(number), x, y, paint);
+        }
+    }
+    private List<Key> keys;
 
     /**
      * The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}.
@@ -62,32 +94,44 @@ public class KeyboardView extends View {
         setMeasuredDimension(width, height);
         float rowHeight = height / 4f;
         paint.setTextSize(rowHeight * 0.9f);
+
+        configureKeys(width, height);
+    }
+
+    private void configureKeys(int width, int height) {
+        float keyWidth = paint.getTextSize() * 2f;
+
+        float x0 = width / 2 - keyWidth;
+        float x1 = width / 2;
+        float x2 = width / 2 + keyWidth;
+
+        float rowHeight = height / 4f;
+        float y0 = rowHeight;
+        float y1 = 2 * rowHeight;
+        float y2 = 3 * rowHeight;
+        float y3 = 4 * rowHeight;
+
+        List<Key> newKeys = new ArrayList<>();
+        newKeys.add(new Key(0, x1, y3, rowHeight));
+        newKeys.add(new Key(1, x0, y2, rowHeight));
+        newKeys.add(new Key(2, x1, y2, rowHeight));
+        newKeys.add(new Key(3, x2, y2, rowHeight));
+        newKeys.add(new Key(4, x0, y1, rowHeight));
+        newKeys.add(new Key(5, x1, y1, rowHeight));
+        newKeys.add(new Key(6, x2, y1, rowHeight));
+        newKeys.add(new Key(7, x0, y0, rowHeight));
+        newKeys.add(new Key(8, x1, y0, rowHeight));
+        newKeys.add(new Key(9, x2, y0, rowHeight));
+
+        keys = newKeys;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
 
-        float keyWidth = paint.getTextSize() * 2f;
-
-        float x0 = getWidth() / 2 - keyWidth;
-        float x1 = getWidth() / 2;
-        float x2 = getWidth() / 2 + keyWidth;
-
-        float y0 = getHeight() / 4f;
-        float y1 = 2 * getHeight() / 4f;
-        float y2 = 3 * getHeight() / 4f;
-        float y3 = 4 * getHeight() / 4f;
-
-        canvas.drawText("0", x1, y3, paint);
-        canvas.drawText("1", x0, y2, paint);
-        canvas.drawText("2", x1, y2, paint);
-        canvas.drawText("3", x2, y2, paint);
-        canvas.drawText("4", x0, y1, paint);
-        canvas.drawText("5", x1, y1, paint);
-        canvas.drawText("6", x2, y1, paint);
-        canvas.drawText("7", x0, y0, paint);
-        canvas.drawText("8", x1, y0, paint);
-        canvas.drawText("9", x2, y0, paint);
+        for (Key key: keys) {
+            key.drawOn(canvas, paint);
+        }
     }
 }

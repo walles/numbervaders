@@ -11,7 +11,10 @@ them by typing the correct answer.
 * Profile game for memory allocations
 * Profile game for CPU usage while drawing
 * Hide controls by default so that we get the full-screen experience,
-  good for production.
+  good for production. Verify that we can easily show the controls
+  when they are hidden.
+* Pause game while controls are visible
+
 
 ## DONE
 * Make text move down from top
