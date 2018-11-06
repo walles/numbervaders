@@ -4,7 +4,6 @@ them by typing the correct answer.
 # TODO
 * View controls by default so that we can pause the game easily, good
   for development.
-* Make text move down from top
 * Add a numeric keyboard
 * Add a launch screen
 * Add a level-failed screen
@@ -14,3 +13,7 @@ them by typing the correct answer.
 * Profile game for CPU usage while drawing
 * Hide controls by default so that we get the full-screen experience,
   good for production.
+
+## DONE
+* Make text move down from top
+* Add more falling text when the first text is 20% down

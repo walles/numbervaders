@@ -42,4 +42,8 @@ class PhysicalObject {
 
         canvas.drawText(text, screenX, screenY, paint);
     }
+
+    public double getY() {
+        return y;
+    }
 }
