@@ -12,7 +12,7 @@ public class FallingText implements GameObject {
     /**
      * How long will it take this text to fall to the bottom of the screen?
      */
-    private static final double MS_TO_BOTTOM = 5000;
+    private static final double MS_TO_BOTTOM = 15_000;
     private static final double PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
 
     private double x = -30.0 + 60 * RANDOM.nextDouble();
