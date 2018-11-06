@@ -36,6 +36,7 @@ class Cannon implements GameObject {
         return false;
     }
 
+    @Override
     public double getX() {
         return 0;
     }

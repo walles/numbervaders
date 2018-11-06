@@ -19,6 +19,7 @@ public class FallingText implements GameObject {
     private double y = 0;
     private String text = "Johan";
     private final Paint paint;
+    private boolean dead = false;
 
     public FallingText() {
         paint = new Paint();
@@ -32,7 +33,7 @@ public class FallingText implements GameObject {
         y += PERCENT_PER_MS * deltaMs;
 
         if (y > 100) {
-            y = 0;
+            dead = true;
         }
     }
 
@@ -48,11 +49,14 @@ public class FallingText implements GameObject {
 
     @Override
     public boolean isDead() {
-        return false;
+        return dead;
     }
 
     @Override
     public double getY() {
         return y;
     }
+
+    @Override
+    public double getX() { return x; }
 }

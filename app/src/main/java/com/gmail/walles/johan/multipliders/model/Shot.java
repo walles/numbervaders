@@ -69,6 +69,11 @@ class Shot implements GameObject {
     }
 
     @Override
+    public double getX() {
+        return x;
+    }
+
+    @Override
     public double getY() {
         return y;
     }

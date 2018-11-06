@@ -1,10 +1,12 @@
 package com.gmail.walles.johan.multipliders.model;
 
 import android.graphics.Canvas;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class Model implements Shooter {
     private static final long NEVER_UPDATED = 0L;
@@ -112,7 +114,32 @@ public class Model implements Shooter {
 
     @Override
     public void fireShot(String digits) {
-        // FIXME: Aim for an actual target
-        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), 0, 0));
+        GameObject target = findTarget();
+
+        double targetX;
+        double targetY;
+        if (target != null) {
+            targetX = target.getX();
+            targetY = target.getY();
+        } else {
+            // Just shoot straight up
+            targetX = 0;
+            targetY = 0;
+        }
+        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), targetX, targetY));
+    }
+
+    @Nullable
+    private GameObject findTarget() {
+        for (GameObject object: stuff) {
+            if (!(object instanceof FallingText)) {
+                continue;
+            }
+
+            // For now we'll just shoot at whatever
+            return object;
+        }
+
+        return null;
     }
 }
