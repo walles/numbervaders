@@ -35,6 +35,7 @@ public class Model {
         }
 
         physicalObject.stepMs(deltaMs);
+        lastUpdatedToMs = timestampMillis;
     }
 
     /**
