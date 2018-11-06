@@ -42,13 +42,17 @@ class Shot implements GameObject {
 
     @Override
     public void stepMs(long deltaMs) {
+        double signumXBefore = Math.signum(x - targetX);
+        double signumYBefore = Math.signum(y - targetY);
+
         x += PERCENT_PER_MS * deltaMs * dx;
         y += PERCENT_PER_MS * deltaMs * dy;
 
-        // FIXME: Do something sensible when hitting our target
+        double signumXAfter = Math.signum(x - targetX);
+        double signumYAfter = Math.signum(y - targetY);
 
-        if (y < 0) {
-            // Gone above the clouds
+        if (signumXBefore != signumXAfter || signumYBefore != signumYAfter) {
+            // FIXME: Found our target, do something more interesting than just disappearing
             dead = true;
         }
     }
