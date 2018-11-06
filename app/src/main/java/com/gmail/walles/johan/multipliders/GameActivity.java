@@ -52,7 +52,9 @@ public class GameActivity extends AppCompatActivity {
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
-            hide();
+            // FIXME: Before releasing on Google Play, re-enable this hide() call to make the app
+            // full screen.
+            // FIXME: hide();
         }
     };
 
