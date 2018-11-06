@@ -1,10 +1,10 @@
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.multipliders.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class PhysicalObject {
+public class FallingText implements GameObject {
     /**
      * How long will it take this text to fall to the bottom of the screen?
      */
@@ -16,16 +16,14 @@ class PhysicalObject {
     private String text = "Johan";
     private final Paint paint;
 
-    public PhysicalObject() {
+    public FallingText() {
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(150);
+        paint.setTextSize(150);  // FIXME: Adapt to screen size
         paint.setTextAlign(Paint.Align.CENTER);
     }
 
-    /**
-     * Update our state by this many milliseconds.
-     */
+    @Override
     public void stepMs(long deltaMs) {
         y += PERCENT_PER_MS * deltaMs;
 
@@ -34,6 +32,7 @@ class PhysicalObject {
         }
     }
 
+    @Override
     public void drawOn(Canvas canvas) {
         double coordinatesToScreenFactor = canvas.getHeight() / 100.0;
         double xOffset = canvas.getWidth() / 2;

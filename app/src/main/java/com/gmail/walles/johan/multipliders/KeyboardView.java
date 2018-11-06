@@ -13,8 +13,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
-
 public class KeyboardView extends View {
     /**
      * This is how high we want the keyboard.
@@ -27,9 +25,14 @@ public class KeyboardView extends View {
     private static final double MAX_HEIGHT_PERCENT = 30;
 
     private final Paint paint;
+    private KeypressListener keypressListener;
+
+    public interface KeypressListener {
+        void handleDigit(int digit);
+    }
 
     private static class Key {
-        private final int number;
+        private final int digit;
         private final float x;
         private final float y;
 
@@ -38,21 +41,21 @@ public class KeyboardView extends View {
          */
         private float height;
 
-        private Key(int number, float x, float y, float height) {
-            this.number = number;
+        private Key(int digit, float x, float y, float height) {
+            this.digit = digit;
             this.x = x;
             this.y = y;
             this.height = height;
         }
 
-        public float distanceSquaredTo(float x, float y) {
+        private float distanceSquaredTo(float x, float y) {
             float dx = x - this.x;
             float dy = y - (this.y - height / 2f);
             return dx * dx + dy * dy;
         }
 
-        public void drawOn(Canvas canvas, Paint paint) {
-            canvas.drawText(Integer.toString(number), x, y, paint);
+        private void drawOn(Canvas canvas, Paint paint) {
+            canvas.drawText(Integer.toString(digit), x, y, paint);
         }
     }
     private List<Key> keys;
@@ -121,8 +124,14 @@ public class KeyboardView extends View {
             }
         }
 
-        Timber.i("Key pressed: %d", closestKey.number);
+        if (keypressListener != null) {
+            keypressListener.handleDigit(closestKey.digit);
+        }
         return true;
+    }
+
+    public void setOnKeypress(KeypressListener keypressListener) {
+        this.keypressListener = keypressListener;
     }
 
     @Override

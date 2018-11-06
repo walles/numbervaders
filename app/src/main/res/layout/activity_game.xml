@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <com.gmail.walles.johan.multipliders.GameView
-            android:id="@+id/fullscreen_content"
+            android:id="@+id/game"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"

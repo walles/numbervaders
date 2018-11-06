@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.gmail.walles.johan.multipliders.model.Model;
+
 import java.util.Random;
 
 public class GameView extends View {
@@ -42,5 +44,9 @@ public class GameView extends View {
 
         // Trigger the next frame
         invalidate();
+    }
+
+    public void insertDigit(int digit) {
+        model.insertDigit(digit);
     }
 }

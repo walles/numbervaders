@@ -1,4 +1,4 @@
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.multipliders.model;
 
 import android.graphics.Canvas;
 
@@ -24,7 +24,9 @@ public class Model {
      */
     private static final int FALLING_OBJECTS_SPACING_PERCENT = 17;
 
-    private List<PhysicalObject> objects = new ArrayList<>();
+    private List<FallingText> incoming = new ArrayList<>();
+    private Cannon cannon = new Cannon();
+
     private long lastUpdatedToMs = NEVER_UPDATED;
 
     /**
@@ -48,26 +50,29 @@ public class Model {
         }
 
         addMoreChallenges();
-        for (PhysicalObject object: objects) {
+
+        for (FallingText object: incoming) {
             object.stepMs(deltaMs);
         }
+        cannon.stepMs(deltaMs);
+
         lastUpdatedToMs = timestampMillis;
     }
 
     private void addMoreChallenges() {
         if (shouldAddChallenge()) {
-            objects.add(new PhysicalObject());
+            incoming.add(new FallingText());
         }
     }
 
     private boolean shouldAddChallenge() {
-        if (objects.isEmpty()) {
+        if (incoming.isEmpty()) {
             // No objects,
             return true;
         }
 
         // Find highest y coordinate
-        for (PhysicalObject object: objects) {
+        for (FallingText object: incoming) {
             if (object.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
                 // Something's in the way
                 return false;
@@ -78,11 +83,16 @@ public class Model {
     }
 
     /**
-     * Render the model onto the given canvas.
+     * Render the model onto the given (already cleared) canvas.
      */
     public void drawOn(Canvas canvas) {
-        for (PhysicalObject object: objects) {
+        cannon.drawOn(canvas);
+        for (FallingText object: incoming) {
             object.drawOn(canvas);
         }
+    }
+
+    public void insertDigit(int digit) {
+        cannon.addDigit(digit);
     }
 }
