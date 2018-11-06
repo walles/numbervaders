@@ -2,6 +2,7 @@ package com.gmail.walles.johan.multipliders;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,8 +36,7 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        // FIXME: Clear the canvas with a black background
-        canvas.drawColor(random.nextInt());
+        canvas.drawColor(Color.BLACK);
 
         model.updateTo(System.currentTimeMillis());
 
