@@ -2,7 +2,8 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO
-* Add a numeric keyboard
+* Shoot numbers when keys are pressed
+* Add feedback on key presses
 * Add a launch screen
 * Add a level-failed screen
 * Add a level-success screen
@@ -21,3 +22,4 @@ them by typing the correct answer.
 * Add more falling text when the first text is 20% down
 * View controls by default so that we can pause the game easily, good
   for development.
+* Add a numeric keyboard

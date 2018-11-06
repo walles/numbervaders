@@ -7,10 +7,13 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class KeyboardView extends View {
     /**
@@ -44,7 +47,7 @@ public class KeyboardView extends View {
 
         public float distanceSquaredTo(float x, float y) {
             float dx = x - this.x;
-            float dy = y - (this.y - height);
+            float dy = y - (this.y - height / 2f);
             return dx * dx + dy * dy;
         }
 
@@ -72,9 +75,54 @@ public class KeyboardView extends View {
     public KeyboardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        setOnTouchListener((v, event) -> handleTouch(event));
+
         paint = new Paint();
         paint.setColor(Color.GREEN);
         paint.setTextAlign(Paint.Align.CENTER);
+    }
+
+    /**
+     * @see android.view.View.OnTouchListener#onTouch(View, MotionEvent)
+     */
+    private boolean handleTouch(MotionEvent event) {
+        float x;
+        float y;
+
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // Required to get the up events:
+                // https://stackoverflow.com/a/16495363/473672
+                return true;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                x = event.getX(event.getActionIndex());
+                y = event.getY(event.getActionIndex());
+                break;
+
+            case MotionEvent.ACTION_UP:
+                x = event.getX();
+                y = event.getY();
+                break;
+
+            default:
+                // We only handle up events
+                return false;
+        }
+
+        Key closestKey = keys.get(0);
+        float closestDistance = closestKey.distanceSquaredTo(x, y);
+        for (Key key: keys) {
+            float distance = key.distanceSquaredTo(x, y);
+            if (distance < closestDistance) {
+                closestKey = key;
+                closestDistance = distance;
+            }
+        }
+
+        Timber.i("Key pressed: %d", closestKey.number);
+        return true;
     }
 
     @Override
