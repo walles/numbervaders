@@ -20,6 +20,11 @@ public class Model implements Shooter {
      */
     private static final int FALLING_OBJECTS_SPACING_PERCENT = 17;
 
+    /**
+     * Don't show more than this number of challenges at once.
+     */
+    private static final int MAX_CHALLENGES = 4;
+
     private List<GameObject> stuff = new ArrayList<>();
     private Cannon cannon = new Cannon(this);
 
@@ -71,9 +76,15 @@ public class Model implements Shooter {
     }
 
     private boolean shouldAddChallenge() {
+        int challengesFound = 0;
+
         for (GameObject object: stuff) {
             if (!(object instanceof FallingText)) {
                 continue;
+            }
+
+            if (++challengesFound >= MAX_CHALLENGES) {
+                return false;
             }
 
             if (object.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
