@@ -20,6 +20,10 @@ class Shot implements GameObject {
     private final Paint paint;
 
     public Shot(String text, double x, double y, double targetX, double targetY) {
+        if (targetY == y) {
+            throw new IllegalArgumentException("Y and targetY must not be equal");
+        }
+
         this.text = text;
         this.x = x;
         this.y = y;
@@ -27,8 +31,8 @@ class Shot implements GameObject {
         this.targetY = targetY;
 
         double angle = Math.atan2(targetY - y, targetX - x);
-        this.dx = Math.sin(angle);
-        this.dy = -Math.cos(angle);
+        this.dx = Math.cos(angle);
+        this.dy = Math.sin(angle);
 
         paint = new Paint();
         paint.setColor(Color.WHITE);

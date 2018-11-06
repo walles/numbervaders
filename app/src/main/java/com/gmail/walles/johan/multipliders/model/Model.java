@@ -113,6 +113,6 @@ public class Model implements Shooter {
     @Override
     public void fireShot(String digits) {
         // FIXME: Aim for an actual target
-        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), 0, 100));
+        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), 0, 0));
     }
 }
