@@ -6,7 +6,7 @@ import android.graphics.Paint;
 
 import java.util.Random;
 
-public class FallingText implements GameObject {
+public class FallingMaths implements GameObject {
     private static final Random RANDOM = new Random();
 
     /**
@@ -17,11 +17,18 @@ public class FallingText implements GameObject {
 
     private double x = -30.0 + 60 * RANDOM.nextDouble();
     private double y = 0;
-    private String text = "Johan";
+    private final String text;
     private final Paint paint;
     private boolean dead = false;
 
-    public FallingText() {
+    private final int answer;
+
+    public FallingMaths() {
+        int a = RANDOM.nextInt(10) + 1;
+        int b = RANDOM.nextInt(10) + 1;
+        text = a + "⋅" + b;
+        answer = a * b;
+
         paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(150);  // FIXME: Adapt to screen size

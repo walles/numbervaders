@@ -8,7 +8,7 @@ class Shot implements GameObject {
     private static final double MS_ACROSS_SCREEN = 500;
     private static final double PERCENT_PER_MS = 100.0 / MS_ACROSS_SCREEN;
     private final String text;
-    private final FallingText target;
+    private final FallingMaths target;
     private final double dx;
     private final double dy;
 
@@ -21,7 +21,7 @@ class Shot implements GameObject {
     private double y;
     private final Paint paint;
 
-    public Shot(String text, double x, double y, FallingText target) {
+    public Shot(String text, double x, double y, FallingMaths target) {
         this.text = text;
         this.x = x;
         this.y = y;

@@ -2,7 +2,10 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO
-* Shoot numbers when keys are pressed
+* Shoot at maths assignments when the right answer is entered
+* Fire a slow red shot when a wrong answer is entered, the point of
+  this is to delay the player
+* Kill player when some maths lands
 * Add feedback on key presses
 * Add a launch screen
 * Add a level-failed screen
@@ -11,6 +14,8 @@ them by typing the correct answer.
 * Adapt challenges font size to screen
 * Profile game for memory allocations
 * Profile game for CPU usage while drawing
+* Profile game for memory allocations on an actual 10" tablet
+* Profile game for CPU usage on an actual 10" tablet
 * Hide controls by default so that we get the full-screen experience,
   good for production. Verify that we can easily show the controls
   when they are hidden.
@@ -27,3 +32,5 @@ them by typing the correct answer.
 * View controls by default so that we can pause the game easily, good
   for development.
 * Add a numeric keyboard
+* Fire away numbers when keys are pressed
+* Make maths assignments fall from the sky

@@ -73,14 +73,14 @@ public class Model implements Shooter {
     }
 
     private void addMoreChallenges() {
-        stuff.add(new FallingText());
+        stuff.add(new FallingMaths());
     }
 
     private boolean shouldAddChallenge() {
         int challengesFound = 0;
 
         for (GameObject object: stuff) {
-            if (!(object instanceof FallingText)) {
+            if (!(object instanceof FallingMaths)) {
                 continue;
             }
 
@@ -113,7 +113,7 @@ public class Model implements Shooter {
 
     @Override
     public void fireShot(String digits) {
-        FallingText target = findTarget();
+        FallingMaths target = findTarget();
         if (target == null) {
             // No target, never mind
             return;
@@ -123,15 +123,15 @@ public class Model implements Shooter {
     }
 
     @Nullable
-    private FallingText findTarget() {
-        FallingText target = null;
+    private FallingMaths findTarget() {
+        FallingMaths target = null;
         for (GameObject object: stuff) {
-            if (!(object instanceof FallingText)) {
+            if (!(object instanceof FallingMaths)) {
                 continue;
             }
 
             // For now we'll just shoot at the last object, which tends to be the highest-up one
-            target = (FallingText)object;
+            target = (FallingMaths)object;
         }
 
         return target;
