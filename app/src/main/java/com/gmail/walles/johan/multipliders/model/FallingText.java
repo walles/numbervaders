@@ -59,4 +59,9 @@ public class FallingText implements GameObject {
 
     @Override
     public double getX() { return x; }
+
+    public void explode() {
+        // FIXME: Do something more spectacular
+        dead = true;
+    }
 }

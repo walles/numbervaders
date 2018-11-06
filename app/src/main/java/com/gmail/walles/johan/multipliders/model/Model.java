@@ -113,31 +113,25 @@ public class Model implements Shooter {
 
     @Override
     public void fireShot(String digits) {
-        GameObject target = findTarget();
-
-        double targetX;
-        double targetY;
-        if (target != null) {
-            targetX = target.getX();
-            targetY = target.getY();
-        } else {
-            // Just shoot straight up
-            targetX = 0;
-            targetY = 0;
+        FallingText target = findTarget();
+        if (target == null) {
+            // No target, never mind
+            return;
         }
-        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), targetX, targetY));
+
+        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), target));
     }
 
     @Nullable
-    private GameObject findTarget() {
-        GameObject target = null;
+    private FallingText findTarget() {
+        FallingText target = null;
         for (GameObject object: stuff) {
             if (!(object instanceof FallingText)) {
                 continue;
             }
 
             // For now we'll just shoot at the last object, which tends to be the highest-up one
-            target = object;
+            target = (FallingText)object;
         }
 
         return target;

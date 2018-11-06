@@ -8,8 +8,7 @@ class Shot implements GameObject {
     private static final double MS_ACROSS_SCREEN = 500;
     private static final double PERCENT_PER_MS = 100.0 / MS_ACROSS_SCREEN;
     private final String text;
-    private final double targetX;
-    private final double targetY;
+    private final FallingText target;
     private final double dx;
     private final double dy;
 
@@ -22,22 +21,17 @@ class Shot implements GameObject {
     private double y;
     private final Paint paint;
 
-    public Shot(String text, double x, double y, double targetX, double targetY) {
-        if (targetY == y) {
-            throw new IllegalArgumentException("Y and targetY must not be equal");
-        }
-
+    public Shot(String text, double x, double y, FallingText target) {
         this.text = text;
         this.x = x;
         this.y = y;
-        this.targetX = targetX;
-        this.targetY = targetY;
+        this.target = target;
 
         // Must match the signum calculations in stepMs()
-        initialSignumX = Math.signum(x - targetX);
-        initialSignumY = Math.signum(y - targetY);
+        initialSignumX = Math.signum(x - target.getX());
+        initialSignumY = Math.signum(y - target.getY());
 
-        double angle = Math.atan2(targetY - y, targetX - x);
+        double angle = Math.atan2(target.getY() - y, target.getX() - x);
         this.dx = Math.cos(angle);
         this.dy = Math.sin(angle);
 
@@ -53,11 +47,11 @@ class Shot implements GameObject {
         y += PERCENT_PER_MS * deltaMs * dy;
 
         // Must match the signum calculations in the constructor
-        double signumX = Math.signum(x - targetX);
-        double signumY = Math.signum(y - targetY);
+        double signumX = Math.signum(x - target.getX());
+        double signumY = Math.signum(y - target.getY());
 
         if (signumX != initialSignumX || signumY != initialSignumY) {
-            // FIXME: Found our target, do something more interesting than just disappearing
+            target.explode();
             dead = true;
         }
     }
