@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -123,8 +124,8 @@ public class Model {
             return;
         }
 
-        // Wrong answer, fire a slow red ballistic shot to mark this event
-        stuff.add(cannon.createErrorShot());
+        // Wrong answer, clear the cannon
+        Collections.addAll(stuff, cannon.createErrorDebris());
     }
 
     private boolean isStartOfAnAnswer(String prefix) {

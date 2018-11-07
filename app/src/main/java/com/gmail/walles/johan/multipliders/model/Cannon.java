@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 class Cannon implements GameObject {
+    private static final int DEBRIS_COUNT_ON_FAIL = 3;
+
     private String digits = "";
     private final Paint paint;
 
@@ -57,8 +59,11 @@ class Cannon implements GameObject {
         return shot;
     }
 
-    public GameObject createErrorShot() {
-        Debris debris = new Debris(digits, getX(), getY());
+    public GameObject[] createErrorDebris() {
+        GameObject[] debris = new GameObject[DEBRIS_COUNT_ON_FAIL];
+        for (int i = 0; i < DEBRIS_COUNT_ON_FAIL; i++) {
+            debris[i] = new Debris(digits, getX(), getY());
+        }
         digits = "";
         return debris;
     }

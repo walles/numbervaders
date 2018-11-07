@@ -8,8 +8,8 @@ import java.util.Random;
 
 class Debris implements GameObject {
     private static final Random RANDOM = new Random();
-    private static final double GRAVITY_PERCENT_PER_MS2 = 0.001;
-    private static final double MS_ACROSS_SCREEN = 500;
+    private static final double GRAVITY_PERCENT_PER_MS2 = 0.0002;
+    private static final double MS_ACROSS_SCREEN = 1000;
     private static final double PERCENT_PER_MS = 100.0 / MS_ACROSS_SCREEN;
 
     private double x;
