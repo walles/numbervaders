@@ -4,7 +4,6 @@ them by typing the correct answer.
 # TODO Before Testing on a 10" Tablet
 * Show correct answer on screen when the simulation is frozen.
 * Stop all the invalidate() calls when the simulation is frozen.
-* Examine frame rate and fix it if necessary
 
 # TODO Before Testing on a Child
 * Examine frame rate on a 10" tablet and fix it if necessary
@@ -60,3 +59,4 @@ them by typing the correct answer.
 * Fire a slow red shot when a wrong answer is entered
 * Kill player when some maths lands
 * When player is killed, freeze the simulation after a delay.
+* Log frame rate on emulator (we're fine)
