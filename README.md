@@ -2,9 +2,12 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO
-* Kill player when some maths lands
+* When player is killed, slow down the simulation over a few seconds
+  then go to the Game Over screen
 * Add a launch screen with a credits dialog
-* Add a level-failed screen
+* Add a level-failed screen saying which maths killed us and what the
+  correct answer was
+* Tune the hit areas for the keys on our keyboard
 * Add a level-success screen
 * Pick maths depending on level
 * Set a level-finished criteria
@@ -48,4 +51,4 @@ them by typing the correct answer.
 * Make maths assignments fall from the sky
 * Shoot at maths assignments when the right answer is entered
 * Fire a slow red shot when a wrong answer is entered
-
+* Kill player when some maths lands

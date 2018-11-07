@@ -15,15 +15,21 @@ public class FallingMaths implements GameObject {
     private static final double MS_TO_BOTTOM = 15_000;
     private static final double PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
 
+    private final Model model;
+
     private double x = -30.0 + 60 * RANDOM.nextDouble();
     private double y = 0;
     private final String text;
     private final Paint paint;
+
     private boolean dead = false;
+    private boolean landing = true;
 
     public final int answer;
 
-    public FallingMaths() {
+    public FallingMaths(Model model) {
+        this.model = model;
+
         int a = RANDOM.nextInt(10) + 1;
         int b = RANDOM.nextInt(10) + 1;
         text = a + "⋅" + b;
@@ -37,6 +43,11 @@ public class FallingMaths implements GameObject {
 
     @Override
     public void stepMs(long deltaMs) {
+        if (!landing) {
+            doNotLandStepMs(deltaMs);
+            return;
+        }
+
         if (y >= 100) {
             // We have landed
             return;
@@ -48,12 +59,35 @@ public class FallingMaths implements GameObject {
         }
 
         // Touchdown!
+        model.noMoreMaths();
 
-        // FIXME: Tell model to stop adding new maths
+        // Tell our math friends to fly away or start hovering ominously or something
+        for (FallingMaths friend: model.listFallingMaths()) {
+            if (friend == this) {
+                // We shouldn't stop ourselves
+                continue;
+            }
 
-        // FIXME: Tell our math friends to fly away or start hovering ominously or something
+            friend.stopLanding();
+        }
 
-        // FIXME: Explode the cannon with our answer as the text
+        // Explode the cannon with our answer as the text
+        model.getCannon().explode(Integer.toString(answer));
+    }
+
+    /**
+     * Update our state while not landing.
+     */
+    private void doNotLandStepMs(long deltaMs) {
+        // FIXME: Do some spectacular dance here?
+        y -= (PERCENT_PER_MS / 2.0) * deltaMs;
+        if (y < 0) {
+            dead = true;
+        }
+    }
+
+    private void stopLanding() {
+        landing = false;
     }
 
     @Override

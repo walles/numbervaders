@@ -28,9 +28,15 @@ public class Model {
     private static final int MAX_CHALLENGES = 4;
 
     private List<GameObject> stuff = new ArrayList<>();
-    private Cannon cannon = new Cannon();
+    private List<GameObject> newObjects = new ArrayList<>();
+    private Cannon cannon = new Cannon(this);
 
     private long lastUpdatedToMs = NEVER_UPDATED;
+
+    /**
+     * When this is true no more maths will drop down from the sky.
+     */
+    private boolean mathsStopped = false;
 
     /**
      * Update model to the given timestamp.
@@ -70,14 +76,22 @@ public class Model {
             }
         }
 
+        // Stepping can create new objects
+        stuff.addAll(newObjects);
+        newObjects.clear();
+
         lastUpdatedToMs = timestampMillis;
     }
 
     private void addMoreChallenges() {
-        stuff.add(new FallingMaths());
+        stuff.add(new FallingMaths(this));
     }
 
     private boolean shouldAddChallenge() {
+        if (mathsStopped) {
+            return false;
+        }
+
         int challengesFound = 0;
 
         for (GameObject object: stuff) {
@@ -161,5 +175,37 @@ public class Model {
 
         // Not found
         return null;
+    }
+
+    public void noMoreMaths() {
+        mathsStopped = true;
+    }
+
+    public Iterable<FallingMaths> listFallingMaths() {
+        List<FallingMaths> fallingMaths = new ArrayList<>();
+
+        for (GameObject object: stuff) {
+            if (!(object instanceof FallingMaths)) {
+                continue;
+            }
+
+            fallingMaths.add((FallingMaths)object);
+        }
+
+        return fallingMaths;
+    }
+
+    public Cannon getCannon() {
+        return cannon;
+    }
+
+    /**
+     * Add a new object to the simulation.
+     */
+    public void add(GameObject object) {
+        // Without the intermediate newObjects collection we trigger
+        // ConcurrentModificationExceptions when adding objects to the list while traversing it to
+        // step.
+        newObjects.add(object);
     }
 }

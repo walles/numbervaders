@@ -6,11 +6,17 @@ import android.graphics.Paint;
 
 class Cannon implements GameObject {
     private static final int DEBRIS_COUNT_ON_FAIL = 3;
+    private static final int DEBRIS_COUNT_ON_EXPLODE = 6;
 
     private String digits = "";
     private final Paint paint;
+    private final Model model;
 
-    public Cannon() {
+    private boolean dead = false;
+
+    public Cannon(Model model) {
+        this.model = model;
+
         paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setTextSize(150);  // FIXME: Adapt to screen size
@@ -24,6 +30,10 @@ class Cannon implements GameObject {
 
     @Override
     public void drawOn(Canvas canvas) {
+        if (dead) {
+            return;
+        }
+
         canvas.drawText(
                 "[" + digits + "]",
                 canvas.getWidth() / 2, canvas.getHeight(),
@@ -32,7 +42,7 @@ class Cannon implements GameObject {
 
     @Override
     public boolean isDead() {
-        return false;
+        return dead;
     }
 
     @Override
@@ -66,5 +76,16 @@ class Cannon implements GameObject {
         }
         digits = "";
         return debris;
+    }
+
+    /**
+     * Explode cannon and shoot the given text off in various directions.
+     */
+    public void explode(String text) {
+        for (int i = 0; i < DEBRIS_COUNT_ON_EXPLODE; i++) {
+            model.add(new Debris(text, getX(), getY()));
+        }
+
+        dead = true;
     }
 }
