@@ -37,11 +37,23 @@ public class FallingMaths implements GameObject {
 
     @Override
     public void stepMs(long deltaMs) {
-        y += PERCENT_PER_MS * deltaMs;
-
-        if (y > 100) {
-            dead = true;
+        if (y >= 100) {
+            // We have landed
+            return;
         }
+
+        y += PERCENT_PER_MS * deltaMs;
+        if (y < 100) {
+            return;
+        }
+
+        // Touchdown!
+
+        // FIXME: Tell model to stop adding new maths
+
+        // FIXME: Tell our math friends to fly away or start hovering ominously or something
+
+        // FIXME: Explode the cannon with our answer as the text
     }
 
     @Override
