@@ -9,10 +9,7 @@ import android.view.View;
 
 import com.gmail.walles.johan.multipliders.model.Model;
 
-import java.util.Random;
-
 public class GameView extends View {
-    private static final Random random = new Random();
     private final Model model = new Model();
 
     /**

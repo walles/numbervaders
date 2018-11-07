@@ -21,7 +21,7 @@ public class FallingMaths implements GameObject {
     private final Paint paint;
     private boolean dead = false;
 
-    private final int answer;
+    public final int answer;
 
     public FallingMaths() {
         int a = RANDOM.nextInt(10) + 1;

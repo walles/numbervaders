@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Model implements Shooter {
+public class Model {
     private static final long NEVER_UPDATED = 0L;
 
     /**
@@ -27,7 +27,7 @@ public class Model implements Shooter {
     private static final int MAX_CHALLENGES = 4;
 
     private List<GameObject> stuff = new ArrayList<>();
-    private Cannon cannon = new Cannon(this);
+    private Cannon cannon = new Cannon();
 
     private long lastUpdatedToMs = NEVER_UPDATED;
 
@@ -109,31 +109,58 @@ public class Model implements Shooter {
 
     public void insertDigit(int digit) {
         cannon.addDigit(digit);
-    }
 
-    @Override
-    public void fireShot(String digits) {
-        FallingMaths target = findTarget();
-        if (target == null) {
-            // No target, never mind
+        FallingMaths target = findTarget(cannon.getText());
+        if (target != null) {
+            // The cannon contains the correct answer for one falling maths, shoot that one down
+            // FIXME: Move shots creation into Cannon
+            stuff.add(new Shot(cannon.getText(), cannon.getX(), cannon.getY(), target));
+            cannon.clearDigits();
             return;
         }
 
-        stuff.add(new Shot(digits, cannon.getX(), cannon.getY(), target));
+        if (isStartOfAnAnswer(cannon.getText())) {
+            // The cannon contains the start of a correct answer for some falling maths, just
+            // leave the new digit in the cannon
+            return;
+        }
+
+        // FIXME: This is wrong, fire a slow red ballistic shot to mark this event
+        cannon.clearDigits();
     }
 
-    @Nullable
-    private FallingMaths findTarget() {
-        FallingMaths target = null;
+    private boolean isStartOfAnAnswer(String prefix) {
         for (GameObject object: stuff) {
             if (!(object instanceof FallingMaths)) {
                 continue;
             }
 
-            // For now we'll just shoot at the last object, which tends to be the highest-up one
-            target = (FallingMaths)object;
+            FallingMaths candidate = (FallingMaths) object;
+            String fallingAnswer = Integer.toString(candidate.answer);
+            if (fallingAnswer.startsWith(prefix)) {
+                return true;
+            }
         }
 
-        return target;
+        // Not found
+        return false;
+    }
+
+    @Nullable
+    private FallingMaths findTarget(String answer) {
+        for (GameObject object: stuff) {
+            if (!(object instanceof FallingMaths)) {
+                continue;
+            }
+
+            FallingMaths candidate = (FallingMaths) object;
+            String fallingAnswer = Integer.toString(candidate.answer);
+            if (answer.equals(fallingAnswer)) {
+                return candidate;
+            }
+        }
+
+        // Not found
+        return null;
     }
 }

@@ -2,7 +2,10 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO
-* Shoot at maths assignments when the right answer is entered
+* In the Model, create a way to iterate only over our `FallingMaths`
+  objects.
+* Make our keyboard react to actual digits presses from a real keyboard
+  as well. Nice during development.
 * Fire a slow red shot when a wrong answer is entered, the point of
   this is to delay the player
 * Kill player when some maths lands
@@ -34,3 +37,4 @@ them by typing the correct answer.
 * Add a numeric keyboard
 * Fire away numbers when keys are pressed
 * Make maths assignments fall from the sky
+* Shoot at maths assignments when the right answer is entered
