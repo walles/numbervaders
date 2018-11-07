@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Coordinate system is Y=0%-100% where 0% is on top and 100% is on bottom.
+ * <p>
+ * X coordinates are as wide as Y coordinates are high but go from left to right with 0% being
+ * in the middle of the screen.
+ */
 public class Model {
     private static final long NEVER_UPDATED = 0L;
 
@@ -103,7 +109,8 @@ public class Model {
                 return false;
             }
 
-            if (object.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
+            FallingMaths fallingMaths = (FallingMaths)object;
+            if (fallingMaths.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
                 // Something's in the way
                 return false;
             }

@@ -105,12 +105,10 @@ public class FallingMaths implements GameObject {
         return dead;
     }
 
-    @Override
     public double getY() {
         return y;
     }
 
-    @Override
     public double getX() { return x; }
 
     public void explode() {

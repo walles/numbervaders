@@ -14,15 +14,4 @@ public interface GameObject {
      * When an object should be removed, return true here.
      */
     boolean isDead();
-
-    /**
-     * X coordinates are as wide as Y coordinates are high but go from left to right with 0% being
-     * in the middle of the screen.
-     */
-    double getX();
-
-    /**
-     * Coordinate system is Y=0%-100% where 0% is on top and 100% is on bottom.
-     */
-    double getY();
 }

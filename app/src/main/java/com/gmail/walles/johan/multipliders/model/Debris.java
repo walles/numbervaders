@@ -69,13 +69,4 @@ class Debris implements GameObject {
         return y > initialY;
     }
 
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
 }

@@ -7,6 +7,8 @@ import android.graphics.Paint;
 class Cannon implements GameObject {
     private static final int DEBRIS_COUNT_ON_FAIL = 3;
     private static final int DEBRIS_COUNT_ON_EXPLODE = 6;
+    private static final int X = 0;
+    private static final int Y = 100;
 
     private String digits = "";
     private final Paint paint;
@@ -45,16 +47,6 @@ class Cannon implements GameObject {
         return dead;
     }
 
-    @Override
-    public double getX() {
-        return 0;
-    }
-
-    @Override
-    public double getY() {
-        return 100;
-    }
-
     public void addDigit(int digit) {
         digits += digit;
     }
@@ -64,7 +56,7 @@ class Cannon implements GameObject {
     }
 
     public GameObject createShotFor(FallingMaths target) {
-        Shot shot = new Shot(digits, getX(), getY(), target);
+        Shot shot = new Shot(digits, (double) X, (double) Y, target);
         digits = "";
         return shot;
     }
@@ -72,7 +64,7 @@ class Cannon implements GameObject {
     public GameObject[] createErrorDebris() {
         GameObject[] debris = new GameObject[DEBRIS_COUNT_ON_FAIL];
         for (int i = 0; i < DEBRIS_COUNT_ON_FAIL; i++) {
-            debris[i] = new Debris(digits, getX(), getY());
+            debris[i] = new Debris(digits, (double) X, (double) Y);
         }
         digits = "";
         return debris;
@@ -83,7 +75,7 @@ class Cannon implements GameObject {
      */
     public void explode(String text) {
         for (int i = 0; i < DEBRIS_COUNT_ON_EXPLODE; i++) {
-            model.add(new Debris(text, getX(), getY()));
+            model.add(new Debris(text, (double) X, (double) Y));
         }
 
         dead = true;
