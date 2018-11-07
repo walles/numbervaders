@@ -15,7 +15,9 @@ import java.util.List;
  * in the middle of the screen.
  */
 public class Model {
-    private static final long NEVER_UPDATED = 0L;
+    private static final long PRE_SHUTDOWN_PAUSE_MS = 1500;
+
+    private static final long UNSET = 0L;
 
     /**
      * Accept time deltas at least this big. If we don't limit them, the physics would go nuts after
@@ -37,18 +39,25 @@ public class Model {
     private List<GameObject> newObjects = new ArrayList<>();
     private Cannon cannon = new Cannon(this);
 
-    private long lastUpdatedToMs = NEVER_UPDATED;
+    private long lastUpdatedToMs = UNSET;
 
     /**
      * When this is true no more maths will drop down from the sky.
      */
     private boolean mathsStopped = false;
 
+    private long shutDownAtMs = UNSET;
+
     /**
      * Update model to the given timestamp.
      */
     public void updateTo(long timestampMillis) {
-        if (lastUpdatedToMs == NEVER_UPDATED) {
+        if (shutDownAtMs != UNSET && timestampMillis >= shutDownAtMs) {
+            // We have been shut down
+            return;
+        }
+
+        if (lastUpdatedToMs == UNSET) {
             lastUpdatedToMs = timestampMillis;
             return;
         }
@@ -214,5 +223,12 @@ public class Model {
         // ConcurrentModificationExceptions when adding objects to the list while traversing it to
         // step.
         newObjects.add(object);
+    }
+
+    /**
+     * Simulation will freeze a while after you call this.
+     */
+    public void startShutDown() {
+        shutDownAtMs = lastUpdatedToMs + PRE_SHUTDOWN_PAUSE_MS;
     }
 }

@@ -79,5 +79,7 @@ class Cannon implements GameObject {
         }
 
         dead = true;
+
+        model.startShutDown();
     }
 }

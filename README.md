@@ -2,8 +2,8 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO Before Testing on a 10" Tablet
-* When player is killed, freeze the simulation after a delay. The
-  correct answer should be visible on the frozen screen.
+* Show correct answer on screen when the simulation is frozen.
+* Stop all the invalidate() calls when the simulation is frozen.
 * Examine frame rate and fix it if necessary
 
 # TODO Before Testing on a Child
@@ -17,11 +17,11 @@ them by typing the correct answer.
 * Add a level-success screen
 * Pick maths depending on level
 * Add feedback on key presses
-* Adapt font sizes to screen
 * Add sound effects
 * Add a music score
 
 # TODO Before Publishing on Google Play
+* Adapt font sizes to screen
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
   good for production. Verify that we can easily show the controls
@@ -59,3 +59,4 @@ them by typing the correct answer.
 * Shoot at maths assignments when the right answer is entered
 * Fire a slow red shot when a wrong answer is entered
 * Kill player when some maths lands
+* When player is killed, freeze the simulation after a delay.
