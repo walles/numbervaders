@@ -58,6 +58,7 @@ public class Model {
         for (GameObject object: stuff) {
             object.stepMs(deltaMs);
         }
+        cannon.stepMs(deltaMs);
 
         // Stepping can kill some objects
         Iterator<GameObject> iter = stuff.iterator();
@@ -67,7 +68,6 @@ public class Model {
                 iter.remove();
             }
         }
-        cannon.stepMs(deltaMs);
 
         lastUpdatedToMs = timestampMillis;
     }
@@ -113,9 +113,7 @@ public class Model {
         FallingMaths target = findTarget(cannon.getText());
         if (target != null) {
             // The cannon contains the correct answer for one falling maths, shoot that one down
-            // FIXME: Move shots creation into Cannon
-            stuff.add(new Shot(cannon.getText(), cannon.getX(), cannon.getY(), target));
-            cannon.clearDigits();
+            stuff.add(cannon.createShotFor(target));
             return;
         }
 
@@ -125,8 +123,8 @@ public class Model {
             return;
         }
 
-        // FIXME: This is wrong, fire a slow red ballistic shot to mark this event
-        cannon.clearDigits();
+        // Wrong answer, fire a slow red ballistic shot to mark this event
+        stuff.add(cannon.createErrorShot());
     }
 
     private boolean isStartOfAnAnswer(String prefix) {

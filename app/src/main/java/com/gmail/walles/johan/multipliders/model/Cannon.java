@@ -51,8 +51,15 @@ class Cannon implements GameObject {
         return digits;
     }
 
-    public void clearDigits() {
-        // Useful after firing a shot
+    public GameObject createShotFor(FallingMaths target) {
+        Shot shot = new Shot(digits, getX(), getY(), target);
         digits = "";
+        return shot;
+    }
+
+    public GameObject createErrorShot() {
+        Debris debris = new Debris(digits, getX(), getY());
+        digits = "";
+        return debris;
     }
 }
