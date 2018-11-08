@@ -82,26 +82,22 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void tellPlayerItDied(Iterable<FallingMaths> failedMaths) {
-        // FIXME: Show the bottommost answer on top of the list
-        StringBuilder answers = new StringBuilder();
-        for (FallingMaths failed : failedMaths) {
-            if (answers.length() > 0) {
-                answers.append('\n');
+        FallingMaths lowestAnswer = failedMaths.iterator().next();
+        for (FallingMaths failed: failedMaths) {
+            if (failed.getY() > lowestAnswer.getY()) {
+                lowestAnswer = failed;
             }
-
-            answers.append(failed.question).
-                    append('=').
-                    append(failed.answer);
         }
 
         AlertDialog alertDialog =
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
-                        .setMessage(answers)
+                        .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
                         .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
     }
 
     @Override
