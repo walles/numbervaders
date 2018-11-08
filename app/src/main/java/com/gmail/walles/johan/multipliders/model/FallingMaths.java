@@ -10,7 +10,7 @@ public class FallingMaths implements GameObject {
     private static final Random RANDOM = new Random();
 
     /**
-     * How long will it take this text to fall to the bottom of the screen?
+     * How long will it take this question to fall to the bottom of the screen?
      */
     private static final double MS_TO_BOTTOM = 15_000;
     private static final double PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
@@ -19,7 +19,7 @@ public class FallingMaths implements GameObject {
 
     private double x = -30.0 + 60 * RANDOM.nextDouble();
     private double y = 0;
-    private final String text;
+    public final String question;
     private final Paint paint;
 
     private boolean dead = false;
@@ -32,7 +32,7 @@ public class FallingMaths implements GameObject {
 
         int a = RANDOM.nextInt(10) + 1;
         int b = RANDOM.nextInt(10) + 1;
-        text = a + "⋅" + b;
+        question = a + "⋅" + b;
         answer = a * b;
 
         paint = new Paint();
@@ -97,7 +97,7 @@ public class FallingMaths implements GameObject {
         float screenX = (float)(x * coordinatesToScreenFactor + xOffset);
         float screenY = (float)(y * coordinatesToScreenFactor);
 
-        canvas.drawText(text, screenX, screenY, paint);
+        canvas.drawText(question, screenX, screenY, paint);
     }
 
     @Override

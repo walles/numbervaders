@@ -15,8 +15,6 @@ import java.util.List;
  * in the middle of the screen.
  */
 public class Model {
-    private static final long PRE_SHUTDOWN_PAUSE_MS = 1500;
-
     private static final long UNSET = 0L;
 
     /**
@@ -46,17 +44,10 @@ public class Model {
      */
     private boolean mathsStopped = false;
 
-    private long shutDownAtMs = UNSET;
-
     /**
      * Update model to the given timestamp.
      */
     public void updateTo(long timestampMillis) {
-        if (shutDownAtMs != UNSET && timestampMillis >= shutDownAtMs) {
-            // We have been shut down
-            return;
-        }
-
         if (lastUpdatedToMs == UNSET) {
             lastUpdatedToMs = timestampMillis;
             return;
@@ -223,12 +214,5 @@ public class Model {
         // ConcurrentModificationExceptions when adding objects to the list while traversing it to
         // step.
         newObjects.add(object);
-    }
-
-    /**
-     * Simulation will freeze a while after you call this.
-     */
-    public void startShutDown() {
-        shutDownAtMs = lastUpdatedToMs + PRE_SHUTDOWN_PAUSE_MS;
     }
 }

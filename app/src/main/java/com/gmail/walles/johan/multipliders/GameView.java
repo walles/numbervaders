@@ -3,10 +3,12 @@ package com.gmail.walles.johan.multipliders;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.gmail.walles.johan.multipliders.model.FallingMaths;
 import com.gmail.walles.johan.multipliders.model.Model;
 
 import java.util.Locale;
@@ -63,6 +65,15 @@ public class GameView extends View {
         }
     }
 
+    public interface OnGameOverListener {
+        /**
+         * @param failedMaths Live maths when the player died
+         */
+        void onPlayerDied(Iterable<FallingMaths> failedMaths);
+    }
+    @Nullable
+    private OnGameOverListener onGameOverListener;
+
     private long lastFrameStart;
 
     private final MovingAverage betweenFramesMillisRunningAverage = new MovingAverage();
@@ -103,7 +114,12 @@ public class GameView extends View {
         }
         lastFrameStart = t0;
 
+        boolean cannonDeadBefore = model.getCannon().isDead();
         model.updateTo(System.currentTimeMillis());
+        boolean cannonDeadAfter = model.getCannon().isDead();
+        if (cannonDeadAfter && !cannonDeadBefore && onGameOverListener != null) {
+            onGameOverListener.onPlayerDied(model.listFallingMaths());
+        }
 
         long t1 = System.currentTimeMillis();
         canvas.drawColor(Color.BLACK);
@@ -135,5 +151,9 @@ public class GameView extends View {
 
     public void insertDigit(int digit) {
         model.insertDigit(digit);
+    }
+
+    public void setOnGameOverListener(@NonNull OnGameOverListener onGameOverListener) {
+        this.onGameOverListener = onGameOverListener;
     }
 }

@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.gmail.walles.johan.multipliders.model.FallingMaths;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -17,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
+    private final Handler handler = new Handler();
     private GameView gameView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -68,8 +71,32 @@ public class GameActivity extends AppCompatActivity {
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
 
+        gameView.setOnGameOverListener(
+                failedMaths -> handler.postDelayed(
+                        () -> tellPlayerItDied(failedMaths), 2000));
+
         KeyboardView keyboard = findViewById(R.id.keyboard);
         keyboard.setOnKeypress(gameView::insertDigit);
+    }
+
+    private void tellPlayerItDied(Iterable<FallingMaths> failedMaths) {
+        // FIXME: Show the bottommost answer on top of the list
+        StringBuilder answers = new StringBuilder();
+        for (FallingMaths failed : failedMaths) {
+            if (answers.length() > 0) {
+                answers.append('\n');
+            }
+
+            answers.append(failed.question).
+                    append('=').
+                    append(failed.answer);
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("You died")
+                .setMessage(answers)
+                .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     @Override
@@ -79,8 +106,8 @@ public class GameActivity extends AppCompatActivity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, 100);
+        handler.removeCallbacks(mHideRunnable);
+        handler.postDelayed(mHideRunnable, 100);
     }
 
     private void toggle() {
@@ -101,8 +128,8 @@ public class GameActivity extends AppCompatActivity {
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+        handler.removeCallbacks(mShowPart2Runnable);
+        handler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
@@ -113,8 +140,8 @@ public class GameActivity extends AppCompatActivity {
         mVisible = true;
 
         // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
+        handler.removeCallbacks(mHidePart2Runnable);
+        handler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
 }

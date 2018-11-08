@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class Cannon implements GameObject {
+public class Cannon implements GameObject {
     private static final int DEBRIS_COUNT_ON_FAIL = 3;
     private static final int DEBRIS_COUNT_ON_EXPLODE = 6;
     private static final int X = 0;
@@ -79,7 +79,5 @@ class Cannon implements GameObject {
         }
 
         dead = true;
-
-        model.startShutDown();
     }
 }

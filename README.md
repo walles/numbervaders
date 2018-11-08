@@ -1,19 +1,12 @@
 A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
-# TODO Before Testing on a 10" Tablet
-* Show correct answer on screen when the simulation is frozen.
-* Stop all the invalidate() calls when the simulation is frozen.
-
 # TODO Before Testing on a Child
-* Examine frame rate on a 10" tablet and fix it if necessary
 * Add a launch screen
+* Dismissing the level-failed dialog should go to the launch screen
 * Remove click handler from GameView, but verify that swiping down from
   the top still works
-* Add a level-failed screen saying which maths killed us and what the
-  correct answer was
-* Set a level-success criteria
-* Add a level-success screen
+* Show level-success dialog after clearing a level
 * Pick maths depending on level
 * Add feedback on key presses
 * Add sound effects
@@ -23,8 +16,8 @@ them by typing the correct answer.
 * Adapt font sizes to screen
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
-  good for production. Verify that we can easily show the controls
-  when they are hidden.
+  good for production, search for `mHideRunnable`. Verify that we can
+  easily show the controls when they are hidden.
 * Pause game while controls are visible
 * Add a license
 * Make an icon
@@ -32,6 +25,7 @@ them by typing the correct answer.
 
 # TODO Misc
 * Actually publish on Google Play
+* Make the level-failed answers dialog look better
 * Tune the hit areas for the keys on our keyboard
 * Drop easier maths faster than harder maths
 * Add starry background
@@ -46,6 +40,8 @@ them by typing the correct answer.
   as well. Nice during development. Tried with `setOnKeyListener()` and
   [this](https://stackoverflow.com/a/26567134/473672) but only got
   events sporadically, never mind.
+* Stop all the invalidate() calls when the simulation is frozen. Can't
+  see how this would help with much of anything.
 
 ## DONE
 * Make text move down from top
@@ -60,3 +56,5 @@ them by typing the correct answer.
 * Kill player when some maths lands
 * When player is killed, freeze the simulation after a delay.
 * Log frame rate on emulator (we're fine)
+* Log frame rate on a 10" tablet (we're doing great)
+* Show correct answer on screen when the player dies.
