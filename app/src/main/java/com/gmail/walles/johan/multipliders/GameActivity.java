@@ -6,7 +6,9 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import com.gmail.walles.johan.multipliders.model.FallingMaths;
 
@@ -92,11 +94,14 @@ public class GameActivity extends AppCompatActivity {
                     append(failed.answer);
         }
 
-        new AlertDialog.Builder(this)
-                .setTitle("You died")
-                .setMessage(answers)
-                .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
-                .show();
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+                        .setMessage(answers)
+                        .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                        .show();
+        TextView textView = alertDialog.findViewById(android.R.id.message);
+        assert textView != null;
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
     }
 
     @Override
