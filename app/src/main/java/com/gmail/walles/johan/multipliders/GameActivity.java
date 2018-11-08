@@ -1,6 +1,7 @@
 package com.gmail.walles.johan.multipliders;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -92,7 +93,13 @@ public class GameActivity extends AppCompatActivity {
         AlertDialog alertDialog =
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
-                        .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                        .setNeutralButton("OK", (dialog, which) -> {
+                            dialog.dismiss();
+
+                            Intent intent = new Intent(GameActivity.this, LaunchActivity.class);
+                            startActivity(intent);
+                            finish();
+                        })
                         .setCancelable(false)
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);

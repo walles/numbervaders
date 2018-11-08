@@ -2,18 +2,18 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO Before Testing on a Child
-* Add a launch screen
-* Dismissing the level-failed dialog should go to the launch screen, no
-  matter how it is dismissed
-* Remove click handler from GameView, but verify that swiping down from
-  the top still works
 * Show level-success dialog after clearing a level
 * Pick maths depending on level
 * Add feedback on key presses
 * Add sound effects
 * Add a music score
+* Launch screen should say which level will be launched
+* Try pressing the back button in various places and see that it does
+  what we expect
 
 # TODO Before Publishing on Google Play
+* Remove click handler from GameView, but verify that swiping down from
+  the top still works
 * Adapt font sizes to screen
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
@@ -29,7 +29,7 @@ them by typing the correct answer.
 * Make the level-failed answers dialog look better
 * Drop easier maths faster than harder maths
 * Add starry background
-
+* Dark launch screen theme
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -59,3 +59,6 @@ them by typing the correct answer.
 * Log frame rate on a 10" tablet (we're doing great)
 * Show correct answer on screen when the player dies.
 * Tune the hit areas for the keys on our keyboard
+* Add a launch screen
+* Dismissing the level-failed dialog should go to the launch screen, no
+  matter how it is dismissed
