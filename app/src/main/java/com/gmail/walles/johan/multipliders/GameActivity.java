@@ -93,6 +93,7 @@ public class GameActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
                         .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                        .setCancelable(false)
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
