@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.gmail.walles.johan.multipliders.model.Model;
 
+import java.util.Locale;
+
 import timber.log.Timber;
 
 public class GameView extends View {
@@ -16,16 +18,48 @@ public class GameView extends View {
     private final Model model = new Model();
 
     private static class MovingAverage {
-        private static final double INERTIA = 10;
+        private static final double INERTIA = 100;
 
-        private double current;
+        private double average;
+        @Nullable private Double max;
+        @Nullable private Double min;
 
-        public void add(double value) {
-            current = ((current * (INERTIA - 1.0)) + value) / INERTIA;
+        public void addMs(double value) {
+            average = ((average * (INERTIA - 1.0)) + value) / INERTIA;
+
+            if (max == null) {
+                max = value;
+            }
+            if (min == null) {
+                min = value;
+            }
+            if (value > max) {
+                max = value;
+            }
+            if (value < min) {
+                min = value;
+            }
         }
 
-        public double get() {
-            return current;
+        public String get() {
+            assert max != null;
+            assert min != null;
+
+            String stats = String.format(Locale.ENGLISH, "%.1fms-%.1fms-%.1fms", min, average, max);
+            min = null;
+            max = null;
+            return stats;
+        }
+
+        public String getHz() {
+            assert max != null;
+            assert min != null;
+            String stats = String.format(Locale.ENGLISH, "%.1fHz-%.1fHz-%.1fHz",
+                    1000.0 / max, 1000.0 / average, 1000.0 / min);
+
+            min = null;
+            max = null;
+            return stats;
         }
     }
 
@@ -34,6 +68,7 @@ public class GameView extends View {
     private final MovingAverage betweenFramesMillisRunningAverage = new MovingAverage();
     private final MovingAverage updateMillisRunningAverage = new MovingAverage();
     private final MovingAverage drawMillisRunningAverage = new MovingAverage();
+    private final MovingAverage invalidateMillisRunningAverage = new MovingAverage();
     private long lastStatsReportTimestamp;
 
     /**
@@ -59,7 +94,12 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         long t0 = System.currentTimeMillis();
         if (lastFrameStart != 0) {
-            betweenFramesMillisRunningAverage.add(t0 - lastFrameStart);
+            long dtMs = t0 - lastFrameStart;
+            betweenFramesMillisRunningAverage.addMs(dtMs);
+
+            if (dtMs > 200) {
+                Timber.w("Super bad timings, %dms since last frame", dtMs);
+            }
         }
         lastFrameStart = t0;
 
@@ -70,23 +110,27 @@ public class GameView extends View {
         model.drawOn(canvas);
 
         long t2 = System.currentTimeMillis();
+        // Trigger the next frame
+        invalidate();
+
+        long t3 = System.currentTimeMillis();
         long updateMillis = t1 - t0;
         long drawMillis = t2 - t1;
+        long invalidateMillis = t3 - t2;
 
-        updateMillisRunningAverage.add(updateMillis);
-        drawMillisRunningAverage.add(drawMillis);
+        updateMillisRunningAverage.addMs(updateMillis);
+        drawMillisRunningAverage.addMs(drawMillis);
+        invalidateMillisRunningAverage.addMs(invalidateMillis);
         long now = System.currentTimeMillis();
         if (lastStatsReportTimestamp == 0) {
             lastStatsReportTimestamp = now;
         } else if (now - lastStatsReportTimestamp > LOG_REPORT_EVERY_MS) {
             lastStatsReportTimestamp = now;
-            Timber.i("onDraw timings: update=%.1fms, draw=%.1fms, framerate=%.0fHz",
+            Timber.i("onDraw timings: update=<%s>, draw=<%s>, invalidate=<%s>, framerate=<%s>",
                     updateMillisRunningAverage.get(), drawMillisRunningAverage.get(),
-                    1000 / betweenFramesMillisRunningAverage.get());
+                    invalidateMillisRunningAverage.get(),
+                    betweenFramesMillisRunningAverage.getHz());
         }
-
-        // Trigger the next frame
-        invalidate();
     }
 
     public void insertDigit(int digit) {
