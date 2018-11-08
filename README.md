@@ -3,7 +3,8 @@ them by typing the correct answer.
 
 # TODO Before Testing on a Child
 * Add a launch screen
-* Dismissing the level-failed dialog should go to the launch screen
+* Dismissing the level-failed dialog should go to the launch screen, no
+  matter how it is dismissed
 * Remove click handler from GameView, but verify that swiping down from
   the top still works
 * Show level-success dialog after clearing a level
@@ -26,7 +27,6 @@ them by typing the correct answer.
 # TODO Misc
 * Actually publish on Google Play
 * Make the level-failed answers dialog look better
-* Tune the hit areas for the keys on our keyboard
 * Drop easier maths faster than harder maths
 * Add starry background
 
@@ -58,3 +58,4 @@ them by typing the correct answer.
 * Log frame rate on emulator (we're fine)
 * Log frame rate on a 10" tablet (we're doing great)
 * Show correct answer on screen when the player dies.
+* Tune the hit areas for the keys on our keyboard

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -31,31 +32,36 @@ public class KeyboardView extends View {
         void handleDigit(int digit);
     }
 
-    private static class Key {
+    private class Key {
         private final int digit;
-        private final float x;
-        private final float y;
+        private final float xCenter;
+        private final float yBase;
 
-        /**
-         * Key height in pixels.
-         */
-        private float height;
+        private final float yCenter;
 
-        private Key(int digit, float x, float y, float height) {
+        private Key(int digit, float xCenter, float yBase) {
             this.digit = digit;
-            this.x = x;
-            this.y = y;
-            this.height = height;
+            this.xCenter = xCenter;
+            this.yBase = yBase;
+
+            Rect textBounds = new Rect();
+            paint.getTextBounds(Integer.toString(digit), 0, 1, textBounds);
+
+            yCenter = yBase - textBounds.height() / 2f;
         }
 
         private float distanceSquaredTo(float x, float y) {
-            float dx = x - this.x;
-            float dy = y - (this.y - height / 2f);
+            float dx = x - xCenter;
+            float dy = y - yCenter;
             return dx * dx + dy * dy;
         }
 
         private void drawOn(Canvas canvas, Paint paint) {
-            canvas.drawText(Integer.toString(digit), x, y, paint);
+            canvas.drawText(Integer.toString(digit), xCenter, yBase, paint);
+
+            // NOTE: Enable these for debugging key hit areas
+            //canvas.drawCircle(xCenter, yCenter, 20, paint);
+            //canvas.drawRect(xCenter - 50, yBase - 5, xCenter + 50, yBase + 5, paint);
         }
     }
     private List<Key> keys;
@@ -164,22 +170,22 @@ public class KeyboardView extends View {
 
         float rowHeight = height / 4f;
         //noinspection UnnecessaryLocalVariable
-        float y0 = rowHeight;
+        float y0 = 1 * rowHeight;
         float y1 = 2 * rowHeight;
         float y2 = 3 * rowHeight;
         float y3 = 4 * rowHeight;
 
         List<Key> newKeys = new ArrayList<>();
-        newKeys.add(new Key(0, x1, y3, rowHeight));
-        newKeys.add(new Key(1, x0, y2, rowHeight));
-        newKeys.add(new Key(2, x1, y2, rowHeight));
-        newKeys.add(new Key(3, x2, y2, rowHeight));
-        newKeys.add(new Key(4, x0, y1, rowHeight));
-        newKeys.add(new Key(5, x1, y1, rowHeight));
-        newKeys.add(new Key(6, x2, y1, rowHeight));
-        newKeys.add(new Key(7, x0, y0, rowHeight));
-        newKeys.add(new Key(8, x1, y0, rowHeight));
-        newKeys.add(new Key(9, x2, y0, rowHeight));
+        newKeys.add(new Key(0, x1, y3));
+        newKeys.add(new Key(1, x0, y2));
+        newKeys.add(new Key(2, x1, y2));
+        newKeys.add(new Key(3, x2, y2));
+        newKeys.add(new Key(4, x0, y1));
+        newKeys.add(new Key(5, x1, y1));
+        newKeys.add(new Key(6, x2, y1));
+        newKeys.add(new Key(7, x0, y0));
+        newKeys.add(new Key(8, x1, y0));
+        newKeys.add(new Key(9, x2, y0));
 
         keys = newKeys;
     }
