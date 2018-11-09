@@ -15,6 +15,8 @@ import java.util.List;
  * in the middle of the screen.
  */
 public class Model {
+    private static final int MATHS_PER_LEVEL = 20;
+
     private static final long UNSET = 0L;
 
     /**
@@ -43,6 +45,11 @@ public class Model {
      * When this is true no more maths will drop down from the sky.
      */
     private boolean mathsStopped = false;
+
+    /**
+     * How many maths have we dropped on the player?
+     */
+    private int droppedMaths;
 
     /**
      * Update model to the given timestamp.
@@ -91,9 +98,14 @@ public class Model {
 
     private void addMoreChallenges() {
         stuff.add(new FallingMaths(this));
+        droppedMaths++;
     }
 
     private boolean shouldAddChallenge() {
+        if (droppedMaths >= MATHS_PER_LEVEL) {
+            return false;
+        }
+
         if (mathsStopped) {
             return false;
         }
@@ -188,7 +200,7 @@ public class Model {
         mathsStopped = true;
     }
 
-    public Iterable<FallingMaths> listFallingMaths() {
+    public List<FallingMaths> listFallingMaths() {
         List<FallingMaths> fallingMaths = new ArrayList<>();
 
         for (GameObject object: stuff) {
@@ -214,5 +226,13 @@ public class Model {
         // ConcurrentModificationExceptions when adding objects to the list while traversing it to
         // step.
         newObjects.add(object);
+    }
+
+    public boolean isDone() {
+        if (droppedMaths >= MATHS_PER_LEVEL && listFallingMaths().isEmpty()) {
+            return true;
+        }
+
+        return false;
     }
 }

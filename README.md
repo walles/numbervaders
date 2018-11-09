@@ -2,7 +2,6 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # TODO Before Testing on a Child
-* Show level-success dialog after clearing a level
 * Pick maths depending on level
 * Add feedback on key presses
 * Add sound effects
@@ -12,6 +11,7 @@ them by typing the correct answer.
   what we expect
 
 # TODO Before Publishing on Google Play
+* Dark launch screen theme
 * Remove click handler from GameView, but verify that swiping down from
   the top still works
 * Adapt font sizes to screen
@@ -29,7 +29,6 @@ them by typing the correct answer.
 * Make the level-failed answers dialog look better
 * Drop easier maths faster than harder maths
 * Add starry background
-* Dark launch screen theme
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
 
@@ -66,3 +65,4 @@ them by typing the correct answer.
   matter how it is dismissed
 * Add a bottom margin below the keyboard, the layout looked cramped
   without that on my phone.
+* Show level-success dialog after clearing a level

@@ -17,7 +17,7 @@ import timber.log.Timber;
 
 public class GameView extends View {
     private static final long LOG_REPORT_EVERY_MS = 5000;
-    private final Model model = new Model();
+    private Model model;
 
     private static class MovingAverage {
         private static final double INERTIA = 100;
@@ -70,16 +70,18 @@ public class GameView extends View {
          * @param failedMaths Live maths when the player died
          */
         void onPlayerDied(Iterable<FallingMaths> failedMaths);
+
+        void onLevelCleared();
     }
     @Nullable
     private OnGameOverListener onGameOverListener;
 
     private long lastFrameStart;
 
-    private final MovingAverage betweenFramesMillisRunningAverage = new MovingAverage();
-    private final MovingAverage updateMillisRunningAverage = new MovingAverage();
-    private final MovingAverage drawMillisRunningAverage = new MovingAverage();
-    private final MovingAverage invalidateMillisRunningAverage = new MovingAverage();
+    private MovingAverage betweenFramesMillisRunningAverage;
+    private MovingAverage updateMillisRunningAverage;
+    private MovingAverage drawMillisRunningAverage;
+    private MovingAverage invalidateMillisRunningAverage;
     private long lastStatsReportTimestamp;
 
     /**
@@ -97,8 +99,25 @@ public class GameView extends View {
         this(context, attrs, 0);
     }
 
+    /**
+     * This is where initialization happens.
+     */
     public GameView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        resetGame();
+    }
+
+    public void resetGame() {
+        model = new Model();
+
+        lastFrameStart = 0;
+
+        betweenFramesMillisRunningAverage = new MovingAverage();
+        updateMillisRunningAverage = new MovingAverage();
+        drawMillisRunningAverage = new MovingAverage();
+        invalidateMillisRunningAverage = new MovingAverage();
+        lastStatsReportTimestamp = 0;
     }
 
     @Override
@@ -115,10 +134,16 @@ public class GameView extends View {
         lastFrameStart = t0;
 
         boolean cannonDeadBefore = model.getCannon().isDead();
+        boolean modelDoneBefore = model.isDone();
         model.updateTo(System.currentTimeMillis());
+
         boolean cannonDeadAfter = model.getCannon().isDead();
+        boolean modelDoneAfter = model.isDone();
         if (cannonDeadAfter && !cannonDeadBefore && onGameOverListener != null) {
             onGameOverListener.onPlayerDied(model.listFallingMaths());
+        }
+        if (modelDoneAfter && !modelDoneBefore && onGameOverListener != null) {
+            onGameOverListener.onLevelCleared();
         }
 
         long t1 = System.currentTimeMillis();

@@ -74,9 +74,17 @@ public class GameActivity extends AppCompatActivity {
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
 
-        gameView.setOnGameOverListener(
-                failedMaths -> handler.postDelayed(
-                        () -> tellPlayerItDied(failedMaths), 2000));
+        gameView.setOnGameOverListener(new GameView.OnGameOverListener() {
+            @Override
+            public void onPlayerDied(Iterable<FallingMaths> failedMaths) {
+                handler.postDelayed(() -> tellPlayerItDied(failedMaths), 2000);
+            }
+
+            @Override
+            public void onLevelCleared() {
+                handler.postDelayed(() -> levelCleared(), 2000);
+            }
+        });
 
         KeyboardView keyboard = findViewById(R.id.keyboard);
         keyboard.setOnKeypress(gameView::insertDigit);
@@ -102,6 +110,23 @@ public class GameActivity extends AppCompatActivity {
                         })
                         .setCancelable(false)
                         .show();
+        TextView textView = alertDialog.findViewById(android.R.id.message);
+        assert textView != null;
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+    }
+
+    private void levelCleared() {
+        AlertDialog alertDialog =
+                new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
+                        .setMessage("Level cleared, good work!")
+                        .setNeutralButton("Next wave", (dialog, which) -> {
+                            dialog.dismiss();
+                            gameView.resetGame();
+                        })
+                        .setCancelable(false)
+                        .show();
+
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
