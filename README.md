@@ -1,6 +1,9 @@
 A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
+# Credits
+* Cannon fire sound: <https://www.freesfx.co.uk/download/?type=mp3&id=14604>
+
 # TODO Before Testing on a Child
 * Pick maths depending on level
 * Add feedback on key presses

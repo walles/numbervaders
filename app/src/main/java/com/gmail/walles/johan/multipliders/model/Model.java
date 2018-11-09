@@ -3,6 +3,8 @@ package com.gmail.walles.johan.multipliders.model;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 
+import com.gmail.walles.johan.multipliders.ObjectiveSoundPool;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,7 +39,7 @@ public class Model {
 
     private List<GameObject> stuff = new ArrayList<>();
     private List<GameObject> newObjects = new ArrayList<>();
-    private Cannon cannon = new Cannon(this);
+    private final Cannon cannon;
 
     private long lastUpdatedToMs = UNSET;
 
@@ -50,6 +52,10 @@ public class Model {
      * How many maths have we dropped on the player?
      */
     private int droppedMaths;
+
+    public Model(ObjectiveSoundPool.SoundEffect shotSound) {
+        cannon = new Cannon(this, shotSound);
+    }
 
     /**
      * Update model to the given timestamp.

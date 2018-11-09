@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.gmail.walles.johan.multipliders.ObjectiveSoundPool;
+
 public class Cannon implements GameObject {
     private static final int DEBRIS_COUNT_ON_FAIL = 3;
     private static final int DEBRIS_COUNT_ON_EXPLODE = 6;
@@ -13,11 +15,13 @@ public class Cannon implements GameObject {
     private String digits = "";
     private final Paint paint;
     private final Model model;
+    private final ObjectiveSoundPool.SoundEffect shotSound;
 
     private boolean dead = false;
 
-    public Cannon(Model model) {
+    public Cannon(Model model, ObjectiveSoundPool.SoundEffect shotSound) {
         this.model = model;
+        this.shotSound = shotSound;
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
@@ -56,12 +60,16 @@ public class Cannon implements GameObject {
     }
 
     public GameObject createShotFor(FallingMaths target) {
+        this.shotSound.play();
+
         Shot shot = new Shot(digits, (double) X, (double) Y, target);
         digits = "";
         return shot;
     }
 
     public GameObject[] createErrorDebris() {
+        this.shotSound.play();
+
         GameObject[] debris = new GameObject[DEBRIS_COUNT_ON_FAIL];
         for (int i = 0; i < DEBRIS_COUNT_ON_FAIL; i++) {
             debris[i] = new Debris(digits, (double) X, (double) Y);
