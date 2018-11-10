@@ -7,6 +7,7 @@ them by typing the correct answer.
 * Maths exploding: <https://freesound.org/people/grunz/sounds/109662/>
 * Maths arriving: <https://freesound.org/people/GameAudio/sounds/220202/>
 * Wrong answer: <https://freesound.org/people/Autistic%20Lucario/sounds/142608/>
+* Level cleared: <https://freesound.org/people/sagetyrtle/sounds/32260/>
 * Key up and key down sounds: Made them myself using
   [Audacity](https://www.audacityteam.org/download/)
 
