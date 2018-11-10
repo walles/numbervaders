@@ -53,7 +53,7 @@ public class ObjectiveSoundPool {
     private List<SoundEffect> soundEffects = new ArrayList<>();
 
     public ObjectiveSoundPool() {
-        soundPool = new SoundPool.Builder().setMaxStreams(2).build();
+        soundPool = new SoundPool.Builder().setMaxStreams(3).build();
         soundPool.setOnLoadCompleteListener((soundPool, sampleId, status) -> {
             SoundEffect soundEffect = getSoundEffectById(sampleId);
 

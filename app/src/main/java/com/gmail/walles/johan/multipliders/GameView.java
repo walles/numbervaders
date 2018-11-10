@@ -88,6 +88,7 @@ public class GameView extends View {
     private final ObjectiveSoundPool.SoundEffect explosionSound;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
+    private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
     /**
      * The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}.
@@ -115,12 +116,13 @@ public class GameView extends View {
         explosionSound = soundPool.load(context, R.raw.cannon_explosion, "Cannon explosion");
         mathsKilled = soundPool.load(context, R.raw.maths_killed, "Maths killed");
         mathsArriving = soundPool.load(context, R.raw.maths_arriving, "Maths arriving");
+        wrongAnswer = soundPool.load(context, R.raw.wrong_answer, "Wrong answer");
 
         resetGame();
     }
 
     public void resetGame() {
-        model = new Model(shotSound, explosionSound, mathsKilled, mathsArriving);
+        model = new Model(shotSound, explosionSound, mathsKilled, mathsArriving, wrongAnswer);
 
         lastFrameStart = 0;
 

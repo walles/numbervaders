@@ -54,15 +54,18 @@ public class Model {
     private int droppedMaths;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
+    private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
     public Model(
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
             ObjectiveSoundPool.SoundEffect mathsKilled,
-            ObjectiveSoundPool.SoundEffect mathsArriving)
+            ObjectiveSoundPool.SoundEffect mathsArriving,
+            ObjectiveSoundPool.SoundEffect wrongAnswer)
     {
         this.mathsKilled = mathsKilled;
         this.mathsArriving = mathsArriving;
+        this.wrongAnswer = wrongAnswer;
 
         cannon = new Cannon(this, shotSound, explosionSound);
     }
@@ -175,6 +178,7 @@ public class Model {
         }
 
         // Wrong answer, clear the cannon
+        wrongAnswer.play();
         Collections.addAll(stuff, cannon.createErrorDebris());
     }
 
