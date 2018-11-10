@@ -1,5 +1,6 @@
 package com.gmail.walles.johan.multipliders;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,6 +28,8 @@ public class KeyboardView extends View {
 
     private final Paint paint;
     private KeypressListener keypressListener;
+    private final ObjectiveSoundPool.SoundEffect keyup;
+    private final ObjectiveSoundPool.SoundEffect keydown;
 
     public interface KeypressListener {
         void handleDigit(int digit);
@@ -81,8 +84,16 @@ public class KeyboardView extends View {
         this(context, attrs, 0);
     }
 
+    /**
+     * This is where all initialization is done.
+     */
+    @SuppressLint("ClickableViewAccessibility")
     public KeyboardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
+        keydown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.1);
+        keyup = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.1);
 
         setOnTouchListener((v, event) -> handleTouch(event));
 
@@ -101,16 +112,19 @@ public class KeyboardView extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
+                keydown.play();
                 // Required to get the up events:
                 // https://stackoverflow.com/a/16495363/473672
                 return true;
 
             case MotionEvent.ACTION_POINTER_UP:
+                keyup.play();
                 x = event.getX(event.getActionIndex());
                 y = event.getY(event.getActionIndex());
                 break;
 
             case MotionEvent.ACTION_UP:
+                keyup.play();
                 x = event.getX();
                 y = event.getY();
                 break;

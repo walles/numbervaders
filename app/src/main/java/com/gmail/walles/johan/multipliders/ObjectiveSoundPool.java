@@ -16,6 +16,7 @@ public class ObjectiveSoundPool {
         private final String name;
         private final int sampleId;
         private boolean playRequestedWhileLoading = false;
+        private float volume = 1.0f;
 
         private SoundEffect(String name, int sampleId) {
             this.name = name;
@@ -27,11 +28,21 @@ public class ObjectiveSoundPool {
                 throw new IllegalStateException("Sound pool closed");
             }
 
-            int result = soundPool.play(sampleId, 1, 1, 0, 0, 1);
+            int result = soundPool.play(sampleId, volume, volume, 0, 0, 1);
             if (result == 0) {
                 Timber.w("Playing <%s> sound failed", name);
                 playRequestedWhileLoading = true;
             }
+        }
+
+        public SoundEffect setVolume(double zeroToOne) {
+            if (zeroToOne < 0 || zeroToOne > 1) {
+                throw new IllegalArgumentException("Volume out of 0.0-1.0 bounds: " + zeroToOne);
+            }
+
+            volume = (float)zeroToOne;
+
+            return this;
         }
     }
 
