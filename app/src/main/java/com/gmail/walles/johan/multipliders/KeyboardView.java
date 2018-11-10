@@ -28,8 +28,8 @@ public class KeyboardView extends View {
 
     private final Paint paint;
     private KeypressListener keypressListener;
-    private final ObjectiveSoundPool.SoundEffect keyup;
-    private final ObjectiveSoundPool.SoundEffect keydown;
+    private final ObjectiveSoundPool.SoundEffect keyUp;
+    private final ObjectiveSoundPool.SoundEffect keyDown;
 
     public interface KeypressListener {
         void handleDigit(int digit);
@@ -92,8 +92,8 @@ public class KeyboardView extends View {
         super(context, attrs, defStyleAttr);
 
         ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
-        keydown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.1);
-        keyup = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.1);
+        keyDown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.1);
+        keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.1);
 
         setOnTouchListener((v, event) -> handleTouch(event));
 
@@ -112,19 +112,19 @@ public class KeyboardView extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                keydown.play();
+                keyDown.play();
                 // Required to get the up events:
                 // https://stackoverflow.com/a/16495363/473672
                 return true;
 
             case MotionEvent.ACTION_POINTER_UP:
-                keyup.play();
+                keyUp.play();
                 x = event.getX(event.getActionIndex());
                 y = event.getY(event.getActionIndex());
                 break;
 
             case MotionEvent.ACTION_UP:
-                keyup.play();
+                keyUp.play();
                 x = event.getX();
                 y = event.getY();
                 break;

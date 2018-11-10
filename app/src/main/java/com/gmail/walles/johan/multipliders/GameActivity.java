@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.gmail.walles.johan.multipliders.model.FallingMaths;
 
+import java.io.IOException;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -82,6 +84,14 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onLevelCleared() {
+                // Update the stored level now, but...
+                try {
+                    PlayerState.fromContext(GameActivity.this).increaseLevel();
+                } catch (IOException e) {
+                    throw new RuntimeException("Increasing player level failed", e);
+                }
+
+                // ... wait a bit before telling the player that they succeeded
                 handler.postDelayed(() -> levelCleared(), 2000);
             }
         });
@@ -117,10 +127,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void levelCleared() {
+        PlayerState playerState;
+        try {
+            playerState = PlayerState.fromContext(this);
+        } catch (IOException e) {
+            // FIXME: Will this make the whole app crash? That's what we want, otherwise just log it
+            // as an Error.
+            throw new RuntimeException("Failed to read level state", e);
+        }
+
         AlertDialog alertDialog =
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage("Level cleared, good work!")
-                        .setNeutralButton("Next wave", (dialog, which) -> {
+                        .setNeutralButton("Launch Level " + playerState.getLevel(), (dialog, which) -> {
                             dialog.dismiss();
                             gameView.resetGame();
                         })

@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
-public class LaunchActivity extends AppCompatActivity {
+import java.io.IOException;
 
+public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,5 +22,13 @@ public class LaunchActivity extends AppCompatActivity {
             Intent intent = new Intent(LaunchActivity.this, GameActivity.class);
             startActivity(intent);
         });
+
+        PlayerState playerState;
+        try {
+            playerState = PlayerState.fromContext(this);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to get player state", e);
+        }
+        startButton.setText("Level " + playerState.getLevel());
     }
 }
