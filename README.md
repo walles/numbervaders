@@ -13,8 +13,6 @@ them by typing the correct answer.
 
 # TODO Before Testing on a Child
 * Pick maths depending on level
-* Add feedback on key presses
-* Add sound effects
 * Add a music score
 * Launch screen should say which level will be launched
 * Try pressing the back button in various places and see that it does
@@ -76,3 +74,5 @@ them by typing the correct answer.
 * Add a bottom margin below the keyboard, the layout looked cramped
   without that on my phone.
 * Show level-success dialog after clearing a level
+* Add sound effects
+* Add feedback on key presses
