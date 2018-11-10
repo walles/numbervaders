@@ -16,12 +16,17 @@ public class Cannon implements GameObject {
     private final Paint paint;
     private final Model model;
     private final ObjectiveSoundPool.SoundEffect shotSound;
+    private final ObjectiveSoundPool.SoundEffect explosionSound;
 
     private boolean dead = false;
 
-    public Cannon(Model model, ObjectiveSoundPool.SoundEffect shotSound) {
+    public Cannon(Model model,
+            ObjectiveSoundPool.SoundEffect shotSound,
+            ObjectiveSoundPool.SoundEffect explosionSound)
+    {
         this.model = model;
         this.shotSound = shotSound;
+        this.explosionSound = explosionSound;
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
@@ -68,7 +73,7 @@ public class Cannon implements GameObject {
     }
 
     public GameObject[] createErrorDebris() {
-        this.shotSound.play();
+        shotSound.play();
 
         GameObject[] debris = new GameObject[DEBRIS_COUNT_ON_FAIL];
         for (int i = 0; i < DEBRIS_COUNT_ON_FAIL; i++) {
@@ -82,6 +87,8 @@ public class Cannon implements GameObject {
      * Explode cannon and shoot the given text off in various directions.
      */
     public void explode(String text) {
+        explosionSound.play();
+
         for (int i = 0; i < DEBRIS_COUNT_ON_EXPLODE; i++) {
             model.add(new Debris(text, (double) X, (double) Y));
         }

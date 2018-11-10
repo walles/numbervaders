@@ -53,8 +53,11 @@ public class Model {
      */
     private int droppedMaths;
 
-    public Model(ObjectiveSoundPool.SoundEffect shotSound) {
-        cannon = new Cannon(this, shotSound);
+    public Model(
+            ObjectiveSoundPool.SoundEffect shotSound,
+            ObjectiveSoundPool.SoundEffect explosionSound)
+    {
+        cannon = new Cannon(this, shotSound, explosionSound);
     }
 
     /**

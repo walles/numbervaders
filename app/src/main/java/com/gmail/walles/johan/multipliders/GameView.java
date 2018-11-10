@@ -85,6 +85,7 @@ public class GameView extends View {
     private long lastStatsReportTimestamp;
 
     private final ObjectiveSoundPool.SoundEffect shotSound;
+    private final ObjectiveSoundPool.SoundEffect explosionSound;
 
     /**
      * The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}.
@@ -109,12 +110,13 @@ public class GameView extends View {
 
         ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
         shotSound = soundPool.load(context, R.raw.one_fire_cracker_goes_off, "Cannon shot");
+        explosionSound = soundPool.load(context, R.raw.cannon_explosion, "Cannon explosion");
 
         resetGame();
     }
 
     public void resetGame() {
-        model = new Model(shotSound);
+        model = new Model(shotSound, explosionSound);
 
         lastFrameStart = 0;
 

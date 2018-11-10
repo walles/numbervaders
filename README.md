@@ -3,6 +3,9 @@ them by typing the correct answer.
 
 # Credits
 * Cannon fire sound: <https://www.freesfx.co.uk/download/?type=mp3&id=14604>
+* Cannon explosion sound: <https://freesound.org/people/cydon/sounds/268557/>
+* Key up and key down sounds: Made them myself using
+  [Audacity](https://www.audacityteam.org/download/)
 
 # TODO Before Testing on a Child
 * Pick maths depending on level
