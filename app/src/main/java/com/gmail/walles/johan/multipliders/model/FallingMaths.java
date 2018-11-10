@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.gmail.walles.johan.multipliders.ObjectiveSoundPool;
+
 import java.util.Random;
 
 public class FallingMaths implements GameObject {
@@ -26,9 +28,12 @@ public class FallingMaths implements GameObject {
     private boolean landing = true;
 
     public final int answer;
+    private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(Model model) {
+    public FallingMaths(Model model,
+            ObjectiveSoundPool.SoundEffect mathsKilled) {
         this.model = model;
+        this.mathsKilled = mathsKilled;
 
         int a = RANDOM.nextInt(10) + 1;
         int b = RANDOM.nextInt(10) + 1;
@@ -112,7 +117,7 @@ public class FallingMaths implements GameObject {
     public double getX() { return x; }
 
     public void explode() {
-        // FIXME: Do something more spectacular
+        mathsKilled.play();
         dead = true;
     }
 }

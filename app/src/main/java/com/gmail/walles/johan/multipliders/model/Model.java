@@ -52,11 +52,15 @@ public class Model {
      * How many maths have we dropped on the player?
      */
     private int droppedMaths;
+    private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
     public Model(
             ObjectiveSoundPool.SoundEffect shotSound,
-            ObjectiveSoundPool.SoundEffect explosionSound)
+            ObjectiveSoundPool.SoundEffect explosionSound,
+            ObjectiveSoundPool.SoundEffect mathsKilled)
     {
+        this.mathsKilled = mathsKilled;
+
         cannon = new Cannon(this, shotSound, explosionSound);
     }
 
@@ -106,7 +110,7 @@ public class Model {
     }
 
     private void addMoreChallenges() {
-        stuff.add(new FallingMaths(this));
+        stuff.add(new FallingMaths(this, mathsKilled));
         droppedMaths++;
     }
 
