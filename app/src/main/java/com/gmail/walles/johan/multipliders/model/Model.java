@@ -53,13 +53,16 @@ public class Model {
      */
     private int droppedMaths;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
+    private final ObjectiveSoundPool.SoundEffect mathsArriving;
 
     public Model(
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
-            ObjectiveSoundPool.SoundEffect mathsKilled)
+            ObjectiveSoundPool.SoundEffect mathsKilled,
+            ObjectiveSoundPool.SoundEffect mathsArriving)
     {
         this.mathsKilled = mathsKilled;
+        this.mathsArriving = mathsArriving;
 
         cannon = new Cannon(this, shotSound, explosionSound);
     }
@@ -85,7 +88,7 @@ public class Model {
         }
 
         if (shouldAddChallenge()) {
-            addMoreChallenges();
+            addOneChallenges();
         }
 
         for (GameObject object: stuff) {
@@ -109,7 +112,8 @@ public class Model {
         lastUpdatedToMs = timestampMillis;
     }
 
-    private void addMoreChallenges() {
+    private void addOneChallenges() {
+        mathsArriving.play();
         stuff.add(new FallingMaths(this, mathsKilled));
         droppedMaths++;
     }
