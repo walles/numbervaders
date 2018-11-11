@@ -38,6 +38,8 @@ them by typing the correct answer.
 * Add starry background
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
+* Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
+  crashes the app
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`

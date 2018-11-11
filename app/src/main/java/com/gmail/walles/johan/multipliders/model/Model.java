@@ -37,6 +37,7 @@ public class Model {
      */
     private static final int MAX_CHALLENGES = 4;
 
+    private int level;
     private List<GameObject> stuff = new ArrayList<>();
     private List<GameObject> newObjects = new ArrayList<>();
     private final Cannon cannon;
@@ -56,13 +57,15 @@ public class Model {
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
-    public Model(
+    public Model(int level,
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
             ObjectiveSoundPool.SoundEffect mathsKilled,
             ObjectiveSoundPool.SoundEffect mathsArriving,
             ObjectiveSoundPool.SoundEffect wrongAnswer)
     {
+        this.level = level;
+
         this.mathsKilled = mathsKilled;
         this.mathsArriving = mathsArriving;
         this.wrongAnswer = wrongAnswer;

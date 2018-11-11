@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
                         .setMessage("Level cleared, good work!")
                         .setNeutralButton("Launch Level " + playerState.getLevel(), (dialog, which) -> {
                             dialog.dismiss();
-                            gameView.resetGame();
+                            gameView.resetGame(this);
                         })
                         .setCancelable(false)
                         .show();

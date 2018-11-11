@@ -11,6 +11,7 @@ import android.view.View;
 import com.gmail.walles.johan.multipliders.model.FallingMaths;
 import com.gmail.walles.johan.multipliders.model.Model;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import timber.log.Timber;
@@ -120,11 +121,19 @@ public class GameView extends View {
         wrongAnswer = soundPool.load(context, R.raw.wrong_answer, "Wrong answer");
         levelCleared = soundPool.load(context, R.raw.level_cleared, "Level cleared");
 
-        resetGame();
+        resetGame(context);
     }
 
-    public void resetGame() {
-        model = new Model(shotSound, explosionSound, mathsKilled, mathsArriving, wrongAnswer);
+    public void resetGame(Context context) {
+        PlayerState playerState;
+        try {
+            playerState = PlayerState.fromContext(context);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to get level information", e);
+        }
+
+        model = new Model(playerState.getLevel(),
+                shotSound, explosionSound, mathsKilled, mathsArriving, wrongAnswer);
 
         lastFrameStart = 0;
 
