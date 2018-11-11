@@ -37,7 +37,7 @@ public class Model {
      */
     private static final int MAX_CHALLENGES = 4;
 
-    private int level;
+    private FallingMathsFactory fallingMathsFactory;
     private List<GameObject> stuff = new ArrayList<>();
     private List<GameObject> newObjects = new ArrayList<>();
     private final Cannon cannon;
@@ -53,7 +53,6 @@ public class Model {
      * How many maths have we dropped on the player?
      */
     private int droppedMaths;
-    private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
@@ -64,9 +63,8 @@ public class Model {
             ObjectiveSoundPool.SoundEffect mathsArriving,
             ObjectiveSoundPool.SoundEffect wrongAnswer)
     {
-        this.level = level;
+        fallingMathsFactory = new FallingMathsFactory(this, level, mathsKilled);
 
-        this.mathsKilled = mathsKilled;
         this.mathsArriving = mathsArriving;
         this.wrongAnswer = wrongAnswer;
 
@@ -94,7 +92,9 @@ public class Model {
         }
 
         if (shouldAddChallenge()) {
-            addOneChallenges();
+            mathsArriving.play();
+            stuff.add(fallingMathsFactory.createChallenge());
+            droppedMaths++;
         }
 
         for (GameObject object: stuff) {
@@ -116,12 +116,6 @@ public class Model {
         newObjects.clear();
 
         lastUpdatedToMs = timestampMillis;
-    }
-
-    private void addOneChallenges() {
-        mathsArriving.play();
-        stuff.add(new FallingMaths(this, mathsKilled));
-        droppedMaths++;
     }
 
     private boolean shouldAddChallenge() {

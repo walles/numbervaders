@@ -12,6 +12,8 @@ them by typing the correct answer.
   [Audacity](https://www.audacityteam.org/download/)
 
 # TODO Before Testing on a Child
+* In-game background image
+* Launch screen background image
 * Pick maths depending on level
 * Add a music score
 * Try pressing the back button in various places and see that it does
