@@ -12,9 +12,9 @@ them by typing the correct answer.
   [Audacity](https://www.audacityteam.org/download/)
 
 # TODO Before Testing on a Child
+* Tune game to 20s for a maths to fall, add one more every 50%
 * In-game background image
 * Launch screen background image
-* Pick maths depending on level
 * Add a music score
 * Try pressing the back button in various places and see that it does
   what we expect
@@ -42,6 +42,8 @@ them by typing the correct answer.
   blend in better with the keyboard.
 * Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
   crashes the app
+* When showing correct answer for "5*3=15", show also "3*5=15", but
+  don't show "6*6=36" twice
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -79,3 +81,4 @@ them by typing the correct answer.
 * Launch screen should say which level will be launched
 * Make our keyboard react to actual digits presses from a real keyboard.
   Nice during development.
+* Pick maths depending on level
