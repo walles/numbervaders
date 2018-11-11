@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -100,6 +101,8 @@ public class KeyboardView extends View {
         paint = new Paint();
         paint.setColor(Color.GREEN);
         paint.setTextAlign(Paint.Align.CENTER);
+
+        setFocusableInTouchMode(true);
     }
 
     /**
@@ -147,6 +150,19 @@ public class KeyboardView extends View {
         if (keypressListener != null) {
             keypressListener.handleDigit(closestKey.digit);
         }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode < KeyEvent.KEYCODE_0) {
+            return super.onKeyUp(keyCode, event);
+        }
+        if (keyCode > KeyEvent.KEYCODE_9) {
+            return super.onKeyUp(keyCode, event);
+        }
+
+        keypressListener.handleDigit(keyCode - KeyEvent.KEYCODE_0);
         return true;
     }
 

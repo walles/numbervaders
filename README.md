@@ -46,10 +46,6 @@ them by typing the correct answer.
   objects. Could have done something like
   [this](https://codereview.stackexchange.com/a/112111/159546), but it
   feels too complicated. Suggestions welcome.
-* Make our keyboard react to actual digits presses from a real keyboard
-  as well. Nice during development. Tried with `setOnKeyListener()` and
-  [this](https://stackoverflow.com/a/26567134/473672) but only got
-  events sporadically, never mind.
 * Stop all the invalidate() calls when the simulation is frozen. Can't
   see how this would help with much of anything.
 
@@ -79,3 +75,5 @@ them by typing the correct answer.
 * Add feedback on key presses
 * Keep level state throughout the app
 * Launch screen should say which level will be launched
+* Make our keyboard react to actual digits presses from a real keyboard.
+  Nice during development.
