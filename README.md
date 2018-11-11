@@ -33,7 +33,6 @@ them by typing the correct answer.
 # TODO Misc
 * Actually publish on Google Play
 * Make the level-failed answers dialog look better
-* Drop easier maths faster than harder maths
 * Add starry background
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
@@ -80,3 +79,4 @@ them by typing the correct answer.
   Nice during development.
 * Pick maths depending on level
 * Tune game to 20s for a maths to fall, add one more every 50%
+* Drop easier maths faster than harder maths

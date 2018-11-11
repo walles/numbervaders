@@ -80,23 +80,23 @@ class FallingMathsFactory {
 
     public FallingMaths createChallenge() {
         // 0-19
-        int pickFromChunk;
+        int pickFromLevel;
 
         if (level == 1) {
-            pickFromChunk = 0;
+            pickFromLevel = 1;
         } else if (level > 20) {
-            pickFromChunk = RANDOM.nextInt(20);
+            pickFromLevel = RANDOM.nextInt(20) + 1;
         } else if (RANDOM.nextBoolean()) {
             // Half of the time we pick from the current level
-            pickFromChunk = level - 1;
+            pickFromLevel = level;
         } else {
             // Half of the time we pick from a random level below ourselves
-            pickFromChunk = RANDOM.nextInt(level - 1);
+            pickFromLevel = RANDOM.nextInt(level) + 1;
         }
 
-        int index = RANDOM.nextInt(5) + pickFromChunk * 5;
+        int index = RANDOM.nextInt(5) + (pickFromLevel - 1) * 5;
         Maths maths = allMaths.get(index);
 
-        return new FallingMaths(maths.a, maths.b, model, mathsKilled);
+        return new FallingMaths(maths.a, maths.b, level - pickFromLevel, model, mathsKilled);
     }
 }
