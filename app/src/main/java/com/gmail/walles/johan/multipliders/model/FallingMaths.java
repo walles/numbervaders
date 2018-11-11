@@ -30,13 +30,11 @@ public class FallingMaths implements GameObject {
     public final int answer;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(Model model,
+    public FallingMaths(int a, int b, Model model,
             ObjectiveSoundPool.SoundEffect mathsKilled) {
         this.model = model;
         this.mathsKilled = mathsKilled;
 
-        int a = RANDOM.nextInt(10) + 1;
-        int b = RANDOM.nextInt(10) + 1;
         question = a + "⋅" + b;
         answer = a * b;
 
