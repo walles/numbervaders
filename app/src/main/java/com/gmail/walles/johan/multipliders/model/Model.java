@@ -30,7 +30,7 @@ public class Model {
     /**
      * Add new objects at most this close to each other.
      */
-    private static final int FALLING_OBJECTS_SPACING_PERCENT = 17;
+    private static final int FALLING_OBJECTS_SPACING_PERCENT = 50;
 
     /**
      * Don't show more than this number of challenges at once.

@@ -12,7 +12,6 @@ them by typing the correct answer.
   [Audacity](https://www.audacityteam.org/download/)
 
 # TODO Before Testing on a Child
-* Tune game to 20s for a maths to fall, add one more every 50%
 * In-game background image
 * Launch screen background image
 * Add a music score
@@ -82,3 +81,4 @@ them by typing the correct answer.
 * Make our keyboard react to actual digits presses from a real keyboard.
   Nice during development.
 * Pick maths depending on level
+* Tune game to 20s for a maths to fall, add one more every 50%
