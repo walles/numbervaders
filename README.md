@@ -10,6 +10,7 @@ them by typing the correct answer.
 * Level cleared: <https://freesound.org/people/sagetyrtle/sounds/32260/>
 * Key up and key down sounds: Made them myself using
   [Audacity](https://www.audacityteam.org/download/)
+* Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
 
 # TODO Before Testing on a Child
 * In-game background image
@@ -17,7 +18,6 @@ them by typing the correct answer.
 * Add a music score
 
 # TODO Before Publishing on Google Play
-* Dark launch screen theme
 * Remove click handler from GameView, but verify that swiping down from
   the top still works
 * Adapt font sizes to screen
@@ -40,6 +40,9 @@ them by typing the correct answer.
   crashes the app
 * When showing correct answer for "5*3=15", show also "3*5=15", but
   don't show "6*6=36" twice
+* Fix volumes of all sounds so that they are good relative each other.
+* Cheerier level-cleared image
+* Make sure Google recomm
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -80,3 +83,4 @@ them by typing the correct answer.
 * Pick maths depending on level
 * Tune game to 20s for a maths to fall, add one more every 50%
 * Drop easier maths faster than harder maths
+* Dark launch screen theme
