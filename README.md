@@ -15,8 +15,6 @@ them by typing the correct answer.
 * In-game background image
 * Launch screen background image
 * Add a music score
-* Try pressing the back button in various places and see that it does
-  what we expect
 
 # TODO Before Publishing on Google Play
 * Dark launch screen theme

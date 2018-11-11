@@ -93,8 +93,8 @@ public class KeyboardView extends View {
         super(context, attrs, defStyleAttr);
 
         ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
-        keyDown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.1);
-        keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.1);
+        keyDown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.3);
+        keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.3);
 
         setOnTouchListener((v, event) -> handleTouch(event));
 
