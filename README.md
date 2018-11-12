@@ -11,9 +11,7 @@ them by typing the correct answer.
 * Key up and key down sounds: Made them myself using
   [Audacity](https://www.audacityteam.org/download/)
 * Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
-
-# TODO Before Testing on a Child
-* Add a music score
+* Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
 # TODO Before Publishing on Google Play
 * Remove click handler from GameView, but verify that swiping down from
@@ -86,3 +84,4 @@ them by typing the correct answer.
 * Drop easier maths faster than harder maths
 * Launch screen background image
 * In-game background image
+* Add a music score

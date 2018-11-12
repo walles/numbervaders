@@ -2,13 +2,12 @@ package com.gmail.walles.johan.multipliders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 
 import java.io.IOException;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends MusicActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
