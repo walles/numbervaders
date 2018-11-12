@@ -14,15 +14,15 @@ them by typing the correct answer.
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
 # TODO Before Publishing on Google Play
-* Remove click handler from GameView, but verify that swiping down from
-  the top still works
-* Adapt font sizes to screen
+* Add a license
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
   easily show the controls when they are hidden.
 * Pause game while controls are visible
-* Add a license
+* Remove click handler from GameView to force full screen, but verify
+  that swiping down from the top still works
+* Adapt font sizes to screen
 * Make an icon
 * Make a "Feature Graphics"
 
@@ -85,3 +85,4 @@ them by typing the correct answer.
 * Launch screen background image
 * In-game background image
 * Add a music score
+* Validate performance now that we have the in-game background image
