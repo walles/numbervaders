@@ -14,7 +14,6 @@ them by typing the correct answer.
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
 # TODO Before Publishing on Google Play
-* Add a license
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
@@ -25,6 +24,7 @@ them by typing the correct answer.
 * Adapt font sizes to screen
 * Make an icon
 * Make a "Feature Graphics"
+* Add a privacy policy
 
 # TODO Misc
 * Actually publish on Google Play
@@ -86,3 +86,4 @@ them by typing the correct answer.
 * In-game background image
 * Add a music score
 * Validate performance now that we have the in-game background image
+* Add a license
