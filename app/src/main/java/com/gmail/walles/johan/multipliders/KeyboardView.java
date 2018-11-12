@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -31,6 +32,7 @@ public class KeyboardView extends View {
     private KeypressListener keypressListener;
     private final ObjectiveSoundPool.SoundEffect keyUp;
     private final ObjectiveSoundPool.SoundEffect keyDown;
+    private int backgroundColor;
 
     public interface KeypressListener {
         void handleDigit(int digit);
@@ -94,13 +96,16 @@ public class KeyboardView extends View {
 
         ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
         keyDown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.3);
-        keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.3);
+        keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.6);
 
         setOnTouchListener((v, event) -> handleTouch(event));
 
         paint = new Paint();
         paint.setColor(Color.GREEN);
         paint.setTextAlign(Paint.Align.CENTER);
+
+        backgroundColor =
+                ResourcesCompat.getColor(getResources(), R.color.keyboard_background, null);
 
         setFocusableInTouchMode(true);
     }
@@ -222,7 +227,7 @@ public class KeyboardView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(backgroundColor);
 
         for (Key key: keys) {
             key.drawOn(canvas, paint);

@@ -172,7 +172,7 @@ public class GameView extends View {
         }
 
         long t1 = System.currentTimeMillis();
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.TRANSPARENT);
         model.drawOn(canvas);
 
         long t2 = System.currentTimeMillis();

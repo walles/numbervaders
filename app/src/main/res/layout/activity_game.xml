@@ -3,7 +3,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:background="#000000"
+             android:background="@drawable/background"
              tools:context=".GameActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -25,8 +25,13 @@
             android:id="@+id/keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"/>
+            android:gravity="center"/>
+
+        <!-- Spacer, from https://stackoverflow.com/a/27788328/473672 -->
+        <View android:id="@+id/spacer"
+              android:layout_width="match_parent"
+              android:layout_height="8dp"
+              android:background="@color/keyboard_background"/>
     </LinearLayout>
 
     <!-- This FrameLayout insets its children based on system windows using

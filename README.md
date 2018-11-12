@@ -13,8 +13,6 @@ them by typing the correct answer.
 * Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
 
 # TODO Before Testing on a Child
-* In-game background image
-* Launch screen background image
 * Add a music score
 
 # TODO Before Publishing on Google Play
@@ -33,7 +31,6 @@ them by typing the correct answer.
 # TODO Misc
 * Actually publish on Google Play
 * Make the level-failed answers dialog look better
-* Add starry background
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
 * Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
@@ -42,7 +39,11 @@ them by typing the correct answer.
   don't show "6*6=36" twice
 * Fix volumes of all sounds so that they are good relative each other.
 * Cheerier level-cleared image
-* Make sure Google recomm
+* Make sure Google recommends us for tablets
+* Draw trails after shots; make them more rocketlike
+* Add to the launch screen a list of cleared levels and how many seconds
+  each took down to one decimal. Enable the player to select an older
+  level and re-play it.
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -83,4 +84,5 @@ them by typing the correct answer.
 * Pick maths depending on level
 * Tune game to 20s for a maths to fall, add one more every 50%
 * Drop easier maths faster than harder maths
-* Dark launch screen theme
+* Launch screen background image
+* In-game background image
