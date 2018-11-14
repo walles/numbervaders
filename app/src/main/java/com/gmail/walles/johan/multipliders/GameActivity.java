@@ -107,7 +107,10 @@ public class GameActivity extends MusicActivity {
                 }
 
                 // ... wait a bit before telling the player that they succeeded
-                handler.postDelayed(() -> levelCleared(), 2000);
+                handler.postDelayed(() -> {
+                    LevelClearedActivity.start(GameActivity.this);
+                    finish();
+                }, 2000);
             }
         });
 
@@ -135,32 +138,6 @@ public class GameActivity extends MusicActivity {
                         })
                         .setCancelable(false)
                         .show();
-        TextView textView = alertDialog.findViewById(android.R.id.message);
-        assert textView != null;
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
-        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-    }
-
-    private void levelCleared() {
-        PlayerState playerState;
-        try {
-            playerState = PlayerState.fromContext(this);
-        } catch (IOException e) {
-            // FIXME: Will this make the whole app crash? That's what we want, otherwise just log it
-            // as an Error.
-            throw new RuntimeException("Failed to read level state", e);
-        }
-
-        AlertDialog alertDialog =
-                new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
-                        .setMessage("Level cleared, good work!")
-                        .setNeutralButton("Launch Level " + playerState.getLevel(), (dialog, which) -> {
-                            dialog.dismiss();
-                            gameView.resetGame(this);
-                        })
-                        .setCancelable(false)
-                        .show();
-
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);

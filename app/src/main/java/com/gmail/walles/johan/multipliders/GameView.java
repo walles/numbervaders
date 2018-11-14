@@ -140,7 +140,7 @@ public class GameView extends View {
         resetGame(context);
     }
 
-    public void resetGame(Context context) {
+    private void resetGame(Context context) {
         PlayerState playerState;
         try {
             playerState = PlayerState.fromContext(context);

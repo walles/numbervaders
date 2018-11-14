@@ -14,6 +14,9 @@ them by typing the correct answer.
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
 # TODO Before Publishing on Google Play
+* If you clear one level and start the next, then press the back button
+  to go back to the start screen, make sure to update the button
+  contents with the correct level number.
 * Add a credits list of some form to the launch screen
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can

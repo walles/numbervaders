@@ -40,7 +40,7 @@ public class PlayerState implements Serializable {
     private static final String PLAYER_STATE_FILE_NAME = "player-state";
 
     /**
-     * The highest not-completed level.
+     * The lowest not-completed level.
      *
      * When the user starts a new level, this is the level they will end up on.
      */
