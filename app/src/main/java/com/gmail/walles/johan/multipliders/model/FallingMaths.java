@@ -30,7 +30,7 @@ public class FallingMaths implements GameObject {
     /**
      * How long will it take this question to fall to the bottom of the screen?
      */
-    private static final double MS_TO_BOTTOM = 20_000;
+    private static final double MS_TO_BOTTOM = 15_000;
     private static final double BASE_PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
 
     /**
