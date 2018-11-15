@@ -46,6 +46,7 @@ public class KeyboardView extends View {
 
     private final Paint paint;
     private KeypressListener keypressListener;
+    private final ObjectiveSoundPool soundPool;
     private final ObjectiveSoundPool.SoundEffect keyUp;
     private final ObjectiveSoundPool.SoundEffect keyDown;
     private int backgroundColor;
@@ -110,7 +111,7 @@ public class KeyboardView extends View {
     public KeyboardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
+        soundPool = new ObjectiveSoundPool();
         keyDown = soundPool.load(context, R.raw.keydown, "Key down").setVolume(0.3);
         keyUp = soundPool.load(context, R.raw.keyup, "Key up").setVolume(0.6);
 
@@ -124,6 +125,10 @@ public class KeyboardView extends View {
                 ResourcesCompat.getColor(getResources(), R.color.keyboard_background, null);
 
         setFocusableInTouchMode(true);
+    }
+
+    public void close() {
+        soundPool.close();
     }
 
     /**

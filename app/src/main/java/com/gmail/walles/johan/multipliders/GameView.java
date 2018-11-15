@@ -101,6 +101,7 @@ public class GameView extends View {
     private MovingAverage invalidateMillisRunningAverage;
     private long lastStatsReportTimestamp;
 
+    private final ObjectiveSoundPool soundPool;
     private final ObjectiveSoundPool.SoundEffect shotSound;
     private final ObjectiveSoundPool.SoundEffect explosionSound;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
@@ -129,7 +130,7 @@ public class GameView extends View {
     public GameView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        ObjectiveSoundPool soundPool = new ObjectiveSoundPool();
+        soundPool = new ObjectiveSoundPool();
         shotSound = soundPool.load(context, R.raw.one_fire_cracker_goes_off, "Cannon shot");
         explosionSound = soundPool.load(context, R.raw.cannon_explosion, "Cannon explosion");
         mathsKilled = soundPool.load(context, R.raw.maths_killed, "Maths killed");
@@ -138,6 +139,10 @@ public class GameView extends View {
         levelCleared = soundPool.load(context, R.raw.level_cleared, "Level cleared");
 
         resetGame(context);
+    }
+
+    public void close() {
+        soundPool.close();
     }
 
     private void resetGame(Context context) {

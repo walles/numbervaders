@@ -163,6 +163,14 @@ public class GameActivity extends MusicActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ((GameView)findViewById(R.id.game)).close();
+        ((KeyboardView)findViewById(R.id.keyboard)).close();
+    }
+
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();

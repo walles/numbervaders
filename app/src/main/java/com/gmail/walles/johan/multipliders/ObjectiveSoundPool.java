@@ -87,6 +87,15 @@ public class ObjectiveSoundPool {
         });
     }
 
+    public void close() {
+        if (soundPool != null) {
+            soundPool.release();
+
+            // SoundEffect.play() will actually fail after this
+            soundPool = null;
+        }
+    }
+
     private SoundEffect getSoundEffectById(int sampleId) {
         if (soundEffects == null) {
             throw new IllegalStateException("Sound pool closed, sound effects shut down");
