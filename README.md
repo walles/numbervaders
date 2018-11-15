@@ -14,10 +14,10 @@ them by typing the correct answer.
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
 # TODO Before Publishing on Google Play
-* If you clear one level and start the next, then press the back button
-  to go back to the start screen, make sure to update the button
-  contents with the correct level number.
 * Add a credits list of some form to the launch screen
+* Make an icon
+* Make a "Feature Graphics"
+* Add a privacy policy
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
   easily show the controls when they are hidden.
@@ -25,9 +25,6 @@ them by typing the correct answer.
 * Remove click handler from GameView to force full screen, but verify
   that swiping down from the top still works
 * Adapt font sizes to screen
-* Make an icon
-* Make a "Feature Graphics"
-* Add a privacy policy
 
 # TODO Misc
 * Actually publish on Google Play
@@ -90,3 +87,6 @@ them by typing the correct answer.
 * Add a music score
 * Validate performance now that we have the in-game background image
 * Add a license
+* If you clear one level and start the next, then press the back button
+  to go back to the start screen, make sure to update the button
+  contents with the correct level number.

@@ -24,19 +24,11 @@ import android.widget.Button;
 import java.io.IOException;
 
 public class LaunchActivity extends MusicActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private Button startButton;
 
-        Button startButton = findViewById(R.id.startButton);
-        assert startButton != null;
-        startButton.setOnClickListener(v -> {
-            Intent intent = new Intent(LaunchActivity.this, GameActivity.class);
-            startActivity(intent);
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         PlayerState playerState;
         try {
@@ -45,5 +37,20 @@ public class LaunchActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
         startButton.setText("Level " + playerState.getLevel());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_launch);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        startButton = findViewById(R.id.startButton);
+        assert startButton != null;
+        startButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LaunchActivity.this, GameActivity.class);
+            startActivity(intent);
+        });
     }
 }
