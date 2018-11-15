@@ -16,7 +16,6 @@ them by typing the correct answer.
 # TODO Before Publishing on Google Play
 * Add a credits list of some form to the launch screen
 * Make a "Feature Graphics"
-* Add a privacy policy
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
   easily show the controls when they are hidden.
@@ -91,3 +90,4 @@ them by typing the correct answer.
   contents with the correct level number.
 * Pressing back in the you-failed dialog should go to the launch screen
 * Make an icon
+* Add a privacy policy
