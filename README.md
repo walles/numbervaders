@@ -90,3 +90,4 @@ them by typing the correct answer.
 * If you clear one level and start the next, then press the back button
   to go back to the start screen, make sure to update the button
   contents with the correct level number.
+* Pressing back in the you-failed dialog should go to the launch screen

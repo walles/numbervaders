@@ -136,7 +136,7 @@ public class GameActivity extends MusicActivity {
                             startActivity(intent);
                             finish();
                         })
-                        .setCancelable(false)
+                        .setOnCancelListener(dialog -> finish())
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
