@@ -15,7 +15,6 @@ them by typing the correct answer.
 
 # TODO Before Publishing on Google Play
 * Add a credits list of some form to the launch screen
-* Make an icon
 * Make a "Feature Graphics"
 * Add a privacy policy
 * Hide controls by default so that we get the full-screen experience,
@@ -91,3 +90,4 @@ them by typing the correct answer.
   to go back to the start screen, make sure to update the button
   contents with the correct level number.
 * Pressing back in the you-failed dialog should go to the launch screen
+* Make an icon
