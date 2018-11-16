@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2018, Johan Walles <johan.walles@gmail.com>
   ~
@@ -12,10 +13,19 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
+  ~
   -->
 
-<resources>
-    <string name="app_name" translatable="false">Multipliders</string>
-    <string name="credits">Credits</string>
-    <string name="view_source_code">View Source Code</string>
-</resources>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/credits"
+        android:checkable="false"
+        android:title="@string/credits"/>
+
+    <item
+        android:id="@+id/view_source_code"
+        android:checkable="false"
+        android:title="@string/view_source_code"/>
+</menu>

@@ -1,0 +1,11 @@
+# Credits
+* Cannon fire sound: <https://www.freesfx.co.uk/download/?type=mp3&id=14604>
+* Cannon explosion sound: <https://freesound.org/people/cydon/sounds/268557/>
+* Maths exploding: <https://freesound.org/people/grunz/sounds/109662/>
+* Maths arriving: <https://freesound.org/people/GameAudio/sounds/220202/>
+* Wrong answer: <https://freesound.org/people/Autistic%20Lucario/sounds/142608/>
+* Level cleared: <https://freesound.org/people/sagetyrtle/sounds/32260/>
+* Key up and key down sounds: Made them myself using
+  [Audacity](https://www.audacityteam.org/download/)
+* Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
+* Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>

@@ -13,8 +13,10 @@ them by typing the correct answer.
 * Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
 
+NOTE: If you add to this list, also update
+`app/src/main/res/raw/credits.txt`.
+
 # TODO Before Publishing on Google Play
-* Add a credits list of some form to the launch screen
 * Make a "Feature Graphics"
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
@@ -91,3 +93,4 @@ them by typing the correct answer.
 * Pressing back in the you-failed dialog should go to the launch screen
 * Make an icon
 * Add a privacy policy
+* Add a credits list of some form to the launch screen
