@@ -1,6 +1,15 @@
 A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
+# Releasing a new Version
+* Update `VersionName` and `VersionCode` in `/app/build.gradle`
+* Commit this change
+* `git push`
+* `git tag <new version name>`, do `git tag | cat` for inspiration
+* In Android Studio, do *Build* / *Generate Signed APK...*
+* Upload the new APK to [Google Play](https://play.google.com/apps/publish)
+* `git push --tags`
+
 # Credits
 * Cannon fire sound: <https://www.freesfx.co.uk/download/?type=mp3&id=14604>
 * Cannon explosion sound: <https://freesound.org/people/cydon/sounds/268557/>
