@@ -27,6 +27,9 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Actually publish on Google Play
+* Add a mode for addition
+* Add a mode for division
+* Add a mode for subtraction
 * Make a more numbery icon
 * Make the level-failed answers dialog look better
 * Consider making the navigation bar white on black during the game to
