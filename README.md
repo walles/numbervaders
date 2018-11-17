@@ -16,18 +16,9 @@ them by typing the correct answer.
 NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
-# TODO Before Publishing on Google Play
-* Make a "Feature Graphics"
-* Hide controls by default so that we get the full-screen experience,
-  good for production, search for `mHideRunnable`. Verify that we can
-  easily show the controls when they are hidden.
-* Pause game while controls are visible
-* Remove click handler from GameView to force full screen, but verify
-  that swiping down from the top still works
-* Adapt font sizes to screen
-
 # TODO Misc
 * Actually publish on Google Play
+* Make a more numbery icon
 * Make the level-failed answers dialog look better
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
@@ -42,6 +33,13 @@ NOTE: If you add to this list, also update
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
   level and re-play it.
+* Hide controls by default so that we get the full-screen experience,
+  good for production, search for `mHideRunnable`. Verify that we can
+  easily show the controls when they are hidden.
+* Pause game while controls are visible
+* Remove click handler from GameView to force full screen, but verify
+  that swiping down from the top still works
+* Adapt font sizes to screen
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -94,3 +92,4 @@ NOTE: If you add to this list, also update
 * Make an icon
 * Add a privacy policy
 * Add a credits list of some form to the launch screen
+* Make a "Feature Graphics"
