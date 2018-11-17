@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.numbershooter;
 
 import android.content.Context;
 import android.content.Intent;

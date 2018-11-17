@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.numbershooter;
 
 import static org.hamcrest.Matchers.is;
 
@@ -38,6 +38,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        Assert.assertThat(appContext.getPackageName(), is("com.gmail.walles.johan.multipliders"));
+        Assert.assertThat(appContext.getPackageName(), is("com.gmail.walles.johan.numbershooter"));
     }
 }

@@ -16,10 +16,10 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.gmail.walles.johan.multipliders">
+          package="com.gmail.walles.johan.numbershooter">
 
     <application
-        android:name=".MultiplidersApp"
+        android:name=".NumberShooterApp"
         android:allowBackup="true"
         android:icon="@drawable/icon192"
         android:label="@string/app_name"

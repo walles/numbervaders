@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.numbershooter;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -24,8 +24,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.gmail.walles.johan.multipliders.model.FallingMaths;
-import com.gmail.walles.johan.multipliders.model.Model;
+import com.gmail.walles.johan.numbershooter.model.FallingMaths;
+import com.gmail.walles.johan.numbershooter.model.Model;
 
 import java.io.IOException;
 import java.util.Locale;

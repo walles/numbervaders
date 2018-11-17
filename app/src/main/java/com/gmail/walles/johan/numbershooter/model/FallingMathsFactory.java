@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders.model;
+package com.gmail.walles.johan.numbershooter.model;
 
-import com.gmail.walles.johan.multipliders.ObjectiveSoundPool;
+import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.gmail.walles.johan.multipliders"
+        applicationId "com.gmail.walles.johan.numbershooter"
         minSdkVersion 22
         targetSdkVersion 27
         versionCode 1

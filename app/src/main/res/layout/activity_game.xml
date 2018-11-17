@@ -30,14 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.gmail.walles.johan.multipliders.GameView
+        <com.gmail.walles.johan.numbershooter.GameView
             android:id="@+id/game"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
             android:layout_weight="1"/>
 
-        <com.gmail.walles.johan.multipliders.KeyboardView
+        <com.gmail.walles.johan.numbershooter.KeyboardView
             android:id="@+id/keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.numbershooter;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import timber.log.Timber;
 
-public class MultiplidersApp extends Application {
+public class NumberShooterApp extends Application {
     @Override public void onCreate() {
         super.onCreate();
 

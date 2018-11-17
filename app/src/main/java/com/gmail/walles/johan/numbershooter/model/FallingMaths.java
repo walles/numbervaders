@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders.model;
+package com.gmail.walles.johan.numbershooter.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.gmail.walles.johan.multipliders.ObjectiveSoundPool;
+import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
 import java.util.Random;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.multipliders;
+package com.gmail.walles.johan.numbershooter;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -65,7 +65,7 @@ public class LaunchActivity extends MusicActivity {
 
         if (item.getItemId() == R.id.view_source_code) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            @NonNls String uri = "https://github.com/walles/multipliders?files=1";
+            @NonNls String uri = "https://github.com/walles/numbershooter?files=1";
             intent.setData(Uri.parse(uri));
             startActivity(intent);
             return true;

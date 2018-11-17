@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name" translatable="false">Multipliders</string>
+    <string name="app_name" translatable="false">Number Shooter</string>
     <string name="credits">Credits</string>
     <string name="view_source_code">View Source Code</string>
 </resources>
