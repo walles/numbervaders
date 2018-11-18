@@ -24,6 +24,11 @@ import java.util.List;
 import java.util.Random;
 
 class FallingMathsFactory {
+    /**
+     * How many percent faster will the fall be for every level we're easier than the player's own?
+     */
+    private static final double SPEEDUP_PERCENT_PER_DLEVEL = 10;
+
     private static final Random RANDOM = new Random();
     private final Model model;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
@@ -113,6 +118,8 @@ class FallingMathsFactory {
         int index = RANDOM.nextInt(5) + (pickFromLevel - 1) * 5;
         Maths maths = allMaths.get(index);
 
-        return new FallingMaths(maths.a, maths.b, level - pickFromLevel, model, mathsKilled);
+        int easiness = level - pickFromLevel;
+        double speedupFactor = Math.pow(1.0 + SPEEDUP_PERCENT_PER_DLEVEL / 100.0, easiness);
+        return new FallingMaths(maths.a, maths.b, speedupFactor, model, mathsKilled);
     }
 }

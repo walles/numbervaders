@@ -33,11 +33,6 @@ public class FallingMaths implements GameObject {
     private static final double MS_TO_BOTTOM = 15_000;
     private static final double BASE_PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
 
-    /**
-     * How many percent faster will the fall be for every level we're easier than the player's own?
-     */
-    private static final double SPEEDUP_PERCENT_PER_NUMBER = 10;
-
     private final double percentPerMs;
 
     private final Model model;
@@ -53,12 +48,11 @@ public class FallingMaths implements GameObject {
     public final int answer;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(int a, int b, int speedupNumber, Model model,
+    public FallingMaths(int a, int b, double speedupFactor, Model model,
             ObjectiveSoundPool.SoundEffect mathsKilled) {
         this.model = model;
         this.mathsKilled = mathsKilled;
 
-        double speedupFactor = Math.pow(1.0 + SPEEDUP_PERCENT_PER_NUMBER / 100.0, speedupNumber);
         percentPerMs = BASE_PERCENT_PER_MS * speedupFactor;
         question = a + "⋅" + b;
         answer = a * b;
