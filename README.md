@@ -27,6 +27,8 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Actually publish on Google Play
+* Add tablet screenshots to Google Play
+* Make sure Google recommends us for tablets
 * Add a mode for addition
 * Add a mode for division
 * Add a mode for subtraction
@@ -40,7 +42,6 @@ NOTE: If you add to this list, also update
   don't show "6*6=36" twice
 * Fix volumes of all sounds so that they are good relative each other.
 * Cheerier level-cleared image
-* Make sure Google recommends us for tablets
 * Draw trails after shots; make them more rocketlike
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
