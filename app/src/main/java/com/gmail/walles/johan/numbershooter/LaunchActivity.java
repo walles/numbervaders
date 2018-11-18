@@ -65,7 +65,7 @@ public class LaunchActivity extends MusicActivity {
 
         if (item.getItemId() == R.id.view_source_code) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            @NonNls String uri = "https://github.com/walles/numbershooter?files=1";
+            @NonNls String uri = "https://github.com/walles/numbervaders?files=1";
             intent.setData(Uri.parse(uri));
             startActivity(intent);
             return true;
