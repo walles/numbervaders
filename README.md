@@ -26,7 +26,6 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
-* Actually publish on Google Play
 * Add tablet screenshots to Google Play
 * Make sure Google recommends us for tablets
 * Add a mode for addition
@@ -106,3 +105,4 @@ NOTE: If you add to this list, also update
 * Add a privacy policy
 * Add a credits list of some form to the launch screen
 * Make a "Feature Graphics"
+* Actually publish on Google Play
