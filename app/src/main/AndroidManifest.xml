@@ -19,7 +19,7 @@
           package="com.gmail.walles.johan.numbershooter">
 
     <application
-        android:name=".NumberShooterApp"
+        android:name=".NumbervadersApp"
         android:allowBackup="true"
         android:icon="@drawable/icon192"
         android:label="@string/app_name"

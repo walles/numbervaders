@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import timber.log.Timber;
 
-public class NumberShooterApp extends Application {
+public class NumbervadersApp extends Application {
     @Override public void onCreate() {
         super.onCreate();
 
