@@ -25,9 +25,17 @@ import java.util.Random;
 
 class FallingMathsFactory {
     /**
-     * How many percent faster will the fall be for every level we're easier than the player's own?
+     * How much faster do the simplest assignments go at the top level?
+     * <p>
+     * The top level is defined as the last level where we still get new challenges. After that
+     * things will just go faster and faster.
      */
-    private static final double SPEEDUP_PERCENT_PER_DLEVEL = 10;
+    private static final double SPEEDUP_FACTOR_AT_TOP_LEVEL = 6.5;
+
+    /**
+     * How many new assignments are introduced at each level?
+     */
+    private static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
     private final Model model;
@@ -100,13 +108,15 @@ class FallingMathsFactory {
     }
 
     public FallingMaths createChallenge() {
-        // 0-19
+        int topLevel = allMaths.size() / NEW_MATHS_PER_LEVEL;
+
+        // 0 - topLevel
         int pickFromLevel;
 
         if (level == 1) {
             pickFromLevel = 1;
-        } else if (level > 20) {
-            pickFromLevel = RANDOM.nextInt(20) + 1;
+        } else if (level > topLevel) {
+            pickFromLevel = RANDOM.nextInt(topLevel) + 1;
         } else if (RANDOM.nextBoolean()) {
             // Half of the time we pick from the current level
             pickFromLevel = level;
@@ -115,11 +125,14 @@ class FallingMathsFactory {
             pickFromLevel = RANDOM.nextInt(level) + 1;
         }
 
-        int index = RANDOM.nextInt(5) + (pickFromLevel - 1) * 5;
+        int index = RANDOM.nextInt(NEW_MATHS_PER_LEVEL) + (pickFromLevel - 1) * NEW_MATHS_PER_LEVEL;
         Maths maths = allMaths.get(index);
 
         int easiness = level - pickFromLevel;
-        double speedupFactor = Math.pow(1.0 + SPEEDUP_PERCENT_PER_DLEVEL / 100.0, easiness);
+        int topEasiness = topLevel - 1;
+        double speedupPower = easiness / (double)topEasiness;
+        double speedupFactor = Math.pow(SPEEDUP_FACTOR_AT_TOP_LEVEL, speedupPower);
+
         return new FallingMaths(maths.a, maths.b, speedupFactor, model, mathsKilled);
     }
 }
