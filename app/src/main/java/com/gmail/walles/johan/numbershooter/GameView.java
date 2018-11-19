@@ -27,14 +27,13 @@ import android.view.View;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.Model;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import timber.log.Timber;
 
 public class GameView extends View {
     private static final long LOG_REPORT_EVERY_MS = 5000;
-    private Model model;
+    private @Nullable Model model;
 
     private static class MovingAverage {
         private static final double INERTIA = 100;
@@ -137,23 +136,14 @@ public class GameView extends View {
         mathsArriving = soundPool.load(context, R.raw.maths_arriving, "Maths arriving");
         wrongAnswer = soundPool.load(context, R.raw.wrong_answer, "Wrong answer");
         levelCleared = soundPool.load(context, R.raw.level_cleared, "Level cleared");
-
-        resetGame(context);
     }
 
     public void close() {
         soundPool.close();
     }
 
-    private void resetGame(Context context) {
-        PlayerState playerState;
-        try {
-            playerState = PlayerState.fromContext(context);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to get level information", e);
-        }
-
-        model = new Model(playerState.getLevel(),
+    public void setLevel(int level) {
+        model = new Model(level,
                 shotSound, explosionSound, mathsKilled, mathsArriving, wrongAnswer);
 
         lastFrameStart = 0;
@@ -167,6 +157,12 @@ public class GameView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (model == null) {
+            // Not set up yet, try again
+            invalidate();
+            return;
+        }
+
         long t0 = System.currentTimeMillis();
         if (lastFrameStart != 0) {
             long dtMs = t0 - lastFrameStart;
@@ -221,6 +217,10 @@ public class GameView extends View {
     }
 
     public void insertDigit(int digit) {
+        if (model == null) {
+            return;
+        }
+
         model.insertDigit(digit);
     }
 
