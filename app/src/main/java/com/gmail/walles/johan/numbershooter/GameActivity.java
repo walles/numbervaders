@@ -38,9 +38,11 @@ import java.io.IOException;
  */
 public class GameActivity extends MusicActivity {
     private static final String GAME_TYPE_EXTRA = "gameType";
-    public static void start(Context context, GameType gameType) {
+    private static final String LEVEL_EXTRA = "level";
+    public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, GameActivity.class);
         intent.putExtra(GAME_TYPE_EXTRA, gameType.toString());
+        intent.putExtra(LEVEL_EXTRA, level);
         context.startActivity(intent);
     }
 
@@ -95,10 +97,15 @@ public class GameActivity extends MusicActivity {
         setContentView(R.layout.activity_game);
 
         gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
+        int level = getIntent().getIntExtra(LEVEL_EXTRA, 0);
+        if (level <= 0) {
+            throw new RuntimeException("Level not found: " + getIntent());
+        }
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         gameView = findViewById(R.id.game);
+        gameView.setLevel(level);
 
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
@@ -120,7 +127,7 @@ public class GameActivity extends MusicActivity {
 
                 // ... wait a bit before telling the player that they succeeded
                 handler.postDelayed(() -> {
-                    LevelClearedActivity.start(GameActivity.this);
+                    LevelClearedActivity.start(GameActivity.this, gameType, level);
                     finish();
                 }, 2000);
             }
