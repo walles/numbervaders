@@ -17,6 +17,7 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
 
@@ -35,12 +37,20 @@ import java.io.IOException;
  * status bar and navigation/system bar) with user interaction.
  */
 public class GameActivity extends MusicActivity {
+    private static final String GAME_TYPE_EXTRA = "gameType";
+    public static void start(Context context, GameType gameType) {
+        Intent intent = new Intent(context, GameActivity.class);
+        intent.putExtra(GAME_TYPE_EXTRA, gameType.toString());
+        context.startActivity(intent);
+    }
+
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler handler = new Handler();
+    private GameType gameType;
     private GameView gameView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -84,6 +94,8 @@ public class GameActivity extends MusicActivity {
 
         setContentView(R.layout.activity_game);
 
+        gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
+
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         gameView = findViewById(R.id.game);
@@ -101,7 +113,7 @@ public class GameActivity extends MusicActivity {
             public void onLevelCleared() {
                 // Update the stored level now, but...
                 try {
-                    PlayerState.fromContext(GameActivity.this).increaseLevel();
+                    PlayerStateV2.fromContext(GameActivity.this).increaseLevel(gameType);
                 } catch (IOException e) {
                     throw new RuntimeException("Increasing player level failed", e);
                 }
