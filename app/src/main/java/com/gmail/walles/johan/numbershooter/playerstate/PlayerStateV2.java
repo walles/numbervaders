@@ -44,8 +44,11 @@ public class PlayerStateV2 implements Serializable {
      * The lowest not-completed level for each game type.
      *
      * When the user starts a new level, this is the level they will end up on.
+     *
+     * Note that we store the enum {@link GameType} as a {@link String} to be able to support more
+     * types in the future without more data migrations.
      */
-    private HashMap<GameType, Integer> levels = new HashMap<>();
+    private HashMap<String, Integer> levels = new HashMap<>();
 
     /**
      * This is our on-disk backing store.
@@ -54,8 +57,10 @@ public class PlayerStateV2 implements Serializable {
 
     private PlayerStateV2(File file) {
         this.file = file;
-        levels.put(GameType.ADDITION, 1);
-        levels.put(GameType.MULTIPLICATION, 1);
+
+        for (GameType gameType: GameType.values()) {
+            levels.put(gameType.toString(), 1);
+        }
     }
 
     private static PlayerStateV2 fromFile(@NonNls File file) throws IOException {
@@ -70,7 +75,7 @@ public class PlayerStateV2 implements Serializable {
 
     private static PlayerStateV2 migrate(PlayerState playerState) {
         PlayerStateV2 returnMe = new PlayerStateV2(playerState.file);
-        returnMe.levels.put(GameType.MULTIPLICATION, playerState.level);
+        returnMe.levels.put(GameType.MULTIPLICATION.toString(), playerState.level);
         return returnMe;
     }
 
@@ -98,13 +103,13 @@ public class PlayerStateV2 implements Serializable {
      * This method is expected to be called from GameActivity when the level is completed
      */
     public void increaseLevel(GameType gameType) throws IOException {
-        int level = levels.get(gameType);
-        levels.put(gameType, level + 1);
+        int level = levels.get(gameType.toString());
+        levels.put(gameType.toString(), level + 1);
 
         persist();
     }
 
     public int getLevel(GameType gameType) {
-        return levels.get(gameType);
+        return levels.get(gameType.toString());
     }
 }
