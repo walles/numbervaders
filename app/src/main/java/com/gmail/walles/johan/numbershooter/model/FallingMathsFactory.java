@@ -87,7 +87,7 @@ public abstract class FallingMathsFactory {
 
         @Override
         public String toString() {
-            return a + "*" + b + "=" + (a * b);
+            return question + "=" + answer;
         }
     }
 

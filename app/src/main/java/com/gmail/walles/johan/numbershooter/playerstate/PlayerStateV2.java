@@ -19,6 +19,7 @@ package com.gmail.walles.johan.numbershooter.playerstate;
 import android.content.Context;
 
 import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.PlayerState;
 
 import org.jetbrains.annotations.NonNls;
 
@@ -33,7 +34,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
-// Consider replacing Serializable with SQLite and Flyway to support database migrations
+/**
+ * Note that PlayerState needs to be in the {@code com.gmail.walles.johan.numbershooter.playerstate}
+ * package for deserialization of old player states to work.
+ */
 public class PlayerStateV2 implements Serializable {
     private static final long serialVersionUID = 1L;
 

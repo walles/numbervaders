@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter.playerstate;
+package com.gmail.walles.johan.numbershooter;
 
 import android.content.Context;
 
@@ -33,7 +33,7 @@ import java.io.Serializable;
 import timber.log.Timber;
 
 // Consider replacing Serializable with SQLite and Flyway to support database migrations
-class PlayerState implements Serializable {
+public class PlayerState implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NonNls
@@ -44,12 +44,12 @@ class PlayerState implements Serializable {
      *
      * When the user starts a new level, this is the level they will end up on.
      */
-    int level = 1;
+    public int level = 1;
 
     /**
      * This is our on-disk backing store.
      */
-    final File file;
+    public final File file;
 
     private PlayerState(File file) {
         this.file = file;
@@ -58,7 +58,7 @@ class PlayerState implements Serializable {
     /**
      * Has default protection so that it can be called from PlayerStateV2.
      */
-    static PlayerState fromFile(@NonNls File file) throws IOException {
+    public static PlayerState fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             return (PlayerState)in.readObject();
         } catch (ClassNotFoundException e) {
