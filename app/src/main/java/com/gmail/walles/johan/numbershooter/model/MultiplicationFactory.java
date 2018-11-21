@@ -31,7 +31,7 @@ class MultiplicationFactory extends FallingMathsFactory {
         List<Maths> maths = new ArrayList<>(100);
         for (int a = 1; a <= 10; a++) {
             for (int b = 1; b <= 10; b++) {
-                maths.add(new Maths(a, b));
+                maths.add(new Maths(a + "⋅" + b, a, b, a * b));
             }
         }
 

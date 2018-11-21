@@ -19,6 +19,8 @@ package com.gmail.walles.johan.numbershooter.model;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
+import org.jetbrains.annotations.NonNls;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -73,10 +75,14 @@ public abstract class FallingMathsFactory {
     protected static class Maths {
         public final int a;
         public final int b;
+        public final int answer;
+        public final @NonNls String question;
 
-        public Maths(int a, int b) {
+        public Maths(@NonNls String question, int a, int b, int answer) {
+            this.question = question;
             this.a = a;
             this.b = b;
+            this.answer = answer;
         }
 
         @Override
@@ -123,6 +129,6 @@ public abstract class FallingMathsFactory {
         double speedupPower = easiness / (double)topEasiness;
         double speedupFactor = Math.pow(SPEEDUP_FACTOR_AT_TOP_LEVEL, speedupPower);
 
-        return new FallingMaths(maths.a, maths.b, speedupFactor, model, mathsKilled);
+        return new FallingMaths(maths.question, maths.answer, model, speedupFactor, mathsKilled);
     }
 }
