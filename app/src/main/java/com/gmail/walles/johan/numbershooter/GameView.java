@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
+import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
 import com.gmail.walles.johan.numbershooter.model.Model;
 
 import java.util.Locale;
@@ -142,9 +143,9 @@ public class GameView extends View {
         soundPool.close();
     }
 
-    public void setLevel(int level) {
-        model = new Model(level,
-                shotSound, explosionSound, mathsKilled, mathsArriving, wrongAnswer);
+    public void restart(GameType gameType, int level) {
+        model = new Model(FallingMathsFactory.create(gameType, level, mathsKilled),
+                shotSound, explosionSound, mathsArriving, wrongAnswer);
 
         lastFrameStart = 0;
 

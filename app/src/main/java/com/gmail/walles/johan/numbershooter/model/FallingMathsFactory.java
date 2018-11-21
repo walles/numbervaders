@@ -16,14 +16,15 @@
 
 package com.gmail.walles.johan.numbershooter.model;
 
+import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-class FallingMathsFactory {
+public abstract class FallingMathsFactory {
     /**
      * How much faster do the simplest assignments go at the top level?
      * <p>
@@ -38,12 +39,38 @@ class FallingMathsFactory {
     private static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
-    private final Model model;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final List<Maths> allMaths;
     private final int level;
 
-    private static class Maths {
+    public static FallingMathsFactory create(
+            GameType gameType, int level, ObjectiveSoundPool.SoundEffect mathsKilled)
+    {
+        switch (gameType) {
+            case ADDITION:
+                return new AdditionFactory(level, mathsKilled);
+
+            case MULTIPLICATION:
+                return new MultiplicationFactory(level, mathsKilled);
+
+            default:
+                throw new UnsupportedOperationException("Unhandled game type: " + gameType);
+        }
+    }
+
+    /**
+     * List all possible maths problems. For all levels, not just one.
+     */
+    protected abstract List<Maths> listAllMaths();
+
+    /**
+     * -1 means o1 &lt; o2, 0 means o1 == o2, 1 means o1 &gt; o2.
+     *
+     * @see Comparator#compare(Object, Object)
+     */
+    protected abstract int compare(Maths o1, Maths o2);
+
+    protected static class Maths {
         public final int a;
         public final int b;
 
@@ -58,56 +85,19 @@ class FallingMathsFactory {
         }
     }
 
-    public FallingMathsFactory(Model model, int level,
+    protected FallingMathsFactory(int level,
             ObjectiveSoundPool.SoundEffect mathsKilled)
     {
-        this.model = model;
         this.level = level;
         this.mathsKilled = mathsKilled;
 
-        List<Maths> maths = new ArrayList<>(100);
-        for (int a = 1; a <= 10; a++) {
-            for (int b = 1; b <= 10; b++) {
-                maths.add(new Maths(a, b));
-            }
-        }
-
-        Collections.sort(maths, (o1, o2) -> {
-            int o1difficulty = getDifficulty(o1.a) + getDifficulty(o1.b);
-            if (o1.a == 1 || o1.b == 1) {
-                o1difficulty = 0;
-            }
-
-            int o2difficulty = getDifficulty(o2.a) + getDifficulty(o2.b);
-            if (o2.a == 1 || o2.b == 1) {
-                o2difficulty = 0;
-            }
-
-            if (o1difficulty > o2difficulty) {
-                return 1;
-            }
-            if (o2difficulty > o1difficulty) {
-                return -1;
-            }
-
-            int o1MaxDifficulty = Math.max(getDifficulty(o1.a), getDifficulty(o1.b));
-            int o2MaxDifficulty = Math.max(getDifficulty(o2.a), getDifficulty(o2.b));
-            return Integer.compare(o1MaxDifficulty, o2MaxDifficulty);
-        });
+        List<Maths> maths = listAllMaths();
+        Collections.sort(maths, this::compare);
 
         allMaths = maths;
     }
 
-    private static int getDifficulty(int number) {
-        if (number == 1) {
-            return 0;
-        }
-
-        // FIXME: Should 10 be on level 1?
-        return number;
-    }
-
-    public FallingMaths createChallenge() {
+    public final FallingMaths createChallenge(Model model) {
         int topLevel = allMaths.size() / NEW_MATHS_PER_LEVEL;
 
         // 0 - topLevel

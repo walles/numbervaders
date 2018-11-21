@@ -26,9 +26,13 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
+* Add unit tests for data migrations between `PlayerState` and `PlayerStateV2`
+* Add unit tests for `PlayerStateV2` persistence
 * Add a mode for addition
 * Add a mode for division
 * Add a mode for subtraction
+* Make Google Play Feature Graphics nicer, starry background and metally
+  letters. Blender!
 * Make sure Google recommends us for tablets
 * Make a more numbery icon
 * Make the level-failed answers dialog look better

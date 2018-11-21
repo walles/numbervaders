@@ -72,14 +72,13 @@ public class Model {
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
-    public Model(int level,
+    public Model(FallingMathsFactory fallingMathsFactory,
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
-            ObjectiveSoundPool.SoundEffect mathsKilled,
             ObjectiveSoundPool.SoundEffect mathsArriving,
             ObjectiveSoundPool.SoundEffect wrongAnswer)
     {
-        fallingMathsFactory = new FallingMathsFactory(this, level, mathsKilled);
+        this.fallingMathsFactory = fallingMathsFactory;
 
         this.mathsArriving = mathsArriving;
         this.wrongAnswer = wrongAnswer;
@@ -109,7 +108,7 @@ public class Model {
 
         if (shouldAddChallenge()) {
             mathsArriving.play();
-            stuff.add(fallingMathsFactory.createChallenge());
+            stuff.add(fallingMathsFactory.createChallenge(this));
             droppedMaths++;
         }
 

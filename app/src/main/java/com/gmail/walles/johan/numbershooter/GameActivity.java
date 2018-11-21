@@ -105,7 +105,7 @@ public class GameActivity extends MusicActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         gameView = findViewById(R.id.game);
-        gameView.setLevel(level);
+        gameView.restart(gameType, level);
 
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
