@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter;
+package com.gmail.walles.johan.numbershooter.playerstate;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
+
+import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.PlayerState;
 
 import org.jetbrains.annotations.NonNls;
 
@@ -29,49 +33,59 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.HashMap;
 
-import timber.log.Timber;
-
-// Consider replacing Serializable with SQLite and Flyway to support database migrations
-public class PlayerState implements Serializable {
+/**
+ * Note that PlayerState needs to be in the {@link com.gmail.walles.johan.numbershooter.playerstate}
+ * package for deserialization of old player states to work.
+ */
+public class PlayerStateV2 implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NonNls
     private static final String PLAYER_STATE_FILE_NAME = "player-state";
 
     /**
-     * The lowest not-completed level.
+     * The lowest not-completed level for each game type.
      *
      * When the user starts a new level, this is the level they will end up on.
+     *
+     * Note that we store the enum {@link GameType} as a {@link String} to be able to support more
+     * types in the future without more data migrations.
      */
-    public int level = 1;
+    private HashMap<String, Integer> levels = new HashMap<>();
 
     /**
      * This is our on-disk backing store.
      */
-    public final File file;
+    private final File file;
 
-    private PlayerState(File file) {
+    private PlayerStateV2(File file) {
         this.file = file;
-    }
 
-    /**
-     * Has default protection so that it can be called from PlayerStateV2.
-     */
-    public static PlayerState fromFile(@NonNls File file) throws IOException {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-            return (PlayerState)in.readObject();
-        } catch (ClassNotFoundException e) {
-            throw new IOException("PlayerState not found in " + file, e);
-        } catch (FileNotFoundException e) {
-            return new PlayerState(file);
-        } catch (InvalidClassException e) {
-            Timber.w(e, "Player state loading failed, starting over");
-            return new PlayerState(file);
+        for (GameType gameType: GameType.values()) {
+            levels.put(gameType.toString(), 1);
         }
     }
 
-    public static PlayerState fromContext(Context context) throws IOException {
+    @VisibleForTesting
+    static PlayerStateV2 fromFile(@NonNls File file) throws IOException {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (PlayerStateV2)in.readObject();
+        } catch (ClassCastException | ClassNotFoundException | InvalidClassException e) {
+            return migrate(PlayerState.fromFile(file));
+        } catch (FileNotFoundException e) {
+            return new PlayerStateV2(file);
+        }
+    }
+
+    private static PlayerStateV2 migrate(PlayerState playerState) {
+        PlayerStateV2 returnMe = new PlayerStateV2(playerState.file);
+        returnMe.levels.put(GameType.MULTIPLICATION.toString(), playerState.level);
+        return returnMe;
+    }
+
+    public static PlayerStateV2 fromContext(Context context) throws IOException {
         return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }
 
@@ -94,13 +108,14 @@ public class PlayerState implements Serializable {
     /**
      * This method is expected to be called from GameActivity when the level is completed
      */
-    public void increaseLevel() throws IOException {
-        level++;
+    public void increaseLevel(GameType gameType) throws IOException {
+        int level = levels.get(gameType.toString());
+        levels.put(gameType.toString(), level + 1);
 
         persist();
     }
 
-    public int getLevel() {
-        return level;
+    public int getLevel(GameType gameType) {
+        return levels.get(gameType.toString());
     }
 }

@@ -22,40 +22,41 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.Locale;
 
 public class LevelClearedActivity extends MusicActivity {
-    public static void start(Context context) {
+    private GameType gameType;
+    private int clearedLevel;
+
+    private static final String GAME_TYPE_EXTRA = "gameType";
+    private static final String LEVEL_EXTRA = "clearedLevel";
+    public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, LevelClearedActivity.class);
+        intent.putExtra(GAME_TYPE_EXTRA, gameType.toString());
+        intent.putExtra(LEVEL_EXTRA, level);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level_cleared);
 
-        PlayerState playerState;
-        try {
-            playerState = PlayerState.fromContext(this);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to figure out which level was just completed", e);
+        gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
+        clearedLevel = getIntent().getIntExtra(LEVEL_EXTRA, 0);
+        if (clearedLevel <= 0) {
+            throw new RuntimeException("Level not found: " + getIntent());
         }
 
-        // FIXME: Have the one launching us pass us this number; otherwise we'll get it wrong if
-        // users replay older levels
-        int clearedLevel = playerState.getLevel() - 1;
+        setContentView(R.layout.activity_level_cleared);
 
         TextView textView = findViewById(R.id.level_cleared_text);
         textView.setText(String.format(Locale.getDefault(), "Level %d cleared",
                 clearedLevel));
 
         Button button = findViewById(R.id.next_level_button);
-        button.setText(String.format(Locale.getDefault(), "Level %d", playerState.getLevel()));
+        button.setText(String.format(Locale.getDefault(), "Level %d", clearedLevel + 1));
         button.setOnClickListener(v -> {
-            Intent intent = new Intent(LevelClearedActivity.this, GameActivity.class);
-            startActivity(intent);
+            GameActivity.start(this, gameType, clearedLevel + 1);
             finish();
         });
     }

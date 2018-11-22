@@ -26,9 +26,12 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
-* Add a mode for addition
+* Run unit tests in CI
+* Make operators bigger on the launch screen
 * Add a mode for division
 * Add a mode for subtraction
+* Make Google Play Feature Graphics nicer, starry background and metally
+  letters. Blender!
 * Make sure Google recommends us for tablets
 * Make a more numbery icon
 * Make the level-failed answers dialog look better
@@ -106,3 +109,8 @@ NOTE: If you add to this list, also update
 * Make a "Feature Graphics"
 * Actually publish on Google Play
 * Add tablet screenshots to Google Play
+* Test clearing an Addition level and then launching the next
+* Add unit tests for data migrations between `PlayerState` and `PlayerStateV2`
+* Add a mode for addition
+* Add unit tests for `PlayerStateV2` persistence
+* Run only one launch activity

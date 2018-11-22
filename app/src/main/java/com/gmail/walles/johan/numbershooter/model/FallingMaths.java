@@ -22,6 +22,8 @@ import android.graphics.Paint;
 
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
+import org.jetbrains.annotations.NonNls;
+
 import java.util.Random;
 
 public class FallingMaths implements GameObject {
@@ -39,7 +41,7 @@ public class FallingMaths implements GameObject {
 
     private double x = -30.0 + 60 * RANDOM.nextDouble();
     private double y = 0;
-    public final String question;
+    @NonNls public final String question;
     private final Paint paint;
 
     private boolean dead = false;
@@ -48,14 +50,14 @@ public class FallingMaths implements GameObject {
     public final int answer;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(int a, int b, double speedupFactor, Model model,
+    public FallingMaths(@NonNls String question, int answer, Model model, double speedupFactor,
             ObjectiveSoundPool.SoundEffect mathsKilled) {
+        this.question = question;
+        this.answer = answer;
         this.model = model;
         this.mathsKilled = mathsKilled;
 
         percentPerMs = BASE_PERCENT_PER_MS * speedupFactor;
-        question = a + "⋅" + b;
-        answer = a * b;
 
         paint = new Paint();
         paint.setColor(Color.WHITE);

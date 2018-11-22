@@ -17,6 +17,7 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
 
@@ -35,12 +37,22 @@ import java.io.IOException;
  * status bar and navigation/system bar) with user interaction.
  */
 public class GameActivity extends MusicActivity {
+    private static final String GAME_TYPE_EXTRA = "gameType";
+    private static final String LEVEL_EXTRA = "level";
+    public static void start(Context context, GameType gameType, int level) {
+        Intent intent = new Intent(context, GameActivity.class);
+        intent.putExtra(GAME_TYPE_EXTRA, gameType.toString());
+        intent.putExtra(LEVEL_EXTRA, level);
+        context.startActivity(intent);
+    }
+
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler handler = new Handler();
+    private GameType gameType;
     private GameView gameView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -84,9 +96,16 @@ public class GameActivity extends MusicActivity {
 
         setContentView(R.layout.activity_game);
 
+        gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
+        int level = getIntent().getIntExtra(LEVEL_EXTRA, 0);
+        if (level <= 0) {
+            throw new RuntimeException("Level not found: " + getIntent());
+        }
+
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         gameView = findViewById(R.id.game);
+        gameView.restart(gameType, level);
 
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
@@ -101,14 +120,14 @@ public class GameActivity extends MusicActivity {
             public void onLevelCleared() {
                 // Update the stored level now, but...
                 try {
-                    PlayerState.fromContext(GameActivity.this).increaseLevel();
+                    PlayerStateV2.fromContext(GameActivity.this).increaseLevel(gameType);
                 } catch (IOException e) {
                     throw new RuntimeException("Increasing player level failed", e);
                 }
 
                 // ... wait a bit before telling the player that they succeeded
                 handler.postDelayed(() -> {
-                    LevelClearedActivity.start(GameActivity.this);
+                    LevelClearedActivity.start(GameActivity.this, gameType, level);
                     finish();
                 }, 2000);
             }
@@ -132,8 +151,7 @@ public class GameActivity extends MusicActivity {
                         .setNeutralButton("OK", (dialog, which) -> {
                             dialog.dismiss();
 
-                            Intent intent = new Intent(GameActivity.this, LaunchActivity.class);
-                            startActivity(intent);
+                            LaunchActivity.start(this);
                             finish();
                         })
                         .setOnCancelListener(dialog -> finish())
