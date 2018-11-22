@@ -21,14 +21,11 @@ import static org.hamcrest.CoreMatchers.is;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
+public class PlayerStateTest {
     @Test
-    public void addition_isCorrect() {
-        Assert.assertThat(2 + 2, is(4));
+    public void shouldHaveCorrectPackage() {
+        Assert.assertThat("Must have correct package and name for deserialization to work",
+                PlayerState.class.getCanonicalName(),
+                is("com.gmail.walles.johan.numbershooter.PlayerState"));
     }
 }

@@ -17,6 +17,7 @@
 package com.gmail.walles.johan.numbershooter.playerstate;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.PlayerState;
@@ -35,7 +36,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Note that PlayerState needs to be in the {@code com.gmail.walles.johan.numbershooter.playerstate}
+ * Note that PlayerState needs to be in the {@link com.gmail.walles.johan.numbershooter.playerstate}
  * package for deserialization of old player states to work.
  */
 public class PlayerStateV2 implements Serializable {
@@ -67,10 +68,11 @@ public class PlayerStateV2 implements Serializable {
         }
     }
 
-    private static PlayerStateV2 fromFile(@NonNls File file) throws IOException {
+    @VisibleForTesting
+    static PlayerStateV2 fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             return (PlayerStateV2)in.readObject();
-        } catch (ClassNotFoundException | InvalidClassException e) {
+        } catch (ClassCastException | ClassNotFoundException | InvalidClassException e) {
             return migrate(PlayerState.fromFile(file));
         } catch (FileNotFoundException e) {
             return new PlayerStateV2(file);
