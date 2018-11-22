@@ -62,10 +62,6 @@ public class PlayerStateV2 implements Serializable {
 
     private PlayerStateV2(File file) {
         this.file = file;
-
-        for (GameType gameType: GameType.values()) {
-            levels.put(gameType.toString(), 1);
-        }
     }
 
     @VisibleForTesting
@@ -116,6 +112,10 @@ public class PlayerStateV2 implements Serializable {
     }
 
     public int getLevel(GameType gameType) {
-        return levels.get(gameType.toString());
+        Integer returnMe = levels.get(gameType.toString());
+        if (returnMe == null) {
+            return 1;
+        }
+        return returnMe;
     }
 }
