@@ -59,8 +59,10 @@ public class LaunchActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        configureButton(R.id.startAdditionButton, playerState, GameType.ADDITION);
-        configureButton(R.id.startMultiplicationButton, playerState, GameType.MULTIPLICATION);
+        configureButton(R.id.startButton1, playerState, GameType.ADDITION);
+        configureButton(R.id.startButton2, playerState, GameType.SUBTRACTION);
+        configureButton(R.id.startButton3, playerState, GameType.MULTIPLICATION);
+        configureButton(R.id.startButton4, playerState, GameType.DIVISION);
     }
 
     private void configureButton(@IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {
