@@ -27,6 +27,8 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Run unit tests in CI
+* When showing correct answer for "5*3=15", show also "3*5=15", but
+  don't show "6*6=36" twice
 * Make Google Play Feature Graphics nicer, starry background and metally
   letters. Blender!
 * Make sure Google recommends us for tablets
@@ -36,8 +38,6 @@ NOTE: If you add to this list, also update
   blend in better with the keyboard.
 * Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
   crashes the app
-* When showing correct answer for "5*3=15", show also "3*5=15", but
-  don't show "6*6=36" twice
 * Fix volumes of all sounds so that they are good relative each other.
 * Cheerier level-cleared image
 * Draw trails after shots; make them more rocketlike
