@@ -26,11 +26,10 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
+* Run unit tests in CI
 * Make operators bigger on the launch screen
 * Add a mode for division
 * Add a mode for subtraction
-* Pressing back can sometimes require you to back out of multiple launch
-  screens. Look into how we (re)start the launch screen.
 * Make Google Play Feature Graphics nicer, starry background and metally
   letters. Blender!
 * Make sure Google recommends us for tablets
@@ -114,3 +113,4 @@ NOTE: If you add to this list, also update
 * Add unit tests for data migrations between `PlayerState` and `PlayerStateV2`
 * Add a mode for addition
 * Add unit tests for `PlayerStateV2` persistence
+* Run only one launch activity

@@ -16,6 +16,7 @@
 
 package com.gmail.walles.johan.numbershooter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,12 @@ import java.util.Scanner;
 import timber.log.Timber;
 
 public class LaunchActivity extends MusicActivity {
+    public static void start(Context context) {
+        Intent intent = new Intent(context, LaunchActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        context.startActivity(intent);
+    }
+
     private Button startMultiplicationButton;
     private Button startAdditionButton;
 

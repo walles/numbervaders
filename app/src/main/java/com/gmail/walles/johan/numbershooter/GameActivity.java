@@ -151,8 +151,7 @@ public class GameActivity extends MusicActivity {
                         .setNeutralButton("OK", (dialog, which) -> {
                             dialog.dismiss();
 
-                            Intent intent = new Intent(GameActivity.this, LaunchActivity.class);
-                            startActivity(intent);
+                            LaunchActivity.start(this);
                             finish();
                         })
                         .setOnCancelListener(dialog -> finish())
