@@ -46,4 +46,23 @@ public class PlayerStateV2Test {
         Assert.assertThat(testMe.getLevel(GameType.MULTIPLICATION), is(2));
         Assert.assertThat(testMe.getLevel(GameType.ADDITION), is(1));
     }
+
+    @Test
+    public void shouldPersistState() throws IOException {
+        File file = folder.newFile();
+        Assert.assertThat(file.delete(), is(true));
+
+        PlayerStateV2 toPersist = PlayerStateV2.fromFile(file);
+        toPersist.increaseLevel(GameType.MULTIPLICATION);
+        toPersist.increaseLevel(GameType.ADDITION);
+        toPersist.increaseLevel(GameType.ADDITION);
+
+        PlayerStateV2 fromPersistence = PlayerStateV2.fromFile(file);
+        Assert.assertThat(
+                fromPersistence.getLevel(GameType.MULTIPLICATION),
+                is(toPersist.getLevel(GameType.MULTIPLICATION)));
+        Assert.assertThat(
+                fromPersistence.getLevel(GameType.ADDITION),
+                is(toPersist.getLevel(GameType.ADDITION)));
+    }
 }
