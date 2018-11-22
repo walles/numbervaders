@@ -27,32 +27,30 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Run unit tests in CI
-* Add a mode for division
-* Add a mode for subtraction
-* Make Google Play Feature Graphics nicer, starry background and metally
-  letters. Blender!
-* Make sure Google recommends us for tablets
-* Make a more numbery icon
-* Make the level-failed answers dialog look better
-* Consider making the navigation bar white on black during the game to
-  blend in better with the keyboard.
-* Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
-  crashes the app
 * When showing correct answer for "5*3=15", show also "3*5=15", but
   don't show "6*6=36" twice
+* Get Google to recommend us for tablets
+* Make the level-failed answers dialog look better
 * Fix volumes of all sounds so that they are good relative each other.
 * Cheerier level-cleared image
-* Draw trails after shots; make them more rocketlike
+* Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
+  crashes the app
+* Make Google Play Feature Graphics nicer, starry background and metally
+  letters. Blender!
+* Make a more numbery icon
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
   level and re-play it.
+* Adapt font sizes to screen
+* Consider making the navigation bar white on black during the game to
+  blend in better with the keyboard.
 * Hide controls by default so that we get the full-screen experience,
   good for production, search for `mHideRunnable`. Verify that we can
   easily show the controls when they are hidden.
 * Pause game while controls are visible
 * Remove click handler from GameView to force full screen, but verify
   that swiping down from the top still works
-* Adapt font sizes to screen
+* Draw trails after shots; make them more rocketlike
 
 ## DROPPED
 * In the Model, create a way to iterate only over our `FallingMaths`
@@ -114,3 +112,5 @@ NOTE: If you add to this list, also update
 * Add unit tests for `PlayerStateV2` persistence
 * Run only one launch activity
 * Make operators bigger on the launch screen
+* Add a mode for division
+* Add a mode for subtraction

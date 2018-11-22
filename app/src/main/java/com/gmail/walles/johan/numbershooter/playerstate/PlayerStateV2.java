@@ -105,7 +105,7 @@ public class PlayerStateV2 implements Serializable {
      * This method is expected to be called from GameActivity when the level is completed
      */
     public void increaseLevel(GameType gameType) throws IOException {
-        int level = levels.get(gameType.toString());
+        int level = getLevel(gameType);
         levels.put(gameType.toString(), level + 1);
 
         persist();

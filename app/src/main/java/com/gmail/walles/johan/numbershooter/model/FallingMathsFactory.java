@@ -55,6 +55,12 @@ public abstract class FallingMathsFactory {
             case MULTIPLICATION:
                 return new MultiplicationFactory(level, mathsKilled);
 
+            case SUBTRACTION:
+                return new SubtractionFactory(level, mathsKilled);
+
+            case DIVISION:
+                return new DivisionFactory(level, mathsKilled);
+
             default:
                 throw new UnsupportedOperationException("Unhandled game type: " + gameType);
         }
