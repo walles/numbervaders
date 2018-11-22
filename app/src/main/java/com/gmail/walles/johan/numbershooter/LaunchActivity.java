@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NonNls;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.Scanner;
 
 import timber.log.Timber;
@@ -47,9 +48,6 @@ public class LaunchActivity extends MusicActivity {
     private Button startMultiplicationButton;
     private Button startAdditionButton;
 
-    private int nextMultiplicationLevel;
-    private int nextAdditionLevel;
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -60,11 +58,20 @@ public class LaunchActivity extends MusicActivity {
         } catch (IOException e) {
             throw new RuntimeException("Failed to get player state", e);
         }
-        startMultiplicationButton.setText("×\nLevel " + playerState.getLevel(GameType.MULTIPLICATION));
-        nextMultiplicationLevel = playerState.getLevel(GameType.MULTIPLICATION);
 
-        startAdditionButton.setText("+\nLevel " + playerState.getLevel(GameType.ADDITION));
-        nextAdditionLevel = playerState.getLevel(GameType.ADDITION);
+        configureButton(startAdditionButton, playerState, GameType.ADDITION);
+        configureButton(startMultiplicationButton, playerState, GameType.MULTIPLICATION);
+    }
+
+    private void configureButton(Button button, PlayerStateV2 playerState, GameType gameType) {
+        // FIXME: Get format string from a resource
+        // FIXME: Make the first char bigger
+        button.setText(String.format(Locale.getDefault(), "%s\nLevel %d",
+                gameType.buttonLabel, playerState.getLevel(gameType)));
+
+        int startLevel = playerState.getLevel(gameType);
+        button.setOnClickListener(v -> GameActivity.start(this,
+                gameType, startLevel));
     }
 
     @Override
@@ -122,12 +129,8 @@ public class LaunchActivity extends MusicActivity {
 
         startMultiplicationButton = findViewById(R.id.startMultiplicationButton);
         assert startMultiplicationButton != null;
-        startMultiplicationButton.setOnClickListener(v -> GameActivity.start(this,
-                GameType.MULTIPLICATION, nextMultiplicationLevel));
 
         startAdditionButton = findViewById(R.id.startAdditionButton);
         assert startAdditionButton != null;
-        startAdditionButton.setOnClickListener(v -> GameActivity.start(this,
-                GameType.ADDITION, nextAdditionLevel));
     }
 }
