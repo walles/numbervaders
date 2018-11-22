@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
@@ -47,9 +48,6 @@ public class LaunchActivity extends MusicActivity {
         context.startActivity(intent);
     }
 
-    private Button startMultiplicationButton;
-    private Button startAdditionButton;
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -61,11 +59,13 @@ public class LaunchActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        configureButton(startAdditionButton, playerState, GameType.ADDITION);
-        configureButton(startMultiplicationButton, playerState, GameType.MULTIPLICATION);
+        configureButton(R.id.startAdditionButton, playerState, GameType.ADDITION);
+        configureButton(R.id.startMultiplicationButton, playerState, GameType.MULTIPLICATION);
     }
 
-    private void configureButton(Button button, PlayerStateV2 playerState, GameType gameType) {
+    private void configureButton(@IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {
+        Button button = findViewById(buttonId);
+
         SpannableString labelText = new SpannableString(String.format(Locale.getDefault(),
                 "%s\nLevel %d",
                 gameType.buttonLabel, playerState.getLevel(gameType)));
@@ -130,11 +130,5 @@ public class LaunchActivity extends MusicActivity {
         setContentView(R.layout.activity_launch);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        startMultiplicationButton = findViewById(R.id.startMultiplicationButton);
-        assert startMultiplicationButton != null;
-
-        startAdditionButton = findViewById(R.id.startAdditionButton);
-        assert startAdditionButton != null;
     }
 }
