@@ -27,7 +27,6 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Run unit tests in CI
-* Make operators bigger on the launch screen
 * Add a mode for division
 * Add a mode for subtraction
 * Make Google Play Feature Graphics nicer, starry background and metally
@@ -114,3 +113,4 @@ NOTE: If you add to this list, also update
 * Add a mode for addition
 * Add unit tests for `PlayerStateV2` persistence
 * Run only one launch activity
+* Make operators bigger on the launch screen

@@ -22,6 +22,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -64,10 +66,12 @@ public class LaunchActivity extends MusicActivity {
     }
 
     private void configureButton(Button button, PlayerStateV2 playerState, GameType gameType) {
-        // FIXME: Get format string from a resource
-        // FIXME: Make the first char bigger
-        button.setText(String.format(Locale.getDefault(), "%s\nLevel %d",
+        SpannableString labelText = new SpannableString(String.format(Locale.getDefault(),
+                "%s\nLevel %d",
                 gameType.buttonLabel, playerState.getLevel(gameType)));
+        // Make operator bigger
+        labelText.setSpan(new RelativeSizeSpan(2f), 0, 1, 0);
+        button.setText(labelText);
 
         int startLevel = playerState.getLevel(gameType);
         button.setOnClickListener(v -> GameActivity.start(this,
