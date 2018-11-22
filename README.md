@@ -27,8 +27,6 @@ NOTE: If you add to this list, also update
 
 # TODO Misc
 * Run unit tests in CI
-* Add a mode for division
-* Add a mode for subtraction
 * Make Google Play Feature Graphics nicer, starry background and metally
   letters. Blender!
 * Make sure Google recommends us for tablets
@@ -114,3 +112,5 @@ NOTE: If you add to this list, also update
 * Add unit tests for `PlayerStateV2` persistence
 * Run only one launch activity
 * Make operators bigger on the launch screen
+* Add a mode for division
+* Add a mode for subtraction
