@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -158,8 +157,14 @@ public class GameActivity extends MusicActivity {
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);
         assert textView != null;
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+        textView.setTextSize(pixelsToSp(getResources().getDimension(R.dimen.big_text_size)));
         textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+    }
+
+    private float pixelsToSp(float px) {
+        // From: https://stackoverflow.com/a/9219417/473672
+        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
+        return px/scaledDensity;
     }
 
     @Override
