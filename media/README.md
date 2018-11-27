@@ -12,6 +12,6 @@ export it into `icon512.png` (512x512) as well, and scale it into
 `app/src/main/res/drawable-xxxhdpi/icon192.png` (192x192).
 
 # Feature Graphic
-The `feature-graphic.xcf` file can be edited in
-[GIMP](https://www.gimp.org/downloads/). If you update that file, please
-export it into `feature-graphic.png` as well.
+The `feature-graphic.blend` file can be edited in
+[Blender](https://www.blender.org/download/). If you update that file, please
+export it into `feature-graphic.jpg` as well and upload it to Google Play.
