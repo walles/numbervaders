@@ -39,7 +39,6 @@ NOTE: If you add to this list, also update
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
   level and re-play it.
-* Adapt font sizes to screen
 * Consider making the navigation bar white on black during the game to
   blend in better with the keyboard.
 * Hide controls by default so that we get the full-screen experience,
@@ -114,3 +113,4 @@ NOTE: If you add to this list, also update
 * Add a mode for subtraction
 * Make Google Play Feature Graphics nicer, starry background and metally
   letters. Blender!
+* Adapt font sizes to screen

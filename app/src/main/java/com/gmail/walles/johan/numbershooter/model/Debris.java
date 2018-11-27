@@ -38,7 +38,7 @@ class Debris implements GameObject {
 
     private final Paint paint;
 
-    public Debris(String text, double x, double y) {
+    public Debris(String text, float sizePixels, double x, double y) {
         this.text = text;
         this.x = x;
         this.y = y;
@@ -59,7 +59,7 @@ class Debris implements GameObject {
 
         paint = new Paint();
         paint.setColor(Color.RED);
-        paint.setTextSize(150);  // FIXME: Let our creator set this
+        paint.setTextSize(sizePixels);
         paint.setTextAlign(Paint.Align.CENTER);
     }
 

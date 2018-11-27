@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DivisionFactory extends FallingMathsFactory {
-    public DivisionFactory(int level, ObjectiveSoundPool.SoundEffect mathsKilled) {
-        super(level, mathsKilled);
+    public DivisionFactory(int level, float objectSizePixels, ObjectiveSoundPool.SoundEffect mathsKilled) {
+        super(level, objectSizePixels, mathsKilled);
     }
 
     @Override

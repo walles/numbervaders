@@ -44,22 +44,25 @@ public abstract class FallingMathsFactory {
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final List<Maths> allMaths;
     private final int level;
+    private final float objectSizePixels;
 
     public static FallingMathsFactory create(
-            GameType gameType, int level, ObjectiveSoundPool.SoundEffect mathsKilled)
+            GameType gameType, int level,
+            float objectSizePixels,
+            ObjectiveSoundPool.SoundEffect mathsKilled)
     {
         switch (gameType) {
             case ADDITION:
-                return new AdditionFactory(level, mathsKilled);
+                return new AdditionFactory(level, objectSizePixels, mathsKilled);
 
             case MULTIPLICATION:
-                return new MultiplicationFactory(level, mathsKilled);
+                return new MultiplicationFactory(level, objectSizePixels, mathsKilled);
 
             case SUBTRACTION:
-                return new SubtractionFactory(level, mathsKilled);
+                return new SubtractionFactory(level, objectSizePixels, mathsKilled);
 
             case DIVISION:
-                return new DivisionFactory(level, mathsKilled);
+                return new DivisionFactory(level, objectSizePixels, mathsKilled);
 
             default:
                 throw new UnsupportedOperationException("Unhandled game type: " + gameType);
@@ -97,10 +100,11 @@ public abstract class FallingMathsFactory {
         }
     }
 
-    protected FallingMathsFactory(int level,
+    protected FallingMathsFactory(int level, float objectSizePixels,
             ObjectiveSoundPool.SoundEffect mathsKilled)
     {
         this.level = level;
+        this.objectSizePixels = objectSizePixels;
         this.mathsKilled = mathsKilled;
 
         List<Maths> maths = listAllMaths();
@@ -135,6 +139,6 @@ public abstract class FallingMathsFactory {
         double speedupPower = easiness / (double)topEasiness;
         double speedupFactor = Math.pow(SPEEDUP_FACTOR_AT_TOP_LEVEL, speedupPower);
 
-        return new FallingMaths(maths.question, maths.answer, model, speedupFactor, mathsKilled);
+        return new FallingMaths(maths.question, maths.answer, model, speedupFactor, objectSizePixels, mathsKilled);
     }
 }

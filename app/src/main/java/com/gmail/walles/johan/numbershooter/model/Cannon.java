@@ -37,6 +37,7 @@ public class Cannon implements GameObject {
     private boolean dead = false;
 
     public Cannon(Model model,
+            float sizePixels,
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound)
     {
@@ -46,7 +47,7 @@ public class Cannon implements GameObject {
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(150);  // FIXME: Adapt to screen size
+        paint.setTextSize(sizePixels);
         paint.setTextAlign(Paint.Align.CENTER);
     }
 
@@ -83,7 +84,7 @@ public class Cannon implements GameObject {
     public GameObject createShotFor(FallingMaths target) {
         this.shotSound.play();
 
-        Shot shot = new Shot(digits, (double) X, (double) Y, target);
+        Shot shot = new Shot(digits, paint.getTextSize(), (double) X, (double) Y, target);
         digits = "";
         return shot;
     }
@@ -93,7 +94,7 @@ public class Cannon implements GameObject {
 
         GameObject[] debris = new GameObject[DEBRIS_COUNT_ON_FAIL];
         for (int i = 0; i < DEBRIS_COUNT_ON_FAIL; i++) {
-            debris[i] = new Debris(digits, (double) X, (double) Y);
+            debris[i] = new Debris(digits, paint.getTextSize(), (double) X, (double) Y);
         }
         digits = "";
         return debris;
@@ -106,7 +107,7 @@ public class Cannon implements GameObject {
         explosionSound.play();
 
         for (int i = 0; i < DEBRIS_COUNT_ON_EXPLODE; i++) {
-            model.add(new Debris(text, (double) X, (double) Y));
+            model.add(new Debris(text, paint.getTextSize(), (double) X, (double) Y));
         }
 
         dead = true;

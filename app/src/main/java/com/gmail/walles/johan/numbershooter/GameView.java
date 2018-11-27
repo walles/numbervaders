@@ -19,10 +19,13 @@ package com.gmail.walles.johan.numbershooter;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
@@ -144,7 +147,17 @@ public class GameView extends View {
     }
 
     public void restart(GameType gameType, int level) {
-        model = new Model(FallingMathsFactory.create(gameType, level, mathsKilled),
+        WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+        assert wm != null;
+
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenHeight = Math.max(size.x, size.y);
+
+        float objectSizesInPixels = screenHeight / 15f;
+        model = new Model(FallingMathsFactory.create(gameType, level, objectSizesInPixels, mathsKilled),
+                objectSizesInPixels,
                 shotSound, explosionSound, mathsArriving, wrongAnswer);
 
         lastFrameStart = 0;

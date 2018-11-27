@@ -50,7 +50,10 @@ public class FallingMaths implements GameObject {
     public final int answer;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(@NonNls String question, int answer, Model model, double speedupFactor,
+    public FallingMaths(@NonNls String question, int answer,
+            Model model,
+            double speedupFactor,
+            float sizePixels,
             ObjectiveSoundPool.SoundEffect mathsKilled) {
         this.question = question;
         this.answer = answer;
@@ -61,7 +64,7 @@ public class FallingMaths implements GameObject {
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(150);  // FIXME: Adapt to screen size
+        paint.setTextSize(sizePixels);
         paint.setTextAlign(Paint.Align.CENTER);
     }
 

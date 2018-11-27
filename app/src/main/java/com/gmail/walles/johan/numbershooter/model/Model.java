@@ -73,6 +73,7 @@ public class Model {
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
     public Model(FallingMathsFactory fallingMathsFactory,
+            float objectSizesInPixels,
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
             ObjectiveSoundPool.SoundEffect mathsArriving,
@@ -83,7 +84,7 @@ public class Model {
         this.mathsArriving = mathsArriving;
         this.wrongAnswer = wrongAnswer;
 
-        cannon = new Cannon(this, shotSound, explosionSound);
+        cannon = new Cannon(this, objectSizesInPixels, shotSound, explosionSound);
     }
 
     /**

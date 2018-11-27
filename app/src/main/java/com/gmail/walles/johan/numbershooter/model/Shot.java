@@ -37,7 +37,7 @@ class Shot implements GameObject {
     private double y;
     private final Paint paint;
 
-    public Shot(String text, double x, double y, FallingMaths target) {
+    public Shot(String text, float sizePixels, double x, double y, FallingMaths target) {
         this.text = text;
         this.x = x;
         this.y = y;
@@ -53,7 +53,7 @@ class Shot implements GameObject {
 
         paint = new Paint();
         paint.setColor(Color.WHITE);
-        paint.setTextSize(150);  // FIXME: Let our creator set this
+        paint.setTextSize(sizePixels);
         paint.setTextAlign(Paint.Align.CENTER);
     }
 
