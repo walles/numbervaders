@@ -36,7 +36,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/app_name"
         android:textColor="#ffffff"
-        android:textSize="36sp"
+        android:textSize="@dimen/big_text_size"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow>
+
             <Button
                 android:id="@+id/startButton1"
                 android:layout_width="wrap_content"
@@ -64,6 +65,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:text="+\nLevel 7"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -74,8 +76,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:elevation="0dp"
                 android:text="∙\nLevel 3"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </TableRow>
@@ -89,6 +91,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:text="+\nLevel 7"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -99,8 +102,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:elevation="0dp"
                 android:text="∙\nLevel 3"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </TableRow>
