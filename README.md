@@ -35,8 +35,6 @@ NOTE: If you add to this list, also update
 * Cheerier level-cleared image
 * Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
   crashes the app
-* Make Google Play Feature Graphics nicer, starry background and metally
-  letters. Blender!
 * Make a more numbery icon
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
@@ -114,3 +112,5 @@ NOTE: If you add to this list, also update
 * Make operators bigger on the launch screen
 * Add a mode for division
 * Add a mode for subtraction
+* Make Google Play Feature Graphics nicer, starry background and metally
+  letters. Blender!
