@@ -63,6 +63,9 @@ public class LaunchActivity extends MusicActivity {
         configureButton(R.id.startButton2, playerState, GameType.SUBTRACTION);
         configureButton(R.id.startButton3, playerState, GameType.MULTIPLICATION);
         configureButton(R.id.startButton4, playerState, GameType.DIVISION);
+
+        Button medalsButton = findViewById(R.id.medalsButton);
+        medalsButton.setOnClickListener(v -> MedalsActivity.start(LaunchActivity.this));
     }
 
     private void configureButton(@IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {

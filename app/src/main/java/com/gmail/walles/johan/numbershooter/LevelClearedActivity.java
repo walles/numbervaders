@@ -59,5 +59,7 @@ public class LevelClearedActivity extends MusicActivity {
             GameActivity.start(this, gameType, clearedLevel + 1);
             finish();
         });
+
+        // FIXME: List medals earned on this level
     }
 }

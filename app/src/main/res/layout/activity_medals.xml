@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2018, Johan Walles <johan.walles@gmail.com>
   ~
@@ -14,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <string name="app_name" translatable="false">Numbervaders</string>
-    <string name="credits">Credits</string>
-    <string name="view_source_code">View Source Code</string>
-    <string name="medals">Medals</string>
-</resources>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/background">
+
+</android.support.constraint.ConstraintLayout>
