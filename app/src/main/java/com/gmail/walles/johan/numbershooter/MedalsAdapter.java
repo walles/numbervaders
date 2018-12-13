@@ -64,7 +64,7 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     public void onBindViewHolder(@NonNull MedalViewHolder holder, int position) {
         Medal medal = medals.get(position);
         holder.description.setText(medal.getDescription());
-        holder.imageView.setImageDrawable(medal.getDrawable());
+        holder.imageView.setImageDrawable(medal);
     }
 
     @Override

@@ -32,10 +32,11 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
-// FIXME: Verify that the table scrolls if there are lots of medals
+import java.util.Random;
 
 public class MedalsActivity extends MusicActivity {
+    private static final Random RANDOM = new Random();
+
     public static void start(Context context) {
         Intent intent = new Intent(context, MedalsActivity.class);
         context.startActivity(intent);
@@ -62,7 +63,8 @@ public class MedalsActivity extends MusicActivity {
         */
         List<Medal> medals = new LinkedList<>();
         for (int i = 0; i < 35; i++) {
-            medals.add(new Medal(this, "Medal " + i + " has a long description that should be wrapped into multiple lines"));
+            Medal.Flavor flavor = Medal.Flavor.values()[RANDOM.nextInt(Medal.Flavor.values().length)];
+            medals.add(new Medal(flavor, "Medal " + i + " has a long description that should be wrapped into multiple lines"));
         }
 
         int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);

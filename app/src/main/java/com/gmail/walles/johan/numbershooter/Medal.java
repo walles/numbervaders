@@ -16,16 +16,39 @@
 
 package com.gmail.walles.johan.numbershooter;
 
-import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-public class Medal {
+public class Medal extends Drawable {
     private final String description;
-    private final Drawable drawable;
+    private final Paint paint;
 
-    public Medal(Context context, String description) {
+    public Medal(Flavor flavor, String description) {
         this.description = description;
-        drawable = context.getDrawable(R.drawable.icon192);
+
+        paint = new Paint();
+        switch (flavor) {
+            case GOLD:
+                paint.setColor(Color.YELLOW);
+                break;
+
+            case SILVER:
+                paint.setColor(Color.LTGRAY);
+                break;
+
+            case BRONZE:
+                paint.setColor(0xff400000);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Unsupported flavor: " + flavor);
+        }
     }
 
     public enum Flavor {
@@ -38,7 +61,28 @@ public class Medal {
         return description;
     }
 
-    public Drawable getDrawable() {
-        return drawable;
+    @Override
+    public void draw(@NonNull Canvas canvas) {
+        int width = getBounds().width();
+        int height = getBounds().height();
+        float radius = Math.min(width, height) / 2;
+
+        canvas.drawCircle(width/2, height/2, radius, paint);
+    }
+
+    @Override
+    public void setAlpha(int alpha) {
+        // This method is required
+    }
+
+    @Override
+    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+        // This method is required
+    }
+
+    @Override
+    public int getOpacity() {
+        // Transparent = at least one bit of alpha
+        return PixelFormat.TRANSPARENT;
     }
 }
