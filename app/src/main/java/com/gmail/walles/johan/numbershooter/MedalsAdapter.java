@@ -22,15 +22,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-// FIXME: All the drawables should actually be drawables and be retrieved using Medal.getDrawable()
 public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewHolder> {
+    private final int medalSizePixels;
     private final List<Medal> medals;
 
-    public MedalsAdapter(List<Medal> medals) {
+    public MedalsAdapter(int medalSizePixels, List<Medal> medals) {
+        this.medalSizePixels = medalSizePixels;
         this.medals = medals;
     }
 
@@ -49,7 +51,10 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     @Override
     public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View medalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.medal_view, parent, false);
+
         ImageView imageView = medalView.findViewById(R.id.medalImage);
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
+
         TextView description = medalView.findViewById(R.id.description);
 
         return new MedalViewHolder(medalView, imageView, description);

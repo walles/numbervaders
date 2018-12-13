@@ -65,9 +65,11 @@ public class MedalsActivity extends MusicActivity {
             medals.add(new Medal(this, "Medal " + i + " has a long description that should be wrapped into multiple lines"));
         }
 
+        int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);
+
         RecyclerView medalsList = findViewById(R.id.medalsList);
         medalsList.setLayoutManager(new LinearLayoutManager(this));
-        medalsList.setAdapter(new MedalsAdapter(medals));
+        medalsList.setAdapter(new MedalsAdapter(medalSize, medals));
 
         // Provide user with a way to go back to the launch screen
         ActionBar actionBar = getSupportActionBar();
