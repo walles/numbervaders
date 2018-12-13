@@ -18,18 +18,20 @@ package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.gmail.walles.johan.numbershooter.Medal;
-import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
-import java.util.List;
+
+// FIXME: Verify that the table scrolls if there are lots of medals
 
 public class MedalsActivity extends MusicActivity {
     public static void start(Context context) {
@@ -49,13 +51,27 @@ public class MedalsActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
+        /* FIXME: Re-enable this code
         List<Medal> medals = Medals.get(playerState);
         if (medals.isEmpty()) {
             TextView textView = findViewById(R.id.textView);
             textView.setText(R.string.no_medals_yet);
         }
+        */
 
         // FIXME: List medals
+        TableLayout table = findViewById(R.id.medalsTable);
+        for (int i = 0; i < 35; i++) {
+            TextView medalDescription = new TextView(this);
+            medalDescription.setTextColor(Color.WHITE);
+            medalDescription.setText("Medal number " + (i + 1));
+            medalDescription.setTextSize(pixelsToSp(getResources().getDimension(R.dimen.text_size)));
+
+            TableRow tableRow = new TableRow(this);
+            tableRow.addView(medalDescription);
+
+            table.addView(tableRow);
+        }
 
         // Provide user with a way to go back to the launch screen
         ActionBar actionBar = getSupportActionBar();
@@ -64,10 +80,17 @@ public class MedalsActivity extends MusicActivity {
         actionBar.setDisplayShowHomeEnabled(true);
     }
 
+    private float pixelsToSp(float px) {
+        // From: https://stackoverflow.com/a/9219417/473672
+        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
+        return px/scaledDensity;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                LaunchActivity.start(this);
                 finish();
                 return true;
         }
