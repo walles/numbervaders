@@ -62,12 +62,19 @@ public class MedalsActivity extends MusicActivity {
         // FIXME: List medals
         TableLayout table = findViewById(R.id.medalsTable);
         for (int i = 0; i < 35; i++) {
+            TextView medalImage = new TextView(this);
+            medalImage.setTextColor(Color.WHITE);
+            medalImage.setText("[XX]");
+            medalImage.setTextSize(pixelsToSp(getResources().getDimension(R.dimen.big_text_size)));
+
             TextView medalDescription = new TextView(this);
             medalDescription.setTextColor(Color.WHITE);
+            medalDescription.setBackgroundColor(Color.GREEN);
             medalDescription.setText("Medal number " + (i + 1));
             medalDescription.setTextSize(pixelsToSp(getResources().getDimension(R.dimen.text_size)));
 
             TableRow tableRow = new TableRow(this);
+            tableRow.addView(medalImage);
             tableRow.addView(medalDescription);
 
             table.addView(tableRow);
