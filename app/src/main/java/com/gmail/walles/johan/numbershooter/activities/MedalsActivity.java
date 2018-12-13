@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter;
+package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
+import com.gmail.walles.johan.numbershooter.R;
 
 public class MedalsActivity extends MusicActivity {
     public static void start(Context context) {
@@ -36,7 +38,6 @@ public class MedalsActivity extends MusicActivity {
         // FIXME: List medals
 
         // Provide user with a way to go back to the launch screen
-        // FIXME: Test this!!
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);

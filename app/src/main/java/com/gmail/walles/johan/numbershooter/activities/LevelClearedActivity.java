@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter;
+package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.R;
 
 import java.util.Locale;
 
