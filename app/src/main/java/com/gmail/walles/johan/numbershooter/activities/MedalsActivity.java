@@ -21,8 +21,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.gmail.walles.johan.numbershooter.Medal;
+import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.R;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MedalsActivity extends MusicActivity {
     public static void start(Context context) {
@@ -34,6 +41,19 @@ public class MedalsActivity extends MusicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medals);
+
+        PlayerStateV2 playerState;
+        try {
+            playerState = PlayerStateV2.fromContext(this);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to get player state", e);
+        }
+
+        List<Medal> medals = Medals.get(playerState);
+        if (medals.isEmpty()) {
+            TextView textView = findViewById(R.id.textView);
+            textView.setText(R.string.no_medals_yet);
+        }
 
         // FIXME: List medals
 
