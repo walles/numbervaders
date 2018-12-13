@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -34,10 +35,10 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     }
 
     static class MedalViewHolder extends RecyclerView.ViewHolder {
-        private final TextView drawable;
+        private final ImageView drawable;
         private final TextView description;
 
-        public MedalViewHolder(View itemView, TextView drawable, TextView description) {
+        public MedalViewHolder(View itemView, ImageView drawable, TextView description) {
             super(itemView);
             this.drawable = drawable;
             this.description = description;
@@ -48,7 +49,7 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     @Override
     public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View medalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.medal_view, parent, false);
-        TextView drawable = medalView.findViewById(R.id.drawable);
+        ImageView drawable = medalView.findViewById(R.id.drawable);
         TextView description = medalView.findViewById(R.id.description);
 
         return new MedalViewHolder(medalView, drawable, description);
@@ -58,7 +59,6 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     public void onBindViewHolder(@NonNull MedalViewHolder holder, int position) {
         Medal medal = medals.get(position);
         holder.description.setText(medal.getDescription());
-        holder.drawable.setText("[XX]");
     }
 
     @Override

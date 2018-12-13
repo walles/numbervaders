@@ -20,14 +20,11 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
-    <TextView
+    <ImageView
         android:id="@+id/drawable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_light"
-        android:text="[XX]"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/big_text_size"
+        android:src="@drawable/icon192"
         />
 
     <TextView
