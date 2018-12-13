@@ -62,7 +62,7 @@ public class MedalsActivity extends MusicActivity {
         */
         List<Medal> medals = new LinkedList<>();
         for (int i = 0; i < 35; i++) {
-            medals.add(new Medal("Medal " + i + " has a long description that should be wrapped into multiple lines"));
+            medals.add(new Medal(this, "Medal " + i + " has a long description that should be wrapped into multiple lines"));
         }
 
         RecyclerView medalsList = findViewById(R.id.medalsList);
@@ -74,12 +74,6 @@ public class MedalsActivity extends MusicActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-    }
-
-    private float pixelsToSp(float px) {
-        // From: https://stackoverflow.com/a/9219417/473672
-        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
-        return px/scaledDensity;
     }
 
     @Override

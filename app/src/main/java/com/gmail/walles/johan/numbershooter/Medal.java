@@ -16,13 +16,16 @@
 
 package com.gmail.walles.johan.numbershooter;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class Medal {
     private final String description;
+    private final Drawable drawable;
 
-    public Medal(String description) {
+    public Medal(Context context, String description) {
         this.description = description;
+        drawable = context.getDrawable(R.drawable.icon192);
     }
 
     public enum Flavor {
@@ -36,6 +39,6 @@ public class Medal {
     }
 
     public Drawable getDrawable() {
-        throw new UnsupportedOperationException("Not implemented");
+        return drawable;
     }
 }

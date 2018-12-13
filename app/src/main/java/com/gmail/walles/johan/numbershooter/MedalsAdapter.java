@@ -35,12 +35,12 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     }
 
     static class MedalViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView drawable;
+        private final ImageView imageView;
         private final TextView description;
 
-        public MedalViewHolder(View itemView, ImageView drawable, TextView description) {
+        public MedalViewHolder(View itemView, ImageView imageView, TextView description) {
             super(itemView);
-            this.drawable = drawable;
+            this.imageView = imageView;
             this.description = description;
         }
     }
@@ -49,16 +49,17 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     @Override
     public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View medalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.medal_view, parent, false);
-        ImageView drawable = medalView.findViewById(R.id.drawable);
+        ImageView imageView = medalView.findViewById(R.id.medalImage);
         TextView description = medalView.findViewById(R.id.description);
 
-        return new MedalViewHolder(medalView, drawable, description);
+        return new MedalViewHolder(medalView, imageView, description);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MedalViewHolder holder, int position) {
         Medal medal = medals.get(position);
         holder.description.setText(medal.getDescription());
+        holder.imageView.setImageDrawable(medal.getDrawable());
     }
 
     @Override
