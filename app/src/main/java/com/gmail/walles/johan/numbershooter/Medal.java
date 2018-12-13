@@ -19,6 +19,12 @@ package com.gmail.walles.johan.numbershooter;
 import android.graphics.drawable.Drawable;
 
 public class Medal {
+    private final String description;
+
+    public Medal(String description) {
+        this.description = description;
+    }
+
     public enum Flavor {
         BRONZE,
         SILVER,
@@ -26,7 +32,7 @@ public class Medal {
     }
 
     public String getDescription() {
-        throw new UnsupportedOperationException("Not implemented");
+        return description;
     }
 
     public Drawable getDrawable() {

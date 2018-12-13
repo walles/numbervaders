@@ -18,18 +18,20 @@ package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
+import com.gmail.walles.johan.numbershooter.Medal;
+import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 // FIXME: Verify that the table scrolls if there are lots of medals
 
@@ -58,28 +60,14 @@ public class MedalsActivity extends MusicActivity {
             textView.setText(R.string.no_medals_yet);
         }
         */
-
-        // FIXME: List medals
-        TableLayout table = findViewById(R.id.medalsTable);
+        List<Medal> medals = new LinkedList<>();
         for (int i = 0; i < 35; i++) {
-            // FIXME: This should really be the medal drawable
-            TextView medalImage = new TextView(this);
-            medalImage.setTextColor(Color.WHITE);
-            medalImage.setText("[XX]");
-            medalImage.setTextSize(pixelsToSp(getResources().getDimension(R.dimen.big_text_size)));
-
-            TextView medalDescription = new TextView(this);
-            medalDescription.setTextColor(Color.BLACK);
-            medalDescription.setBackgroundColor(Color.GREEN);
-            medalDescription.setText("Medal number " + (i + 1));
-            medalDescription.setTextSize(1.5f * pixelsToSp(getResources().getDimension(R.dimen.text_size)));
-
-            TableRow tableRow = new TableRow(this);
-            tableRow.addView(medalImage);
-            tableRow.addView(medalDescription);
-
-            table.addView(tableRow);
+            medals.add(new Medal("Medal " + i + " has a long description that should be wrapped into multiple lines"));
         }
+
+        RecyclerView medalsList = findViewById(R.id.medalsList);
+        medalsList.setLayoutManager(new LinearLayoutManager(this));
+        medalsList.setAdapter(new MedalsAdapter(medals));
 
         // Provide user with a way to go back to the launch screen
         ActionBar actionBar = getSupportActionBar();

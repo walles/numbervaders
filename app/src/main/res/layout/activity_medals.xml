@@ -35,60 +35,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/medalsList"
+        android:scrollbars="vertical"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <TableLayout
-            android:id="@+id/medalsTable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[XX]"
-                    android:textColor="@android:color/white"
-                    android:textSize="36sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="TextView"
-                    android:textColor="@android:color/white"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[XX]"
-                    android:textColor="@android:color/white"
-                    android:textSize="36sp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="@android:color/white"/>
-            </TableRow>
-
-        </TableLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
 </android.support.constraint.ConstraintLayout>
