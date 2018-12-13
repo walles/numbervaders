@@ -35,5 +35,5 @@
         android:background="@android:color/holo_green_light"
         android:text="This is a very long text and in my opinion it should be wrapped into multiple lines"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size"/>
+        android:textSize="@dimen/medium_text_size"/>
 </LinearLayout>
