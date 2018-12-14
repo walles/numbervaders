@@ -18,15 +18,20 @@ package com.gmail.walles.johan.numbershooter;
 
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Medals {
+public final class Medals {
+    private Medals() {
+        // Prevent us from being instantiated
+    }
+
     public static List<Medal> get(PlayerStateV2 playerState) {
         // FIXME: Support "Multiply by Three" type medals
 
         // FIXME: Support "Started with First Arithmetic Operation" + "Most" + "All"
 
-        throw new UnsupportedOperationException("Not implemented");
+        return new ArrayList<>();
     }
 
     /**

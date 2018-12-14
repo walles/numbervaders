@@ -23,14 +23,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.gmail.walles.johan.numbershooter.Medal;
+import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -54,18 +55,16 @@ public class MedalsActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        /* FIXME: Re-enable this code
         List<Medal> medals = Medals.get(playerState);
         if (medals.isEmpty()) {
             TextView textView = findViewById(R.id.textView);
             textView.setText(R.string.no_medals_yet);
         }
-        */
-        List<Medal> medals = new LinkedList<>();
-        for (int i = 0; i < 35; i++) {
-            Medal.Flavor flavor = Medal.Flavor.values()[RANDOM.nextInt(Medal.Flavor.values().length)];
-            medals.add(new Medal(flavor, "Medal " + i + " has a long description that should be wrapped into multiple lines"));
-        }
+
+        // FIXME: Remove these medals.add() lines, they are just for testing the medals view
+        medals.add(0, new Medal(Medal.Flavor.GOLD, "Test: Gold medal"));
+        medals.add(1, new Medal(Medal.Flavor.SILVER, "Test: Silver medal with a lot of text so that the text in the description has to wrap and fill many lines"));
+        medals.add(2, new Medal(Medal.Flavor.BRONZE, "Test: Bronze medal"));
 
         int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);
 
