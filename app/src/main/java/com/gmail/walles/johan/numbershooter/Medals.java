@@ -19,6 +19,8 @@ package com.gmail.walles.johan.numbershooter;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class Medals {
@@ -27,11 +29,41 @@ public final class Medals {
     }
 
     public static List<Medal> get(PlayerStateV2 playerState) {
+        List<Medal> medals = new ArrayList<>();
+
         // FIXME: Support "Multiply by Three" type medals
 
-        // FIXME: Support "Started with First Arithmetic Operation" + "Most" + "All"
+        medals.addAll(getWaysOfCountingMedals(playerState));
 
-        return new ArrayList<>();
+        return medals;
+    }
+
+    /**
+     * Figure out medals for how many ways of counting the user has tried out.
+     */
+    private static Collection<Medal> getWaysOfCountingMedals(PlayerStateV2 playerState) {
+        List<Medal> medals = new LinkedList<>();
+
+        int startedWaysOfCounting = 0;
+        for (GameType gameType: GameType.values()) {
+            if (playerState.getLevel(gameType) > 1) {
+                startedWaysOfCounting += 1;
+            }
+        }
+
+        if (startedWaysOfCounting >= 1) {
+            medals.add(new Medal(Medal.Flavor.BRONZE, "Started first way of counting"));
+        }
+
+        if (startedWaysOfCounting >= 3) {
+            medals.add(new Medal(Medal.Flavor.SILVER, "Started third way of counting"));
+        }
+
+        if (startedWaysOfCounting >= 4) {
+            medals.add(new Medal(Medal.Flavor.GOLD, "Started final way of counting"));
+        }
+
+        return medals;
     }
 
     /**
