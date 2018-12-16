@@ -27,10 +27,12 @@ import android.support.annotation.Nullable;
 
 public class Medal extends Drawable {
     private final String description;
+    private final Flavor flavor;
     private final Paint paint;
 
     public Medal(Flavor flavor, String description) {
         this.description = description;
+        this.flavor = flavor;
 
         paint = new Paint();
         switch (flavor) {
@@ -59,6 +61,20 @@ public class Medal extends Drawable {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Medal)) {
+            return false;
+        }
+
+        Medal that = (Medal)obj;
+        if (this.flavor != that.flavor) {
+            return false;
+        }
+
+        return this.description.equals(that.description);
     }
 
     @Override

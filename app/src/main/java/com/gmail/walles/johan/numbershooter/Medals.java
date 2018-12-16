@@ -24,32 +24,71 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public final class Medals {
     private Medals() {
         // Prevent us from being instantiated
     }
 
+    /**
+     * @see #get(Map)
+     */
     public static List<Medal> get(PlayerStateV2 playerState) {
+        Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
+        for (GameType gameType: GameType.values()) {
+            gameTypeToLevel.put(gameType, playerState.getLevel(gameType));
+        }
+
+        return get(gameTypeToLevel);
+    }
+
+    /**
+     * List medals awarded for the most recent round of a given game type.
+     *
+     * @see #get(Map)
+     */
+    public static List<Medal> getLatest(PlayerStateV2 playerState, GameType gameType) {
+        if (playerState.getLevel(gameType) == 1) {
+            Timber.w("Game type not started, why was this requested?");
+            return Collections.emptyList();
+        }
+
+        Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
+        for (GameType gameTypeIter: GameType.values()) {
+            gameTypeToLevel.put(gameTypeIter, playerState.getLevel(gameTypeIter));
+        }
+        List<Medal> after = get(gameTypeToLevel);
+
+        int level = gameTypeToLevel.get(gameType);
+        gameTypeToLevel.put(gameType, level - 1);
+        List<Medal> before = get(gameTypeToLevel);
+
+        after.removeAll(before);
+        return after;
+    }
+
+    private static List<Medal> get(Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new ArrayList<>();
 
-        medals.addAll(getWaysOfCountingMedals(playerState));
-        medals.addAll(getTimesTableMedals(playerState));
+        medals.addAll(getWaysOfCountingMedals(gameTypeToLevel));
+        medals.addAll(getTimesTableMedals(gameTypeToLevel));
 
         return medals;
     }
 
-    private static Collection<Medal> getTimesTableMedals(PlayerStateV2 playerState) {
+    private static Collection<Medal> getTimesTableMedals(Map<GameType, Integer> gameTypeToLevel) {
         @SuppressLint("UseSparseArrays")
         Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
 
         List<MathsFactory.Maths> mathsUpToLevelInclusive =
-                MultiplicationFactory.getMathsUpToLevelInclusive(
-                        playerState.getLevel(GameType.MULTIPLICATION));
+                MultiplicationFactory.getMathsUpToLevelInclusive(gameTypeToLevel.get(GameType.MULTIPLICATION));
         for (MathsFactory.Maths maths: mathsUpToLevelInclusive) {
             Integer count = doneCountsPerTable.get(maths.a);
             if (count == null) {
@@ -101,13 +140,13 @@ public final class Medals {
     /**
      * Figure out medals for how many ways of counting the user has tried out.
      */
-    private static Collection<Medal> getWaysOfCountingMedals(PlayerStateV2 playerState) {
+    private static Collection<Medal> getWaysOfCountingMedals(Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new LinkedList<>();
 
         int startedWaysOfCounting = 0;
-        for (GameType gameType: GameType.values()) {
-            if (playerState.getLevel(gameType) > 1) {
-                startedWaysOfCounting += 1;
+        for (int level: gameTypeToLevel.values()) {
+            if (level > 1) {
+                startedWaysOfCounting++;
             }
         }
 
@@ -128,12 +167,5 @@ public final class Medals {
         }
 
         return medals;
-    }
-
-    /**
-     * List medals awarded for the most recent round of a given game type.
-     */
-    public static List<Medal> getLatest(PlayerStateV2 playerState, GameType gameType) {
-        throw new UnsupportedOperationException("Not implemented");
     }
 }
