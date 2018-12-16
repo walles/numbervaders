@@ -16,12 +16,18 @@
 
 package com.gmail.walles.johan.numbershooter;
 
+import android.annotation.SuppressLint;
+
+import com.gmail.walles.johan.numbershooter.model.MathsFactory;
+import com.gmail.walles.johan.numbershooter.model.MultiplicationFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public final class Medals {
     private Medals() {
@@ -31,9 +37,63 @@ public final class Medals {
     public static List<Medal> get(PlayerStateV2 playerState) {
         List<Medal> medals = new ArrayList<>();
 
-        // FIXME: Support "Multiply by Three" type medals
-
         medals.addAll(getWaysOfCountingMedals(playerState));
+        medals.addAll(getTimesTableMedals(playerState));
+
+        return medals;
+    }
+
+    private static Collection<Medal> getTimesTableMedals(PlayerStateV2 playerState) {
+        @SuppressLint("UseSparseArrays")
+        Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
+
+        List<MathsFactory.Maths> mathsUpToLevelInclusive =
+                MultiplicationFactory.getMathsUpToLevelInclusive(
+                        playerState.getLevel(GameType.MULTIPLICATION));
+        for (MathsFactory.Maths maths: mathsUpToLevelInclusive) {
+            Integer count = doneCountsPerTable.get(maths.a);
+            if (count == null) {
+                count = 0;
+            }
+            doneCountsPerTable.put(maths.a, count + 1);
+
+            if (maths.a == maths.b) {
+                // Don't count 5*5 twice
+                continue;
+            }
+
+            count = doneCountsPerTable.get(maths.b);
+            if (count == null) {
+                count = 0;
+            }
+            doneCountsPerTable.put(maths.b, count + 1);
+        }
+
+        int maxDoneTable = 0;
+        for (int table = 1; table <= 10; table++) {
+            // 19 here is:
+            // x * [1-10]: There are 10 of these
+            // [1-10] * x: There are 10 of these
+            // So it's 20, but one of them is x * x and we count that only once.
+            if (doneCountsPerTable.get(table) < 19) {
+                // Table not done
+                continue;
+            }
+
+            maxDoneTable = table;
+        }
+
+        List<Medal> medals = new LinkedList<>();
+        for (int tableNumber = 1; tableNumber <= maxDoneTable; tableNumber++) {
+            Medal.Flavor flavor = Medal.Flavor.BRONZE;
+            if (tableNumber >= 6) {
+                flavor = Medal.Flavor.SILVER;
+            }
+            if (tableNumber >= 10) {
+                flavor = Medal.Flavor.GOLD;
+            }
+            medals.add(new Medal(flavor, tableNumber + " times table done"));
+        }
 
         return medals;
     }
@@ -53,6 +113,10 @@ public final class Medals {
 
         if (startedWaysOfCounting >= 1) {
             medals.add(new Medal(Medal.Flavor.BRONZE, "Started first way of counting"));
+        }
+
+        if (startedWaysOfCounting >= 2) {
+            medals.add(new Medal(Medal.Flavor.BRONZE, "Started second way of counting"));
         }
 
         if (startedWaysOfCounting >= 3) {

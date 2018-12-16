@@ -19,9 +19,21 @@ package com.gmail.walles.johan.numbershooter.model;
 import java.util.ArrayList;
 import java.util.List;
 
-class MultiplicationFactory extends MathsFactory {
+public class MultiplicationFactory extends MathsFactory {
     public MultiplicationFactory(int level) {
         super(level);
+    }
+
+    public static List<Maths> getMathsUpToLevelInclusive(int level) {
+        int getCount = level * NEW_MATHS_PER_LEVEL;
+
+        MultiplicationFactory multiplicationFactory = new MultiplicationFactory(level);
+        List<Maths> allMaths = multiplicationFactory.allMaths;
+        if (getCount > allMaths.size()) {
+            getCount = allMaths.size();
+        }
+
+        return allMaths.subList(0, getCount);
     }
 
     @Override

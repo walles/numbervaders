@@ -29,10 +29,10 @@ public abstract class MathsFactory {
     /**
      * How many new assignments are introduced at each level?
      */
-    private static final int NEW_MATHS_PER_LEVEL = 5;
+    protected static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
-    private final List<Maths> allMaths;
+    protected final List<Maths> allMaths;
     private final int level;
 
     public static MathsFactory create(GameType gameType, int level) {
