@@ -19,12 +19,21 @@ package com.gmail.walles.johan.numbershooter.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.Medal;
+import com.gmail.walles.johan.numbershooter.Medals;
+import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 public class LevelClearedActivity extends MusicActivity {
@@ -63,6 +72,29 @@ public class LevelClearedActivity extends MusicActivity {
             finish();
         });
 
-        // FIXME: List medals earned on this level
+        listMedals();
+    }
+
+    private void listMedals() {
+        PlayerStateV2 playerState;
+        try {
+            playerState = PlayerStateV2.fromContext(this);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to get player state", e);
+        }
+
+        List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
+        if (medalsEarned.isEmpty()) {
+            return;
+        }
+
+        RecyclerView medalsList = findViewById(R.id.medalsList);
+        medalsList.setVisibility(View.VISIBLE);
+
+        int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);
+        medalsList.setLayoutManager(new LinearLayoutManager(this));
+        medalsList.setAdapter(new MedalsAdapter(medalSize, medalsEarned));
+
+        // FIXME: Pop up one dialog for each medal earned, with a fanfare!
     }
 }
