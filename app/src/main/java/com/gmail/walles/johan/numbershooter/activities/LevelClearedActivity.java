@@ -19,6 +19,7 @@ package com.gmail.walles.johan.numbershooter.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 public class LevelClearedActivity extends MusicActivity {
@@ -84,6 +86,12 @@ public class LevelClearedActivity extends MusicActivity {
         }
 
         List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
+
+        // FIXME: Test code, remove or comment out
+        medalsEarned.add(new Medal(Medal.Flavor.GOLD, "Test medal 1"));
+        medalsEarned.add(new Medal(Medal.Flavor.SILVER, "Test medal 2"));
+        medalsEarned.add(new Medal(Medal.Flavor.BRONZE, "Test medal 3"));
+
         if (medalsEarned.isEmpty()) {
             return;
         }
@@ -95,6 +103,23 @@ public class LevelClearedActivity extends MusicActivity {
         medalsList.setLayoutManager(new LinearLayoutManager(this));
         medalsList.setAdapter(new MedalsAdapter(medalSize, medalsEarned));
 
-        // FIXME: Pop up one dialog for each medal earned, with a fanfare!
+        // Iterating backwards will get Android to show the dialogs in the same order as the medals
+        // list.
+        ListIterator<Medal> backwards = medalsEarned.listIterator(medalsEarned.size());
+        while (backwards.hasPrevious()) {
+            Medal medal = backwards.previous();
+            showEarnedMedalDialog(medal);
+        }
+    }
+
+    private void showEarnedMedalDialog(Medal medal) {
+        // FIXME: Fanfare when the dialog gets on-screen
+
+        // FIXME: Add medal image as dialog icon
+
+        new AlertDialog.Builder(this)
+                .setMessage(medal.getDescription())
+                .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
