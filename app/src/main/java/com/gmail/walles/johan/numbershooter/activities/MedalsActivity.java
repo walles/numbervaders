@@ -33,11 +33,8 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 
 public class MedalsActivity extends MusicActivity {
-    private static final Random RANDOM = new Random();
-
     public static void start(Context context) {
         Intent intent = new Intent(context, MedalsActivity.class);
         context.startActivity(intent);
@@ -63,16 +60,16 @@ public class MedalsActivity extends MusicActivity {
 
         /*
         // NOTE: Re-enable these to test various kinds of medals
-
         medals.add(0, new Medal(Medal.Flavor.GOLD, "Test: Gold medal"));
         medals.add(1, new Medal(Medal.Flavor.SILVER, "Test: Silver medal with a lot of text so that the text in the description has to wrap and fill many lines"));
         medals.add(2, new Medal(Medal.Flavor.BRONZE, "Test: Bronze medal"));
         */
+
         int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);
 
         RecyclerView medalsList = findViewById(R.id.medalsList);
         medalsList.setLayoutManager(new LinearLayoutManager(this));
-        medalsList.setAdapter(new MedalsAdapter(medalSize, medals));
+        medalsList.setAdapter(new MedalsAdapter(this, medalSize, medals));
 
         // Provide user with a way to go back to the launch screen
         ActionBar actionBar = getSupportActionBar();

@@ -16,47 +16,28 @@
 
 package com.gmail.walles.johan.numbershooter;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-public class Medal extends Drawable {
+public class Medal {
     private final String description;
-    private final Flavor flavor;
-    private final Paint paint;
+    public final Flavor flavor;
 
     public Medal(Flavor flavor, String description) {
         this.description = description;
         this.flavor = flavor;
-
-        paint = new Paint();
-        switch (flavor) {
-            case GOLD:
-                paint.setColor(Color.YELLOW);
-                break;
-
-            case SILVER:
-                paint.setColor(Color.LTGRAY);
-                break;
-
-            case BRONZE:
-                paint.setColor(0xff400000);
-                break;
-
-            default:
-                throw new UnsupportedOperationException("Unsupported flavor: " + flavor);
-        }
     }
 
     public enum Flavor {
-        BRONZE,
-        SILVER,
-        GOLD
+        // Color codes from: https://www.colourlovers.com/palette/501560/gold_silver_bronze
+        BRONZE(0x66, 0x96, 0x5a, 0x38),
+        SILVER(0x00, 0xa8, 0xa8, 0Xa8),
+        GOLD(0x66, 0xc9, 0x89, 0x10);
+
+        public final int color;
+
+        Flavor(int a, int r, int g, int b) {
+            this.color = Color.argb(a, r, g, b);
+        }
     }
 
     public String getDescription() {
@@ -75,30 +56,5 @@ public class Medal extends Drawable {
         }
 
         return this.description.equals(that.description);
-    }
-
-    @Override
-    public void draw(@NonNull Canvas canvas) {
-        int width = getBounds().width();
-        int height = getBounds().height();
-        float radius = Math.min(width, height) / 2;
-
-        canvas.drawCircle(width/2, height/2, radius, paint);
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-        // This method is required
-    }
-
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-        // This method is required
-    }
-
-    @Override
-    public int getOpacity() {
-        // Transparent = at least one bit of alpha
-        return PixelFormat.TRANSPARENT;
     }
 }

@@ -101,7 +101,7 @@ public class LevelClearedActivity extends MusicActivity {
 
         int medalSize = 2 * getResources().getDimensionPixelSize(R.dimen.big_text_size);
         medalsList.setLayoutManager(new LinearLayoutManager(this));
-        medalsList.setAdapter(new MedalsAdapter(medalSize, medalsEarned));
+        medalsList.setAdapter(new MedalsAdapter(this, medalSize, medalsEarned));
 
         // Iterating backwards will get Android to show the dialogs in the same order as the medals
         // list.

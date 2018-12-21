@@ -16,6 +16,8 @@
 
 package com.gmail.walles.johan.numbershooter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,20 +32,31 @@ import java.util.List;
 public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewHolder> {
     private final int medalSizePixels;
     private final List<Medal> medals;
+    private final Context context;
 
-    public MedalsAdapter(int medalSizePixels, List<Medal> medals) {
+    public MedalsAdapter(Context context, int medalSizePixels, List<Medal> medals) {
         this.medalSizePixels = medalSizePixels;
         this.medals = medals;
+        this.context = context;
     }
 
     static class MedalViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView imageView;
-        private final TextView description;
+        private final Drawable medalDrawable;
 
-        public MedalViewHolder(View itemView, ImageView imageView, TextView description) {
+        public MedalViewHolder(Drawable medalDrawable, View itemView) {
             super(itemView);
-            this.imageView = imageView;
-            this.description = description;
+
+            this.medalDrawable = medalDrawable;
+        }
+
+        public void bind(Medal medal, int medalSizePixels) {
+            ImageView imageView = itemView.findViewById(R.id.medalImage);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
+            imageView.setImageDrawable(medalDrawable);
+            imageView.setColorFilter(medal.flavor.color);
+
+            TextView description = itemView.findViewById(R.id.description);
+            description.setText(medal.getDescription());
         }
     }
 
@@ -52,19 +65,17 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View medalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.medal_view, parent, false);
 
-        ImageView imageView = medalView.findViewById(R.id.medalImage);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
+        Drawable medalDrawable = context.getDrawable(R.drawable.medal);
+        if (medalDrawable == null) {
+            throw new RuntimeException("Failed to load medal image");
+        }
 
-        TextView description = medalView.findViewById(R.id.description);
-
-        return new MedalViewHolder(medalView, imageView, description);
+        return new MedalViewHolder(medalDrawable, medalView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MedalViewHolder holder, int position) {
-        Medal medal = medals.get(position);
-        holder.description.setText(medal.getDescription());
-        holder.imageView.setImageDrawable(medal);
+        holder.bind(medals.get(position), medalSizePixels);
     }
 
     @Override
