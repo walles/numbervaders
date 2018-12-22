@@ -18,6 +18,8 @@ package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,8 +36,8 @@ import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 
 public class LevelClearedActivity extends MusicActivity {
@@ -88,9 +90,9 @@ public class LevelClearedActivity extends MusicActivity {
         List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
 
         // FIXME: Test code, remove or comment out
-        medalsEarned.add(new Medal(Medal.Flavor.GOLD, "Test medal 1"));
-        medalsEarned.add(new Medal(Medal.Flavor.SILVER, "Test medal 2"));
-        medalsEarned.add(new Medal(Medal.Flavor.BRONZE, "Test medal 3"));
+        medalsEarned.add(new Medal(Medal.Flavor.GOLD, "Test medal 1, gold"));
+        medalsEarned.add(new Medal(Medal.Flavor.SILVER, "Test medal 2, silver"));
+        medalsEarned.add(new Medal(Medal.Flavor.BRONZE, "Test medal 3, bronze"));
 
         if (medalsEarned.isEmpty()) {
             return;
@@ -103,23 +105,28 @@ public class LevelClearedActivity extends MusicActivity {
         medalsList.setLayoutManager(new LinearLayoutManager(this));
         medalsList.setAdapter(new MedalsAdapter(this, medalSize, medalsEarned));
 
-        // Iterating backwards will get Android to show the dialogs in the same order as the medals
-        // list.
-        ListIterator<Medal> backwards = medalsEarned.listIterator(medalsEarned.size());
-        while (backwards.hasPrevious()) {
-            Medal medal = backwards.previous();
-            showEarnedMedalDialog(medal);
-        }
+        showEarnedMedalDialog(medalsEarned.iterator());
     }
 
-    private void showEarnedMedalDialog(Medal medal) {
-        // FIXME: Fanfare when the dialog gets on-screen
+    private void showEarnedMedalDialog(Iterator<Medal> medalsIter) {
+        if (!medalsIter.hasNext()) {
+            return;
+        }
+        Medal medal = medalsIter.next();
 
-        // FIXME: Add medal image as dialog icon
+        // FIXME: Play fanfare!
+
+        Drawable medalDrawable = getResources().getDrawable(R.drawable.medal);
+        medalDrawable.setColorFilter(medal.flavor.color, PorterDuff.Mode.SRC_ATOP);
 
         new AlertDialog.Builder(this)
                 .setMessage(medal.getDescription())
-                .setNeutralButton("OK", (dialog, which) -> dialog.dismiss())
+                .setNeutralButton("OK", (dialog, which) -> {
+                    dialog.dismiss();
+                    showEarnedMedalDialog(medalsIter);
+                })
+                .setTitle("Medal Earned")
+                .setIcon(medalDrawable)
                 .show();
     }
 }
