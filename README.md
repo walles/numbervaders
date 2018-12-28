@@ -26,6 +26,8 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
+* Make everything translatable
+* Translate into Swedish
 * Run unit tests in CI
 * When showing correct answer for "5*3=15", show also "3*5=15", but
   don't show "6*6=36" twice
