@@ -25,21 +25,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
+
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.GameView;
 import com.gmail.walles.johan.numbershooter.KeyboardView;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+
+import org.jetbrains.annotations.NonNls;
+
 import java.io.IOException;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e. status bar and
- * navigation/system bar) with user interaction.
+ * A full-screen activity that shows and hides the system UI (i.e. status bar and navigation/system
+ * bar) with user interaction.
  */
 public class GameActivity extends MusicActivity {
-    private static final String GAME_TYPE_EXTRA = "gameType";
-    private static final String LEVEL_EXTRA = "level";
+    @NonNls private static final String GAME_TYPE_EXTRA = "gameType";
+    @NonNls private static final String LEVEL_EXTRA = "level";
 
     public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, GameActivity.class);
