@@ -21,6 +21,7 @@ them by typing the correct answer.
   [Audacity](https://www.audacityteam.org/download/)
 * Background image: <https://pixabay.com/sv/stj%C3%A4rnor-stj%C3%A4rnbilden-sky-1245902/>
 * Music: <https://www.bensound.com/royalty-free-music/track/sci-fi>
+* Medal-earned tada: <https://freesound.org/people/plasterbrain/sounds/397353/>
 
 NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
