@@ -32,6 +32,7 @@ import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.Medal;
 import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
+import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
@@ -43,6 +44,9 @@ import java.util.Locale;
 public class LevelClearedActivity extends MusicActivity {
     private GameType gameType;
     private int clearedLevel;
+
+    private ObjectiveSoundPool soundPool;
+    private ObjectiveSoundPool.SoundEffect tada;
 
     private static final String GAME_TYPE_EXTRA = "gameType";
     private static final String LEVEL_EXTRA = "clearedLevel";
@@ -56,6 +60,9 @@ public class LevelClearedActivity extends MusicActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        soundPool = new ObjectiveSoundPool();
+        tada = soundPool.load(this, R.raw.medal_earned_tada, "Medal-earned Tada!");
 
         gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
         clearedLevel = getIntent().getIntExtra(LEVEL_EXTRA, 0);
@@ -77,6 +84,13 @@ public class LevelClearedActivity extends MusicActivity {
         });
 
         listMedals();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        soundPool.close();
     }
 
     private void listMedals() {
@@ -114,7 +128,7 @@ public class LevelClearedActivity extends MusicActivity {
         }
         Medal medal = medalsIter.next();
 
-        // FIXME: Play fanfare!
+        tada.play();
 
         Drawable medalDrawable = getResources().getDrawable(R.drawable.medal);
         medalDrawable.setColorFilter(medal.flavor.color, PorterDuff.Mode.SRC_ATOP);
