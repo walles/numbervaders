@@ -103,10 +103,12 @@ public class LevelClearedActivity extends MusicActivity {
 
         List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
 
-        // FIXME: Test code, remove or comment out
+        /*
+        // NOTE: Test code, re-enable to get some medals after finishing a level
         medalsEarned.add(new Medal(Medal.Flavor.GOLD, "Test medal 1, gold"));
         medalsEarned.add(new Medal(Medal.Flavor.SILVER, "Test medal 2, silver"));
         medalsEarned.add(new Medal(Medal.Flavor.BRONZE, "Test medal 3, bronze"));
+        */
 
         if (medalsEarned.isEmpty()) {
             return;
