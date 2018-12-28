@@ -156,7 +156,7 @@ public class GameView extends View {
         int screenHeight = Math.max(size.x, size.y);
 
         float objectSizesInPixels = screenHeight / 15f;
-        model = new Model(FallingMathsFactory.create(gameType, level, objectSizesInPixels, mathsKilled),
+        model = new Model(new FallingMathsFactory(gameType, level, objectSizesInPixels, mathsKilled),
                 objectSizesInPixels,
                 shotSound, explosionSound, mathsArriving, wrongAnswer);
 

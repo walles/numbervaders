@@ -18,4 +18,6 @@
     <string name="app_name" translatable="false">Numbervaders</string>
     <string name="credits">Credits</string>
     <string name="view_source_code">View Source Code</string>
+    <string name="medals">Medals</string>
+    <string name="no_medals_yet">No Medals Yet!</string>
 </resources>

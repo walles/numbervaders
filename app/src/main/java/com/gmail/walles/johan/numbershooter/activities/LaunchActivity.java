@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter;
+package com.gmail.walles.johan.numbershooter.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
 import org.jetbrains.annotations.NonNls;
@@ -63,6 +65,9 @@ public class LaunchActivity extends MusicActivity {
         configureButton(R.id.startButton2, playerState, GameType.SUBTRACTION);
         configureButton(R.id.startButton3, playerState, GameType.MULTIPLICATION);
         configureButton(R.id.startButton4, playerState, GameType.DIVISION);
+
+        Button medalsButton = findViewById(R.id.medalsButton);
+        medalsButton.setOnClickListener(v -> MedalsActivity.start(LaunchActivity.this));
     }
 
     private void configureButton(@IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {

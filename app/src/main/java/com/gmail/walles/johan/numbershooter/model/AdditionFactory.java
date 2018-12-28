@@ -16,14 +16,12 @@
 
 package com.gmail.walles.johan.numbershooter.model;
 
-import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
-
 import java.util.ArrayList;
 import java.util.List;
 
-class AdditionFactory extends FallingMathsFactory {
-    public AdditionFactory(int level, float objectSizePixels, ObjectiveSoundPool.SoundEffect mathsKilled) {
-        super(level, objectSizePixels, mathsKilled);
+class AdditionFactory extends MathsFactory {
+    public AdditionFactory(int level) {
+        super(level);
     }
 
     @Override

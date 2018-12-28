@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gmail.walles.johan.numbershooter;
+package com.gmail.walles.johan.numbershooter.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,6 +26,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gmail.walles.johan.numbershooter.GameType;
+import com.gmail.walles.johan.numbershooter.GameView;
+import com.gmail.walles.johan.numbershooter.KeyboardView;
+import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 
