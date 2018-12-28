@@ -29,10 +29,12 @@ NOTE: If you add to this list, also update
 # TODO Misc
 * Make everything translatable
 * Translate into Swedish
+* Move multiplication-medals-earned logic into MultiplicationFactory?
 * Add (more) addition medals
 * Add (more) subtraction medals
 * Add (more) division medals
-* Move multiplication-medals-earned logic into MultiplicationFactory?
+* In `LaunchClearedActivity`, ensure the fanfare plays when the dialog
+  pops up
 * Run unit tests in CI
 * When showing correct answer for "5*3=15", show also "3*5=15", but
   don't show "6*6=36" twice
