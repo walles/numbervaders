@@ -143,7 +143,7 @@ public class LevelClearedActivity extends MusicActivity {
                             dialog.dismiss();
                             showEarnedMedalDialog(medalsIter);
                         })
-                .setTitle("Medal Earned")
+                .setTitle(R.string.you_received_a_medal)
                 .setIcon(medalDrawable)
                 .show();
     }
