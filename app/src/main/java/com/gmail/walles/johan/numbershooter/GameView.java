@@ -29,6 +29,9 @@ import android.view.WindowManager;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
 import com.gmail.walles.johan.numbershooter.model.Model;
+
+import org.jetbrains.annotations.NonNls;
+
 import java.util.Locale;
 import timber.log.Timber;
 
@@ -64,7 +67,8 @@ public class GameView extends View {
             assert max != null;
             assert min != null;
 
-            String stats = String.format(Locale.ENGLISH, "%.1fms-%.1fms-%.1fms", min, average, max);
+            @NonNls String formatString = "%.1fms-%.1fms-%.1fms";
+            String stats = String.format(Locale.ENGLISH, formatString, min, average, max);
             min = null;
             max = null;
             return stats;
@@ -73,10 +77,11 @@ public class GameView extends View {
         protected String getHz() {
             assert max != null;
             assert min != null;
+            @NonNls String formatString = "%.1fHz-%.1fHz-%.1fHz";
             String stats =
                     String.format(
                             Locale.ENGLISH,
-                            "%.1fHz-%.1fHz-%.1fHz",
+                            formatString,
                             1000.0 / max,
                             1000.0 / average,
                             1000.0 / min);

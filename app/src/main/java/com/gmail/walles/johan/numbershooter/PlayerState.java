@@ -17,6 +17,9 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.content.Context;
+
+import org.jetbrains.annotations.NonNls;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +29,7 @@ import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import org.jetbrains.annotations.NonNls;
+
 import timber.log.Timber;
 
 // Consider replacing Serializable with SQLite and Flyway to support database migrations
@@ -63,6 +66,7 @@ public class PlayerState implements Serializable {
         }
     }
 
+    @SuppressWarnings("unused")
     public static PlayerState fromContext(Context context) throws IOException {
         return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }
