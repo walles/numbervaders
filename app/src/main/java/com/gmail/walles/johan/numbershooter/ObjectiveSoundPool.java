@@ -20,6 +20,9 @@ import android.content.Context;
 import android.media.SoundPool;
 import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
+
+import org.jetbrains.annotations.NonNls;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -108,7 +111,7 @@ public class ObjectiveSoundPool {
     }
 
     /** @param name A free-text name used for logging purposes */
-    public SoundEffect load(Context context, @RawRes int resId, String name) {
+    public SoundEffect load(Context context, @RawRes int resId, @NonNls String name) {
         if (soundPool == null || soundEffects == null) {
             throw new IllegalStateException("Sound pool closed");
         }

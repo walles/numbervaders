@@ -164,7 +164,7 @@ public class GameActivity extends MusicActivity {
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
                         .setNeutralButton(
-                                "OK",
+                                R.string.ok,
                                 (dialog, which) -> {
                                     dialog.dismiss();
 
