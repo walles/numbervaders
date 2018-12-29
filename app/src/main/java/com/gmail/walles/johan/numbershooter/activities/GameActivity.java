@@ -108,6 +108,7 @@ public class GameActivity extends MusicActivity {
         gameType = GameType.valueOf(getIntent().getStringExtra(GAME_TYPE_EXTRA));
         int level = getIntent().getIntExtra(LEVEL_EXTRA, 0);
         if (level <= 0) {
+            //noinspection StringConcatenation
             throw new RuntimeException("Level not found: " + getIntent());
         }
 

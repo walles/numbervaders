@@ -61,6 +61,7 @@ public class Cannon implements GameObject {
             return;
         }
 
+        //noinspection StringConcatenation
         canvas.drawText("/" + digits + "\\", canvas.getWidth() / 2, canvas.getHeight(), paint);
     }
 
