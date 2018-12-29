@@ -25,17 +25,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
-
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.GameView;
 import com.gmail.walles.johan.numbershooter.KeyboardView;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.io.IOException;
+import org.jetbrains.annotations.NonNls;
 
 /**
  * A full-screen activity that shows and hides the system UI (i.e. status bar and navigation/system

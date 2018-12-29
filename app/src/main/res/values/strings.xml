@@ -21,4 +21,5 @@
     <string name="medals">Medals</string>
     <string name="no_medals_yet">No Medals Yet!</string>
     <string name="ok">OK</string>
+    <string name="n_times_table_done">%d times table done</string>
 </resources>

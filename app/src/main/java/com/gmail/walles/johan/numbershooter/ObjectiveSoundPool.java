@@ -20,12 +20,10 @@ import android.content.Context;
 import android.media.SoundPool;
 import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.jetbrains.annotations.NonNls;
 import timber.log.Timber;
 
 public class ObjectiveSoundPool {

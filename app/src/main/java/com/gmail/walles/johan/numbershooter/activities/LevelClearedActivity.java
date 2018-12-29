@@ -27,6 +27,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.Medal;
 import com.gmail.walles.johan.numbershooter.Medals;
@@ -103,7 +104,7 @@ public class LevelClearedActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
+        List<Medal> medalsEarned = Medals.getLatest(getResources(), playerState, gameType);
 
         /*
         // NOTE: Test code, re-enable to get some medals after finishing a level
