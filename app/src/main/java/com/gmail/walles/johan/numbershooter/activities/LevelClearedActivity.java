@@ -37,7 +37,6 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import org.jetbrains.annotations.NonNls;
 
 public class LevelClearedActivity extends MusicActivity {
@@ -73,10 +72,10 @@ public class LevelClearedActivity extends MusicActivity {
         setContentView(R.layout.activity_level_cleared);
 
         TextView textView = findViewById(R.id.level_cleared_text);
-        textView.setText(String.format(Locale.getDefault(), "Level %d cleared", clearedLevel));
+        textView.setText(getString(R.string.level_n_cleared, clearedLevel));
 
         Button button = findViewById(R.id.next_level_button);
-        button.setText(String.format(Locale.getDefault(), "Level %d", clearedLevel + 1));
+        button.setText(getString(R.string.level_n, clearedLevel + 1));
         button.setOnClickListener(
                 v -> {
                     GameActivity.start(this, gameType, clearedLevel + 1);

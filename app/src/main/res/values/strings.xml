@@ -23,4 +23,6 @@
     <string name="ok">OK</string>
     <string name="n_times_table_done">%d times table done</string>
     <string name="way_of_counting_level_n">%s\nLevel %d</string>
+    <string name="level_n_cleared">Level %d cleared</string>
+    <string name="level_n">Level %d</string>
 </resources>
