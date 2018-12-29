@@ -69,14 +69,14 @@ public abstract class MathsFactory {
         public int easiness;
         public int topEasiness;
 
-        public Maths(@NonNls String question, int a, int b, int answer) {
+        protected Maths(@NonNls String question, int a, int b, int answer) {
             this.question = question;
             this.a = a;
             this.b = b;
             this.answer = answer;
         }
 
-        public void setEasiness(int easiness, int topEasiness) {
+        protected void setEasiness(int easiness, int topEasiness) {
             this.easiness = easiness;
             this.topEasiness = topEasiness;
         }

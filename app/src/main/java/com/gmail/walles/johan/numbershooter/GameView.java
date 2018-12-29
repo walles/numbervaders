@@ -43,7 +43,7 @@ public class GameView extends View {
         @Nullable private Double max;
         @Nullable private Double min;
 
-        public void addMs(double value) {
+        protected void addMs(double value) {
             average = ((average * (INERTIA - 1.0)) + value) / INERTIA;
 
             if (max == null) {
@@ -60,7 +60,7 @@ public class GameView extends View {
             }
         }
 
-        public String get() {
+        protected String get() {
             assert max != null;
             assert min != null;
 
@@ -70,7 +70,7 @@ public class GameView extends View {
             return stats;
         }
 
-        public String getHz() {
+        protected String getHz() {
             assert max != null;
             assert min != null;
             String stats =
