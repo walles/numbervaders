@@ -27,16 +27,20 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
-* Make Spotless (in `app/build.gradle`) apply license headers
-* Make Spotless (in `app/build.gradle`) format more kinds of files
+* After finishing Multiplication level 13 you only get medals for
+  completing times tables 1 and 2. Verify that this is as it should.
 * Make everything translatable
 * Translate into Swedish
 * Move multiplication-medals-earned logic into MultiplicationFactory?
 * Add (more) addition medals
 * Add (more) subtraction medals
 * Add (more) division medals
+* Make the actual medal images look nicer; the silver one is OK, the
+  others not so much
 * In `LaunchClearedActivity`, ensure the fanfare plays when the dialog
   pops up
+* Make Spotless (in `app/build.gradle`) apply license headers
+* Make Spotless (in `app/build.gradle`) format more kinds of files
 * Run unit tests in CI
 * When showing correct answer for "5*3=15", show also "3*5=15", but
   don't show "6*6=36" twice

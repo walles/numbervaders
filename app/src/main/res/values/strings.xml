@@ -26,4 +26,8 @@
     <string name="level_n_cleared">Level %d cleared</string>
     <string name="level_n">Level %d</string>
     <string name="you_received_a_medal">You Received a Medal</string>
+    <string name="started_first_way_of_counting">Started first way of counting</string>
+    <string name="started_second_way_of_counting">Started second way of counting</string>
+    <string name="started_third_way_of_counting">Started third way of counting</string>
+    <string name="started_final_way_of_counting">Started final way of counting</string>
 </resources>

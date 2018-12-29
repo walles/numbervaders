@@ -74,7 +74,7 @@ public final class Medals {
     private static List<Medal> get(Resources resources, Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new ArrayList<>();
 
-        medals.addAll(getWaysOfCountingMedals(gameTypeToLevel));
+        medals.addAll(getWaysOfCountingMedals(resources, gameTypeToLevel));
         medals.addAll(getTimesTableMedals(resources, gameTypeToLevel));
 
         return medals;
@@ -140,7 +140,7 @@ public final class Medals {
 
     /** Figure out medals for how many ways of counting the user has tried out. */
     private static Collection<Medal> getWaysOfCountingMedals(
-            Map<GameType, Integer> gameTypeToLevel) {
+            Resources resources, Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new LinkedList<>();
 
         int startedWaysOfCounting = 0;
@@ -151,19 +151,31 @@ public final class Medals {
         }
 
         if (startedWaysOfCounting >= 1) {
-            medals.add(new Medal(Medal.Flavor.BRONZE, "Started first way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.BRONZE,
+                            resources.getString(R.string.started_first_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 2) {
-            medals.add(new Medal(Medal.Flavor.BRONZE, "Started second way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.BRONZE,
+                            resources.getString(R.string.started_second_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 3) {
-            medals.add(new Medal(Medal.Flavor.SILVER, "Started third way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.SILVER,
+                            resources.getString(R.string.started_third_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 4) {
-            medals.add(new Medal(Medal.Flavor.GOLD, "Started final way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.GOLD,
+                            resources.getString(R.string.started_final_way_of_counting)));
         }
 
         return medals;
