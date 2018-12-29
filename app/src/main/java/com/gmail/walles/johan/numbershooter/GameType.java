@@ -23,6 +23,7 @@ public enum GameType {
     SUBTRACTION("-");
 
     public final String buttonLabel;
+
     GameType(String buttonLabel) {
         this.buttonLabel = buttonLabel;
     }

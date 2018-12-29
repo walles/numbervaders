@@ -76,8 +76,8 @@ class Shot implements GameObject {
     public void drawOn(Canvas canvas) {
         double coordinatesToScreenFactor = canvas.getHeight() / 100.0;
         double xOffset = canvas.getWidth() / 2;
-        float screenX = (float)(x * coordinatesToScreenFactor + xOffset);
-        float screenY = (float)(y * coordinatesToScreenFactor);
+        float screenX = (float) (x * coordinatesToScreenFactor + xOffset);
+        float screenY = (float) (y * coordinatesToScreenFactor);
 
         canvas.drawText(text, screenX, screenY, paint);
     }
@@ -86,5 +86,4 @@ class Shot implements GameObject {
     public boolean isDead() {
         return dead;
     }
-
 }

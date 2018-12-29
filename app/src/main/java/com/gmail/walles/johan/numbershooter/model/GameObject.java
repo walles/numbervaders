@@ -19,15 +19,11 @@ package com.gmail.walles.johan.numbershooter.model;
 import android.graphics.Canvas;
 
 public interface GameObject {
-    /**
-     * Update our state by this many milliseconds.
-     */
+    /** Update our state by this many milliseconds. */
     void stepMs(long deltaMs);
 
     void drawOn(Canvas canvas);
 
-    /**
-     * When an object should be removed, return true here.
-     */
+    /** When an object should be removed, return true here. */
     boolean isDead();
 }

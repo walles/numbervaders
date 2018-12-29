@@ -17,11 +17,9 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.annotation.SuppressLint;
-
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.model.MultiplicationFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +27,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import timber.log.Timber;
 
 public final class Medals {
@@ -37,12 +34,10 @@ public final class Medals {
         // Prevent us from being instantiated
     }
 
-    /**
-     * @see #get(Map)
-     */
+    /** @see #get(Map) */
     public static List<Medal> get(PlayerStateV2 playerState) {
         Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
-        for (GameType gameType: GameType.values()) {
+        for (GameType gameType : GameType.values()) {
             gameTypeToLevel.put(gameType, playerState.getLevel(gameType));
         }
 
@@ -61,7 +56,7 @@ public final class Medals {
         }
 
         Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
-        for (GameType gameTypeIter: GameType.values()) {
+        for (GameType gameTypeIter : GameType.values()) {
             gameTypeToLevel.put(gameTypeIter, playerState.getLevel(gameTypeIter));
         }
         List<Medal> after = get(gameTypeToLevel);
@@ -88,8 +83,9 @@ public final class Medals {
         Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
 
         List<MathsFactory.Maths> mathsUpToLevelInclusive =
-                MultiplicationFactory.getMathsUpToLevelInclusive(gameTypeToLevel.get(GameType.MULTIPLICATION));
-        for (MathsFactory.Maths maths: mathsUpToLevelInclusive) {
+                MultiplicationFactory.getMathsUpToLevelInclusive(
+                        gameTypeToLevel.get(GameType.MULTIPLICATION));
+        for (MathsFactory.Maths maths : mathsUpToLevelInclusive) {
             Integer count = doneCountsPerTable.get(maths.a);
             if (count == null) {
                 count = 0;
@@ -137,14 +133,13 @@ public final class Medals {
         return medals;
     }
 
-    /**
-     * Figure out medals for how many ways of counting the user has tried out.
-     */
-    private static Collection<Medal> getWaysOfCountingMedals(Map<GameType, Integer> gameTypeToLevel) {
+    /** Figure out medals for how many ways of counting the user has tried out. */
+    private static Collection<Medal> getWaysOfCountingMedals(
+            Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new LinkedList<>();
 
         int startedWaysOfCounting = 0;
-        for (int level: gameTypeToLevel.values()) {
+        for (int level : gameTypeToLevel.values()) {
             if (level > 1) {
                 startedWaysOfCounting++;
             }

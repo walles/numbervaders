@@ -18,12 +18,8 @@ package com.gmail.walles.johan.numbershooter.playerstate;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
-
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.PlayerState;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +30,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+import org.jetbrains.annotations.NonNls;
 
 /**
  * Note that PlayerState needs to be in the {@link com.gmail.walles.johan.numbershooter.playerstate}
@@ -42,22 +39,19 @@ import java.util.HashMap;
 public class PlayerStateV2 implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NonNls
-    private static final String PLAYER_STATE_FILE_NAME = "player-state";
+    @NonNls private static final String PLAYER_STATE_FILE_NAME = "player-state";
 
     /**
      * The lowest not-completed level for each game type.
      *
-     * When the user starts a new level, this is the level they will end up on.
+     * <p>When the user starts a new level, this is the level they will end up on.
      *
-     * Note that we store the enum {@link GameType} as a {@link String} to be able to support more
-     * types in the future without more data migrations.
+     * <p>Note that we store the enum {@link GameType} as a {@link String} to be able to support
+     * more types in the future without more data migrations.
      */
     private HashMap<String, Integer> levels = new HashMap<>();
 
-    /**
-     * This is our on-disk backing store.
-     */
+    /** This is our on-disk backing store. */
     private final File file;
 
     private PlayerStateV2(File file) {
@@ -67,7 +61,7 @@ public class PlayerStateV2 implements Serializable {
     @VisibleForTesting
     static PlayerStateV2 fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-            return (PlayerStateV2)in.readObject();
+            return (PlayerStateV2) in.readObject();
         } catch (ClassCastException | ClassNotFoundException | InvalidClassException e) {
             return migrate(PlayerState.fromFile(file));
         } catch (FileNotFoundException e) {
@@ -85,9 +79,7 @@ public class PlayerStateV2 implements Serializable {
         return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }
 
-    /**
-     * Atomically persist to disk via a tempfile
-     */
+    /** Atomically persist to disk via a tempfile */
     private void persist() throws IOException {
         File tempfile = new File(file.getPath());
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(tempfile))) {
@@ -95,15 +87,14 @@ public class PlayerStateV2 implements Serializable {
         }
 
         if (!tempfile.renameTo(file)) {
-            @NonNls String message =
+            @NonNls
+            String message =
                     "Rename failed: " + tempfile.getAbsolutePath() + "->" + file.getAbsolutePath();
             throw new IOException(message);
         }
     }
 
-    /**
-     * This method is expected to be called from GameActivity when the level is completed
-     */
+    /** This method is expected to be called from GameActivity when the level is completed */
     public void increaseLevel(GameType gameType) throws IOException {
         int level = getLevel(gameType);
         levels.put(gameType.toString(), level + 1);

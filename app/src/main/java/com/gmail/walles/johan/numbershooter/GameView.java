@@ -26,13 +26,10 @@ import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
 import com.gmail.walles.johan.numbershooter.model.Model;
-
 import java.util.Locale;
-
 import timber.log.Timber;
 
 public class GameView extends View {
@@ -76,8 +73,13 @@ public class GameView extends View {
         public String getHz() {
             assert max != null;
             assert min != null;
-            String stats = String.format(Locale.ENGLISH, "%.1fHz-%.1fHz-%.1fHz",
-                    1000.0 / max, 1000.0 / average, 1000.0 / min);
+            String stats =
+                    String.format(
+                            Locale.ENGLISH,
+                            "%.1fHz-%.1fHz-%.1fHz",
+                            1000.0 / max,
+                            1000.0 / average,
+                            1000.0 / min);
 
             min = null;
             max = null;
@@ -86,15 +88,13 @@ public class GameView extends View {
     }
 
     public interface OnGameOverListener {
-        /**
-         * @param failedMaths Live maths when the player died
-         */
+        /** @param failedMaths Live maths when the player died */
         void onPlayerDied(Iterable<FallingMaths> failedMaths);
 
         void onLevelCleared();
     }
-    @Nullable
-    private OnGameOverListener onGameOverListener;
+
+    @Nullable private OnGameOverListener onGameOverListener;
 
     private long lastFrameStart;
 
@@ -112,24 +112,17 @@ public class GameView extends View {
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
     private final ObjectiveSoundPool.SoundEffect levelCleared;
 
-    /**
-     * The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}.
-     */
+    /** The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}. */
     public GameView(Context context) {
         this(context, null);
     }
 
-    /**
-     * The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}.
-     */
-    public GameView(Context context,
-            @Nullable AttributeSet attrs) {
+    /** The actual initialization is done in {@link #GameView(Context, AttributeSet, int)}. */
+    public GameView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    /**
-     * This is where initialization happens.
-     */
+    /** This is where initialization happens. */
     public GameView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -147,7 +140,7 @@ public class GameView extends View {
     }
 
     public void restart(GameType gameType, int level) {
-        WindowManager wm = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         assert wm != null;
 
         Display display = wm.getDefaultDisplay();
@@ -156,9 +149,14 @@ public class GameView extends View {
         int screenHeight = Math.max(size.x, size.y);
 
         float objectSizesInPixels = screenHeight / 15f;
-        model = new Model(new FallingMathsFactory(gameType, level, objectSizesInPixels, mathsKilled),
-                objectSizesInPixels,
-                shotSound, explosionSound, mathsArriving, wrongAnswer);
+        model =
+                new Model(
+                        new FallingMathsFactory(gameType, level, objectSizesInPixels, mathsKilled),
+                        objectSizesInPixels,
+                        shotSound,
+                        explosionSound,
+                        mathsArriving,
+                        wrongAnswer);
 
         lastFrameStart = 0;
 
@@ -223,8 +221,10 @@ public class GameView extends View {
             lastStatsReportTimestamp = now;
         } else if (now - lastStatsReportTimestamp > LOG_REPORT_EVERY_MS) {
             lastStatsReportTimestamp = now;
-            Timber.i("onDraw timings: update=<%s>, draw=<%s>, invalidate=<%s>, framerate=<%s>",
-                    updateMillisRunningAverage.get(), drawMillisRunningAverage.get(),
+            Timber.i(
+                    "onDraw timings: update=<%s>, draw=<%s>, invalidate=<%s>, framerate=<%s>",
+                    updateMillisRunningAverage.get(),
+                    drawMillisRunningAverage.get(),
                     invalidateMillisRunningAverage.get(),
                     betweenFramesMillisRunningAverage.getHz());
         }

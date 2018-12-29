@@ -21,12 +21,9 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import com.gmail.walles.johan.numbershooter.R;
 
-/**
- * An activity with background music.
- */
+/** An activity with background music. */
 @SuppressLint("Registered")
 public class MusicActivity extends AppCompatActivity {
     private MediaPlayer music;
@@ -66,13 +63,13 @@ public class MusicActivity extends AppCompatActivity {
 
     /**
      * From: https://stackoverflow.com/a/12075910/473672
+     *
      * @param percent 0-100
      */
     private void setVolumePercent(int percent) {
         final int maxVolume = 100;
 
-        float log1=(float)(Math.log(maxVolume - percent)/Math.log(maxVolume));
+        float log1 = (float) (Math.log(maxVolume - percent) / Math.log(maxVolume));
         music.setVolume(1 - log1, 1 - log1);
     }
-
 }

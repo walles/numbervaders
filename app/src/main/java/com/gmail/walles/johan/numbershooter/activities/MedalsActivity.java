@@ -24,13 +24,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.gmail.walles.johan.numbershooter.Medal;
 import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
 import java.io.IOException;
 import java.util.List;
 

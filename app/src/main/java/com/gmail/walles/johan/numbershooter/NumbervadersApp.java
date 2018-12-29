@@ -18,13 +18,12 @@ package com.gmail.walles.johan.numbershooter;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
-
 import org.jetbrains.annotations.NotNull;
-
 import timber.log.Timber;
 
 public class NumbervadersApp extends Application {
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
 
         if (BuildConfig.DEBUG) {
@@ -36,7 +35,10 @@ public class NumbervadersApp extends Application {
 
     private static final class CrashReportingTree extends Timber.Tree {
         @Override
-        protected void log(int priority, @Nullable String tag, @NotNull String message,
+        protected void log(
+                int priority,
+                @Nullable String tag,
+                @NotNull String message,
                 @Nullable Throwable t) {
             // This method intentionally left blank for now
         }

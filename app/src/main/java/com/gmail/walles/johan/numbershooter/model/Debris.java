@@ -19,7 +19,6 @@ package com.gmail.walles.johan.numbershooter.model;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
 import java.util.Random;
 
 class Debris implements GameObject {
@@ -52,9 +51,10 @@ class Debris implements GameObject {
         this.dy = -Math.cos(angle) * PERCENT_PER_MS;
 
         if (dy >= 0) {
-            throw new AssertionError(String.format(
-                    "dy should be upwards = higher percentages to lower = negative in our coordinate system, was %f for angle %f",
-                    dy, angle));
+            throw new AssertionError(
+                    String.format(
+                            "dy should be upwards = higher percentages to lower = negative in our coordinate system, was %f for angle %f",
+                            dy, angle));
         }
 
         paint = new Paint();
@@ -74,8 +74,8 @@ class Debris implements GameObject {
     public void drawOn(Canvas canvas) {
         double coordinatesToScreenFactor = canvas.getHeight() / 100.0;
         double xOffset = canvas.getWidth() / 2;
-        float screenX = (float)(x * coordinatesToScreenFactor + xOffset);
-        float screenY = (float)(y * coordinatesToScreenFactor);
+        float screenX = (float) (x * coordinatesToScreenFactor + xOffset);
+        float screenY = (float) (y * coordinatesToScreenFactor);
 
         canvas.drawText(text, screenX, screenY, paint);
     }
@@ -84,5 +84,4 @@ class Debris implements GameObject {
     public boolean isDead() {
         return y > initialY;
     }
-
 }

@@ -19,20 +19,16 @@ package com.gmail.walles.johan.numbershooter.model;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.util.Random;
+import org.jetbrains.annotations.NonNls;
 
 public class FallingMaths implements GameObject {
     private static final Random RANDOM = new Random();
 
-    /**
-     * How long will it take this question to fall to the bottom of the screen?
-     */
+    /** How long will it take this question to fall to the bottom of the screen? */
     private static final double MS_TO_BOTTOM = 15_000;
+
     private static final double BASE_PERCENT_PER_MS = 100.0 / MS_TO_BOTTOM;
 
     private final double percentPerMs;
@@ -50,7 +46,9 @@ public class FallingMaths implements GameObject {
     public final int answer;
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
 
-    public FallingMaths(@NonNls String question, int answer,
+    public FallingMaths(
+            @NonNls String question,
+            int answer,
             Model model,
             double speedupFactor,
             float sizePixels,
@@ -89,7 +87,7 @@ public class FallingMaths implements GameObject {
         model.noMoreMaths();
 
         // Tell our math friends to fly away or start hovering ominously or something
-        for (FallingMaths friend: model.listFallingMaths()) {
+        for (FallingMaths friend : model.listFallingMaths()) {
             if (friend == this) {
                 // We shouldn't stop ourselves
                 continue;
@@ -102,9 +100,7 @@ public class FallingMaths implements GameObject {
         model.getCannon().explode(Integer.toString(answer));
     }
 
-    /**
-     * Update our state while not landing.
-     */
+    /** Update our state while not landing. */
     private void doNotLandStepMs(long deltaMs) {
         // FIXME: Do some spectacular dance here?
         y -= (BASE_PERCENT_PER_MS / 2.0) * deltaMs;
@@ -121,8 +117,8 @@ public class FallingMaths implements GameObject {
     public void drawOn(Canvas canvas) {
         double coordinatesToScreenFactor = canvas.getHeight() / 100.0;
         double xOffset = canvas.getWidth() / 2;
-        float screenX = (float)(x * coordinatesToScreenFactor + xOffset);
-        float screenY = (float)(y * coordinatesToScreenFactor);
+        float screenX = (float) (x * coordinatesToScreenFactor + xOffset);
+        float screenY = (float) (y * coordinatesToScreenFactor);
 
         canvas.drawText(question, screenX, screenY, paint);
     }
@@ -136,7 +132,9 @@ public class FallingMaths implements GameObject {
         return y;
     }
 
-    public double getX() { return x; }
+    public double getX() {
+        return x;
+    }
 
     public void explode() {
         mathsKilled.play();

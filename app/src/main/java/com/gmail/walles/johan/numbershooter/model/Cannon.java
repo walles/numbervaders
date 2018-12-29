@@ -19,7 +19,6 @@ package com.gmail.walles.johan.numbershooter.model;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 
 public class Cannon implements GameObject {
@@ -36,11 +35,11 @@ public class Cannon implements GameObject {
 
     private boolean dead = false;
 
-    public Cannon(Model model,
+    public Cannon(
+            Model model,
             float sizePixels,
             ObjectiveSoundPool.SoundEffect shotSound,
-            ObjectiveSoundPool.SoundEffect explosionSound)
-    {
+            ObjectiveSoundPool.SoundEffect explosionSound) {
         this.model = model;
         this.shotSound = shotSound;
         this.explosionSound = explosionSound;
@@ -62,10 +61,7 @@ public class Cannon implements GameObject {
             return;
         }
 
-        canvas.drawText(
-                "/" + digits + "\\",
-                canvas.getWidth() / 2, canvas.getHeight(),
-                paint);
+        canvas.drawText("/" + digits + "\\", canvas.getWidth() / 2, canvas.getHeight(), paint);
     }
 
     @Override
@@ -100,9 +96,7 @@ public class Cannon implements GameObject {
         return debris;
     }
 
-    /**
-     * Explode cannon and shoot the given text off in various directions.
-     */
+    /** Explode cannon and shoot the given text off in various directions. */
     public void explode(String text) {
         explosionSound.play();
 

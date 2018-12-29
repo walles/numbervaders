@@ -29,19 +29,14 @@ import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class KeyboardView extends View {
-    /**
-     * This is how high we want the keyboard.
-     */
+    /** This is how high we want the keyboard. */
     private static final double HEIGHT_MILLIMETERS = 40;
 
-    /**
-     * We never give the keyboard more height than this.
-     */
+    /** We never give the keyboard more height than this. */
     private static final double MAX_HEIGHT_PERCENT = 30;
 
     private final Paint paint;
@@ -83,30 +78,24 @@ public class KeyboardView extends View {
             canvas.drawText(Integer.toString(digit), xCenter, yBase, paint);
 
             // NOTE: Enable these for debugging key hit areas
-            //canvas.drawCircle(xCenter, yCenter, 20, paint);
-            //canvas.drawRect(xCenter - 50, yBase - 5, xCenter + 50, yBase + 5, paint);
+            // canvas.drawCircle(xCenter, yCenter, 20, paint);
+            // canvas.drawRect(xCenter - 50, yBase - 5, xCenter + 50, yBase + 5, paint);
         }
     }
+
     private List<Key> keys;
 
-    /**
-     * The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}.
-     */
+    /** The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}. */
     public KeyboardView(Context context) {
         this(context, null);
     }
 
-    /**
-     * The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}.
-     */
-    public KeyboardView(Context context,
-            @Nullable AttributeSet attrs) {
+    /** The actual initialization is done in {@link #KeyboardView(Context, AttributeSet, int)}. */
+    public KeyboardView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    /**
-     * This is where all initialization is done.
-     */
+    /** This is where all initialization is done. */
     @SuppressLint("ClickableViewAccessibility")
     public KeyboardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -131,9 +120,7 @@ public class KeyboardView extends View {
         soundPool.close();
     }
 
-    /**
-     * @see android.view.View.OnTouchListener#onTouch(View, MotionEvent)
-     */
+    /** @see android.view.View.OnTouchListener#onTouch(View, MotionEvent) */
     private boolean handleTouch(MotionEvent event) {
         float x;
         float y;
@@ -165,7 +152,7 @@ public class KeyboardView extends View {
 
         Key closestKey = keys.get(0);
         float closestDistance = closestKey.distanceSquaredTo(x, y);
-        for (Key key: keys) {
+        for (Key key : keys) {
             float distance = key.distanceSquaredTo(x, y);
             if (distance < closestDistance) {
                 closestKey = key;
@@ -202,10 +189,11 @@ public class KeyboardView extends View {
 
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         double millimetersToPixelsFactor = displayMetrics.ydpi / 25.4;
-        int height = (int)(HEIGHT_MILLIMETERS * millimetersToPixelsFactor);
+        int height = (int) (HEIGHT_MILLIMETERS * millimetersToPixelsFactor);
 
         // Limit height to a percentage of the allowed height
-        int maxHeight = (int)((MAX_HEIGHT_PERCENT / 100.0) * MeasureSpec.getSize(heightMeasureSpec));
+        int maxHeight =
+                (int) ((MAX_HEIGHT_PERCENT / 100.0) * MeasureSpec.getSize(heightMeasureSpec));
         if (height > maxHeight) {
             height = maxHeight;
         }
@@ -250,7 +238,7 @@ public class KeyboardView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(backgroundColor);
 
-        for (Key key: keys) {
+        for (Key key : keys) {
             key.drawOn(canvas, paint);
         }
     }

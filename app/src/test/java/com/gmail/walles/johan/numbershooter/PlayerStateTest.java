@@ -24,7 +24,8 @@ import org.junit.Test;
 public class PlayerStateTest {
     @Test
     public void shouldHaveCorrectPackage() {
-        Assert.assertThat("Must have correct package and name for deserialization to work",
+        Assert.assertThat(
+                "Must have correct package and name for deserialization to work",
                 PlayerState.class.getCanonicalName(),
                 is("com.gmail.walles.johan.numbershooter.PlayerState"));
     }

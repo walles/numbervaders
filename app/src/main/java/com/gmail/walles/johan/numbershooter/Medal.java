@@ -49,7 +49,7 @@ public class Medal {
             return false;
         }
 
-        Medal that = (Medal)obj;
+        Medal that = (Medal) obj;
         if (this.flavor != that.flavor) {
             return false;
         }

@@ -18,9 +18,7 @@ package com.gmail.walles.johan.numbershooter.model;
 
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
-
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -28,9 +26,9 @@ import java.util.List;
 
 /**
  * Coordinate system is Y=0%-100% where 0% is on top and 100% is on bottom.
- * <p>
- * X coordinates are as wide as Y coordinates are high but go from left to right with 0% being
- * in the middle of the screen.
+ *
+ * <p>X coordinates are as wide as Y coordinates are high but go from left to right with 0% being in
+ * the middle of the screen.
  */
 public class Model {
     private static final int MATHS_PER_LEVEL = 20;
@@ -43,14 +41,10 @@ public class Model {
      */
     private static final long MAX_STEP_MS = 100L;
 
-    /**
-     * Add new objects at most this close to each other.
-     */
+    /** Add new objects at most this close to each other. */
     private static final int FALLING_OBJECTS_SPACING_PERCENT = 50;
 
-    /**
-     * Don't show more than this number of challenges at once.
-     */
+    /** Don't show more than this number of challenges at once. */
     private static final int MAX_CHALLENGES = 4;
 
     private FallingMathsFactory fallingMathsFactory;
@@ -60,25 +54,22 @@ public class Model {
 
     private long lastUpdatedToMs = UNSET;
 
-    /**
-     * When this is true no more maths will drop down from the sky.
-     */
+    /** When this is true no more maths will drop down from the sky. */
     private boolean mathsStopped = false;
 
-    /**
-     * How many maths have we dropped on the player?
-     */
+    /** How many maths have we dropped on the player? */
     private int droppedMaths;
+
     private final ObjectiveSoundPool.SoundEffect mathsArriving;
     private final ObjectiveSoundPool.SoundEffect wrongAnswer;
 
-    public Model(FallingMathsFactory fallingMathsFactory,
+    public Model(
+            FallingMathsFactory fallingMathsFactory,
             float objectSizesInPixels,
             ObjectiveSoundPool.SoundEffect shotSound,
             ObjectiveSoundPool.SoundEffect explosionSound,
             ObjectiveSoundPool.SoundEffect mathsArriving,
-            ObjectiveSoundPool.SoundEffect wrongAnswer)
-    {
+            ObjectiveSoundPool.SoundEffect wrongAnswer) {
         this.fallingMathsFactory = fallingMathsFactory;
 
         this.mathsArriving = mathsArriving;
@@ -87,9 +78,7 @@ public class Model {
         cannon = new Cannon(this, objectSizesInPixels, shotSound, explosionSound);
     }
 
-    /**
-     * Update model to the given timestamp.
-     */
+    /** Update model to the given timestamp. */
     public void updateTo(long timestampMillis) {
         if (lastUpdatedToMs == UNSET) {
             lastUpdatedToMs = timestampMillis;
@@ -113,7 +102,7 @@ public class Model {
             droppedMaths++;
         }
 
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             object.stepMs(deltaMs);
         }
         cannon.stepMs(deltaMs);
@@ -145,7 +134,7 @@ public class Model {
 
         int challengesFound = 0;
 
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             if (!(object instanceof FallingMaths)) {
                 continue;
             }
@@ -154,7 +143,7 @@ public class Model {
                 return false;
             }
 
-            FallingMaths fallingMaths = (FallingMaths)object;
+            FallingMaths fallingMaths = (FallingMaths) object;
             if (fallingMaths.getY() <= FALLING_OBJECTS_SPACING_PERCENT) {
                 // Something's in the way
                 return false;
@@ -164,12 +153,10 @@ public class Model {
         return true;
     }
 
-    /**
-     * Render the model onto the given (already cleared) canvas.
-     */
+    /** Render the model onto the given (already cleared) canvas. */
     public void drawOn(Canvas canvas) {
         cannon.drawOn(canvas);
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             object.drawOn(canvas);
         }
     }
@@ -196,7 +183,7 @@ public class Model {
     }
 
     private boolean isStartOfAnAnswer(String prefix) {
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             if (!(object instanceof FallingMaths)) {
                 continue;
             }
@@ -214,7 +201,7 @@ public class Model {
 
     @Nullable
     private FallingMaths findTarget(String answer) {
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             if (!(object instanceof FallingMaths)) {
                 continue;
             }
@@ -237,12 +224,12 @@ public class Model {
     public List<FallingMaths> listFallingMaths() {
         List<FallingMaths> fallingMaths = new ArrayList<>();
 
-        for (GameObject object: stuff) {
+        for (GameObject object : stuff) {
             if (!(object instanceof FallingMaths)) {
                 continue;
             }
 
-            fallingMaths.add((FallingMaths)object);
+            fallingMaths.add((FallingMaths) object);
         }
 
         return fallingMaths;
@@ -252,9 +239,7 @@ public class Model {
         return cannon;
     }
 
-    /**
-     * Add a new object to the simulation.
-     */
+    /** Add a new object to the simulation. */
     public void add(GameObject object) {
         // Without the intermediate newObjects collection we trigger
         // ConcurrentModificationExceptions when adding objects to the list while traversing it to

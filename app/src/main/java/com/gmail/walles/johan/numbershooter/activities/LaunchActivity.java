@@ -28,19 +28,15 @@ import android.text.style.RelativeSizeSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Scanner;
-
+import org.jetbrains.annotations.NonNls;
 import timber.log.Timber;
 
 public class LaunchActivity extends MusicActivity {
@@ -70,19 +66,23 @@ public class LaunchActivity extends MusicActivity {
         medalsButton.setOnClickListener(v -> MedalsActivity.start(LaunchActivity.this));
     }
 
-    private void configureButton(@IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {
+    private void configureButton(
+            @IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {
         Button button = findViewById(buttonId);
 
-        SpannableString labelText = new SpannableString(String.format(Locale.getDefault(),
-                "%s\nLevel %d",
-                gameType.buttonLabel, playerState.getLevel(gameType)));
+        SpannableString labelText =
+                new SpannableString(
+                        String.format(
+                                Locale.getDefault(),
+                                "%s\nLevel %d",
+                                gameType.buttonLabel,
+                                playerState.getLevel(gameType)));
         // Make operator bigger
         labelText.setSpan(new RelativeSizeSpan(2f), 0, 1, 0);
         button.setText(labelText);
 
         int startLevel = playerState.getLevel(gameType);
-        button.setOnClickListener(v -> GameActivity.start(this,
-                gameType, startLevel));
+        button.setOnClickListener(v -> GameActivity.start(this, gameType, startLevel));
     }
 
     @Override
@@ -114,9 +114,10 @@ public class LaunchActivity extends MusicActivity {
         String credits;
         try (InputStream inputStream = getResources().openRawResource(R.raw.credits)) {
             @NonNls final String BEGINNING_OF_INPUT = "\\A";
-            credits = new Scanner(inputStream, StandardCharsets.UTF_8.name())
-                    .useDelimiter(BEGINNING_OF_INPUT)
-                    .next();
+            credits =
+                    new Scanner(inputStream, StandardCharsets.UTF_8.name())
+                            .useDelimiter(BEGINNING_OF_INPUT)
+                            .next();
         } catch (IOException e) {
             Timber.e(e, "Unable to load credits resource");
             return;

@@ -22,8 +22,8 @@ import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 public class FallingMathsFactory {
     /**
      * How much faster do the simplest assignments go at the top level?
-     * <p>
-     * The top level is defined as the last level where we still get new challenges. After that
+     *
+     * <p>The top level is defined as the last level where we still get new challenges. After that
      * things will just go faster and faster.
      */
     private static final double SPEEDUP_FACTOR_AT_TOP_LEVEL = 6.5;
@@ -32,9 +32,11 @@ public class FallingMathsFactory {
     private final float objectSizePixels;
     private final MathsFactory mathsFactory;
 
-    public FallingMathsFactory(GameType gameType, int level, float objectSizePixels,
-            ObjectiveSoundPool.SoundEffect mathsKilled)
-    {
+    public FallingMathsFactory(
+            GameType gameType,
+            int level,
+            float objectSizePixels,
+            ObjectiveSoundPool.SoundEffect mathsKilled) {
         this.mathsFactory = MathsFactory.create(gameType, level);
         this.objectSizePixels = objectSizePixels;
         this.mathsKilled = mathsKilled;
@@ -43,9 +45,10 @@ public class FallingMathsFactory {
     public final FallingMaths createChallenge(Model model) {
         MathsFactory.Maths maths = mathsFactory.pickChallenge();
 
-        double speedupPower = maths.easiness / (double)maths.topEasiness;
+        double speedupPower = maths.easiness / (double) maths.topEasiness;
         double speedupFactor = Math.pow(SPEEDUP_FACTOR_AT_TOP_LEVEL, speedupPower);
 
-        return new FallingMaths(maths.question, maths.answer, model, speedupFactor, objectSizePixels, mathsKilled);
+        return new FallingMaths(
+                maths.question, maths.answer, model, speedupFactor, objectSizePixels, mathsKilled);
     }
 }

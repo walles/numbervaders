@@ -25,23 +25,22 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
-
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.GameView;
 import com.gmail.walles.johan.numbershooter.KeyboardView;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
 import java.io.IOException;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * An example full-screen activity that shows and hides the system UI (i.e. status bar and
+ * navigation/system bar) with user interaction.
  */
 public class GameActivity extends MusicActivity {
     private static final String GAME_TYPE_EXTRA = "gameType";
     private static final String LEVEL_EXTRA = "level";
+
     public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, GameActivity.class);
         intent.putExtra(GAME_TYPE_EXTRA, gameType.toString());
@@ -50,48 +49,54 @@ public class GameActivity extends MusicActivity {
     }
 
     /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
+     * Some older devices needs a small delay between UI widget updates and a change of the status
+     * and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+
     private final Handler handler = new Handler();
     private GameType gameType;
     private GameView gameView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
+    private final Runnable mHidePart2Runnable =
+            new Runnable() {
+                @SuppressLint("InlinedApi")
+                @Override
+                public void run() {
+                    // Delayed removal of status and navigation bar
 
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            gameView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
+                    // Note that some of these constants are new as of API 16 (Jelly Bean)
+                    // and API 19 (KitKat). It is safe to use them, as they are inlined
+                    // at compile-time and do nothing on earlier devices.
+                    gameView.setSystemUiVisibility(
+                            View.SYSTEM_UI_FLAG_LOW_PROFILE
+                                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+                }
+            };
     private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
+    private final Runnable mShowPart2Runnable =
+            new Runnable() {
+                @Override
+                public void run() {
+                    // Delayed display of UI elements
+                    ActionBar actionBar = getSupportActionBar();
+                    if (actionBar != null) {
+                        actionBar.show();
+                    }
+                    mControlsView.setVisibility(View.VISIBLE);
+                }
+            };
     private boolean mVisible;
-    private final Runnable mHideRunnable = () -> {
-        // FIXME: Before releasing on Google Play, re-enable this hide() call to make the app
-        // full screen.
-        // FIXME: hide();
-    };
+    private final Runnable mHideRunnable =
+            () -> {
+                // FIXME: Before releasing on Google Play, re-enable this hide() call to make the
+                // app
+                // full screen.
+                // FIXME: hide();
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,28 +118,31 @@ public class GameActivity extends MusicActivity {
         // Set up the user interaction to manually show or hide the system UI.
         gameView.setOnClickListener(view -> toggle());
 
-        gameView.setOnGameOverListener(new GameView.OnGameOverListener() {
-            @Override
-            public void onPlayerDied(Iterable<FallingMaths> failedMaths) {
-                handler.postDelayed(() -> tellPlayerItDied(failedMaths), 2000);
-            }
+        gameView.setOnGameOverListener(
+                new GameView.OnGameOverListener() {
+                    @Override
+                    public void onPlayerDied(Iterable<FallingMaths> failedMaths) {
+                        handler.postDelayed(() -> tellPlayerItDied(failedMaths), 2000);
+                    }
 
-            @Override
-            public void onLevelCleared() {
-                // Update the stored level now, but...
-                try {
-                    PlayerStateV2.fromContext(GameActivity.this).increaseLevel(gameType);
-                } catch (IOException e) {
-                    throw new RuntimeException("Increasing player level failed", e);
-                }
+                    @Override
+                    public void onLevelCleared() {
+                        // Update the stored level now, but...
+                        try {
+                            PlayerStateV2.fromContext(GameActivity.this).increaseLevel(gameType);
+                        } catch (IOException e) {
+                            throw new RuntimeException("Increasing player level failed", e);
+                        }
 
-                // ... wait a bit before telling the player that they succeeded
-                handler.postDelayed(() -> {
-                    LevelClearedActivity.start(GameActivity.this, gameType, level);
-                    finish();
-                }, 2000);
-            }
-        });
+                        // ... wait a bit before telling the player that they succeeded
+                        handler.postDelayed(
+                                () -> {
+                                    LevelClearedActivity.start(GameActivity.this, gameType, level);
+                                    finish();
+                                },
+                                2000);
+                    }
+                });
 
         KeyboardView keyboard = findViewById(R.id.keyboard);
         keyboard.setOnKeypress(gameView::insertDigit);
@@ -142,7 +150,7 @@ public class GameActivity extends MusicActivity {
 
     private void tellPlayerItDied(Iterable<FallingMaths> failedMaths) {
         FallingMaths lowestAnswer = failedMaths.iterator().next();
-        for (FallingMaths failed: failedMaths) {
+        for (FallingMaths failed : failedMaths) {
             if (failed.getY() > lowestAnswer.getY()) {
                 lowestAnswer = failed;
             }
@@ -151,12 +159,14 @@ public class GameActivity extends MusicActivity {
         AlertDialog alertDialog =
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
-                        .setNeutralButton("OK", (dialog, which) -> {
-                            dialog.dismiss();
+                        .setNeutralButton(
+                                "OK",
+                                (dialog, which) -> {
+                                    dialog.dismiss();
 
-                            LaunchActivity.start(this);
-                            finish();
-                        })
+                                    LaunchActivity.start(this);
+                                    finish();
+                                })
                         .setOnCancelListener(dialog -> finish())
                         .show();
         TextView textView = alertDialog.findViewById(android.R.id.message);
@@ -168,7 +178,7 @@ public class GameActivity extends MusicActivity {
     private float pixelsToSp(float px) {
         // From: https://stackoverflow.com/a/9219417/473672
         float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
-        return px/scaledDensity;
+        return px / scaledDensity;
     }
 
     @Override
@@ -194,8 +204,8 @@ public class GameActivity extends MusicActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        ((GameView)findViewById(R.id.game)).close();
-        ((KeyboardView)findViewById(R.id.keyboard)).close();
+        ((GameView) findViewById(R.id.game)).close();
+        ((KeyboardView) findViewById(R.id.keyboard)).close();
     }
 
     private void hide() {
@@ -215,13 +225,12 @@ public class GameActivity extends MusicActivity {
     @SuppressLint("InlinedApi")
     private void show() {
         // Show the system bar
-        gameView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        gameView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         mVisible = true;
 
         // Schedule a runnable to display UI elements after a delay
         handler.removeCallbacks(mHidePart2Runnable);
         handler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
-
 }

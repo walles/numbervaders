@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.List;
 
 public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewHolder> {
@@ -51,7 +50,8 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
 
         public void bind(Medal medal, int medalSizePixels) {
             ImageView imageView = itemView.findViewById(R.id.medalImage);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
+            imageView.setLayoutParams(
+                    new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
             imageView.setImageDrawable(medalDrawable);
             imageView.setColorFilter(medal.flavor.color);
 
@@ -63,7 +63,9 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     @NonNull
     @Override
     public MedalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View medalView = LayoutInflater.from(parent.getContext()).inflate(R.layout.medal_view, parent, false);
+        View medalView =
+                LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.medal_view, parent, false);
 
         Drawable medalDrawable = context.getDrawable(R.drawable.medal);
         if (medalDrawable == null) {

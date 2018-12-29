@@ -2,6 +2,7 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # Releasing a new Version
+* Run `./gradlew spotlessApply` to enforce coding standards
 * Update `VersionName` and `VersionCode` in `/app/build.gradle`
 * Commit this change
 * `git push`
@@ -27,6 +28,9 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
+* Run `spotlessApply` automatically when building (in `app/build.gradle`)
+* Make Spotless (in `app/build.gradle`) apply license headers
+* Make Spotless (in `app/build.gradle`) format more kinds of files
 * Make everything translatable
 * Translate into Swedish
 * Move multiplication-medals-earned logic into MultiplicationFactory?

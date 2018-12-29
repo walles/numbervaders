@@ -17,18 +17,14 @@
 package com.gmail.walles.johan.numbershooter.model;
 
 import com.gmail.walles.johan.numbershooter.GameType;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import org.jetbrains.annotations.NonNls;
 
 public abstract class MathsFactory {
-    /**
-     * How many new assignments are introduced at each level?
-     */
+    /** How many new assignments are introduced at each level? */
     protected static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
@@ -54,9 +50,7 @@ public abstract class MathsFactory {
         }
     }
 
-    /**
-     * List all possible maths problems. For all levels, not just one.
-     */
+    /** List all possible maths problems. For all levels, not just one. */
     protected abstract List<Maths> listAllMaths();
 
     /**
