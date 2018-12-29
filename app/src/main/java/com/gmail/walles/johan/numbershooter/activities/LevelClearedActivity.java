@@ -27,7 +27,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.Medal;
 import com.gmail.walles.johan.numbershooter.Medals;
@@ -35,13 +34,11 @@ import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import org.jetbrains.annotations.NonNls;
 
 public class LevelClearedActivity extends MusicActivity {
     private GameType gameType;

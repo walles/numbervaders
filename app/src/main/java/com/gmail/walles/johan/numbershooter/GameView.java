@@ -29,10 +29,8 @@ import android.view.WindowManager;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
 import com.gmail.walles.johan.numbershooter.model.Model;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.util.Locale;
+import org.jetbrains.annotations.NonNls;
 import timber.log.Timber;
 
 public class GameView extends View {
