@@ -48,6 +48,7 @@ spotless {
         googleJavaFormat().aosp()
     }
 }
+preBuild.dependsOn 'spotlessApply'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
