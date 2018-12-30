@@ -50,7 +50,7 @@ public class MedalsActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        List<Medal> medals = Medals.get(playerState);
+        List<Medal> medals = Medals.get(getResources(), playerState);
         if (medals.isEmpty()) {
             TextView textView = findViewById(R.id.textView);
             textView.setText(R.string.no_medals_yet);

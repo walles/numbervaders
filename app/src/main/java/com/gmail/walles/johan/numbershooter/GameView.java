@@ -30,6 +30,7 @@ import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.model.FallingMathsFactory;
 import com.gmail.walles.johan.numbershooter.model.Model;
 import java.util.Locale;
+import org.jetbrains.annotations.NonNls;
 import timber.log.Timber;
 
 public class GameView extends View {
@@ -43,7 +44,7 @@ public class GameView extends View {
         @Nullable private Double max;
         @Nullable private Double min;
 
-        public void addMs(double value) {
+        protected void addMs(double value) {
             average = ((average * (INERTIA - 1.0)) + value) / INERTIA;
 
             if (max == null) {
@@ -60,23 +61,25 @@ public class GameView extends View {
             }
         }
 
-        public String get() {
+        protected String get() {
             assert max != null;
             assert min != null;
 
-            String stats = String.format(Locale.ENGLISH, "%.1fms-%.1fms-%.1fms", min, average, max);
+            @NonNls String formatString = "%.1fms-%.1fms-%.1fms";
+            String stats = String.format(Locale.ENGLISH, formatString, min, average, max);
             min = null;
             max = null;
             return stats;
         }
 
-        public String getHz() {
+        protected String getHz() {
             assert max != null;
             assert min != null;
+            @NonNls String formatString = "%.1fHz-%.1fHz-%.1fHz";
             String stats =
                     String.format(
                             Locale.ENGLISH,
-                            "%.1fHz-%.1fHz-%.1fHz",
+                            formatString,
                             1000.0 / max,
                             1000.0 / average,
                             1000.0 / min);

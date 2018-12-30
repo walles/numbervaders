@@ -20,4 +20,14 @@
     <string name="view_source_code">View Source Code</string>
     <string name="medals">Medals</string>
     <string name="no_medals_yet">No Medals Yet!</string>
+    <string name="ok">OK</string>
+    <string name="n_times_table_done">%d times table done</string>
+    <string name="way_of_counting_level_n">%1$s\nLevel %2$d</string>
+    <string name="level_n_cleared">Level %d cleared</string>
+    <string name="level_n">Level %d</string>
+    <string name="you_received_a_medal">You Received a Medal</string>
+    <string name="started_first_way_of_counting">Started first way of counting</string>
+    <string name="started_second_way_of_counting">Started second way of counting</string>
+    <string name="started_third_way_of_counting">Started third way of counting</string>
+    <string name="started_final_way_of_counting">Started final way of counting</string>
 </resources>

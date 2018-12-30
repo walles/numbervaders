@@ -63,6 +63,7 @@ public class PlayerState implements Serializable {
         }
     }
 
+    @SuppressWarnings("unused")
     public static PlayerState fromContext(Context context) throws IOException {
         return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }

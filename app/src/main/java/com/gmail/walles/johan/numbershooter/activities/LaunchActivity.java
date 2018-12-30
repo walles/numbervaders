@@ -34,7 +34,6 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Locale;
 import java.util.Scanner;
 import org.jetbrains.annotations.NonNls;
 import timber.log.Timber;
@@ -72,9 +71,8 @@ public class LaunchActivity extends MusicActivity {
 
         SpannableString labelText =
                 new SpannableString(
-                        String.format(
-                                Locale.getDefault(),
-                                "%s\nLevel %d",
+                        getString(
+                                R.string.way_of_counting_level_n,
                                 gameType.buttonLabel,
                                 playerState.getLevel(gameType)));
         // Make operator bigger

@@ -51,6 +51,7 @@ class Debris implements GameObject {
         this.dy = -Math.cos(angle) * PERCENT_PER_MS;
 
         if (dy >= 0) {
+            //noinspection HardCodedStringLiteral
             throw new AssertionError(
                     String.format(
                             "dy should be upwards = higher percentages to lower = negative in our coordinate system, was %f for angle %f",

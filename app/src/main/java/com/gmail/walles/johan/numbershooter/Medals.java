@@ -17,6 +17,7 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.model.MultiplicationFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
@@ -34,22 +35,23 @@ public final class Medals {
         // Prevent us from being instantiated
     }
 
-    /** @see #get(Map) */
-    public static List<Medal> get(PlayerStateV2 playerState) {
+    /** @see #get(Resources, Map) */
+    public static List<Medal> get(Resources resources, PlayerStateV2 playerState) {
         Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
         for (GameType gameType : GameType.values()) {
             gameTypeToLevel.put(gameType, playerState.getLevel(gameType));
         }
 
-        return get(gameTypeToLevel);
+        return get(resources, gameTypeToLevel);
     }
 
     /**
      * List medals awarded for the most recent round of a given game type.
      *
-     * @see #get(Map)
+     * @see #get(Resources, Map)
      */
-    public static List<Medal> getLatest(PlayerStateV2 playerState, GameType gameType) {
+    public static List<Medal> getLatest(
+            Resources resources, PlayerStateV2 playerState, GameType gameType) {
         if (playerState.getLevel(gameType) == 1) {
             Timber.w("Game type not started, why was this requested?");
             return Collections.emptyList();
@@ -59,26 +61,27 @@ public final class Medals {
         for (GameType gameTypeIter : GameType.values()) {
             gameTypeToLevel.put(gameTypeIter, playerState.getLevel(gameTypeIter));
         }
-        List<Medal> after = get(gameTypeToLevel);
+        List<Medal> after = get(resources, gameTypeToLevel);
 
         int level = gameTypeToLevel.get(gameType);
         gameTypeToLevel.put(gameType, level - 1);
-        List<Medal> before = get(gameTypeToLevel);
+        List<Medal> before = get(resources, gameTypeToLevel);
 
         after.removeAll(before);
         return after;
     }
 
-    private static List<Medal> get(Map<GameType, Integer> gameTypeToLevel) {
+    private static List<Medal> get(Resources resources, Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new ArrayList<>();
 
-        medals.addAll(getWaysOfCountingMedals(gameTypeToLevel));
-        medals.addAll(getTimesTableMedals(gameTypeToLevel));
+        medals.addAll(getWaysOfCountingMedals(resources, gameTypeToLevel));
+        medals.addAll(getTimesTableMedals(resources, gameTypeToLevel));
 
         return medals;
     }
 
-    private static Collection<Medal> getTimesTableMedals(Map<GameType, Integer> gameTypeToLevel) {
+    private static Collection<Medal> getTimesTableMedals(
+            Resources resources, Map<GameType, Integer> gameTypeToLevel) {
         @SuppressLint("UseSparseArrays")
         Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
 
@@ -127,7 +130,9 @@ public final class Medals {
             if (tableNumber >= 10) {
                 flavor = Medal.Flavor.GOLD;
             }
-            medals.add(new Medal(flavor, tableNumber + " times table done"));
+            medals.add(
+                    new Medal(
+                            flavor, resources.getString(R.string.n_times_table_done, tableNumber)));
         }
 
         return medals;
@@ -135,7 +140,7 @@ public final class Medals {
 
     /** Figure out medals for how many ways of counting the user has tried out. */
     private static Collection<Medal> getWaysOfCountingMedals(
-            Map<GameType, Integer> gameTypeToLevel) {
+            Resources resources, Map<GameType, Integer> gameTypeToLevel) {
         List<Medal> medals = new LinkedList<>();
 
         int startedWaysOfCounting = 0;
@@ -146,19 +151,31 @@ public final class Medals {
         }
 
         if (startedWaysOfCounting >= 1) {
-            medals.add(new Medal(Medal.Flavor.BRONZE, "Started first way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.BRONZE,
+                            resources.getString(R.string.started_first_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 2) {
-            medals.add(new Medal(Medal.Flavor.BRONZE, "Started second way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.BRONZE,
+                            resources.getString(R.string.started_second_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 3) {
-            medals.add(new Medal(Medal.Flavor.SILVER, "Started third way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.SILVER,
+                            resources.getString(R.string.started_third_way_of_counting)));
         }
 
         if (startedWaysOfCounting >= 4) {
-            medals.add(new Medal(Medal.Flavor.GOLD, "Started final way of counting"));
+            medals.add(
+                    new Medal(
+                            Medal.Flavor.GOLD,
+                            resources.getString(R.string.started_final_way_of_counting)));
         }
 
         return medals;

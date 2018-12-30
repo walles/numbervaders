@@ -37,7 +37,7 @@ import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
+import org.jetbrains.annotations.NonNls;
 
 public class LevelClearedActivity extends MusicActivity {
     private GameType gameType;
@@ -46,8 +46,8 @@ public class LevelClearedActivity extends MusicActivity {
     private ObjectiveSoundPool soundPool;
     private ObjectiveSoundPool.SoundEffect tada;
 
-    private static final String GAME_TYPE_EXTRA = "gameType";
-    private static final String LEVEL_EXTRA = "clearedLevel";
+    @NonNls private static final String GAME_TYPE_EXTRA = "gameType";
+    @NonNls private static final String LEVEL_EXTRA = "clearedLevel";
 
     public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, LevelClearedActivity.class);
@@ -72,10 +72,10 @@ public class LevelClearedActivity extends MusicActivity {
         setContentView(R.layout.activity_level_cleared);
 
         TextView textView = findViewById(R.id.level_cleared_text);
-        textView.setText(String.format(Locale.getDefault(), "Level %d cleared", clearedLevel));
+        textView.setText(getString(R.string.level_n_cleared, clearedLevel));
 
         Button button = findViewById(R.id.next_level_button);
-        button.setText(String.format(Locale.getDefault(), "Level %d", clearedLevel + 1));
+        button.setText(getString(R.string.level_n, clearedLevel + 1));
         button.setOnClickListener(
                 v -> {
                     GameActivity.start(this, gameType, clearedLevel + 1);
@@ -100,7 +100,7 @@ public class LevelClearedActivity extends MusicActivity {
             throw new RuntimeException("Failed to get player state", e);
         }
 
-        List<Medal> medalsEarned = Medals.getLatest(playerState, gameType);
+        List<Medal> medalsEarned = Medals.getLatest(getResources(), playerState, gameType);
 
         /*
         // NOTE: Test code, re-enable to get some medals after finishing a level
@@ -137,12 +137,12 @@ public class LevelClearedActivity extends MusicActivity {
         new AlertDialog.Builder(this)
                 .setMessage(medal.getDescription())
                 .setNeutralButton(
-                        "OK",
+                        R.string.ok,
                         (dialog, which) -> {
                             dialog.dismiss();
                             showEarnedMedalDialog(medalsIter);
                         })
-                .setTitle("Medal Earned")
+                .setTitle(R.string.you_received_a_medal)
                 .setIcon(medalDrawable)
                 .show();
     }

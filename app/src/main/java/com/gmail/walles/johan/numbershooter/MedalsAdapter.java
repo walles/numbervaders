@@ -42,13 +42,13 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
     static class MedalViewHolder extends RecyclerView.ViewHolder {
         private final Drawable medalDrawable;
 
-        public MedalViewHolder(Drawable medalDrawable, View itemView) {
+        protected MedalViewHolder(Drawable medalDrawable, View itemView) {
             super(itemView);
 
             this.medalDrawable = medalDrawable;
         }
 
-        public void bind(Medal medal, int medalSizePixels) {
+        protected void bind(Medal medal, int medalSizePixels) {
             ImageView imageView = itemView.findViewById(R.id.medalImage);
             imageView.setLayoutParams(
                     new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));

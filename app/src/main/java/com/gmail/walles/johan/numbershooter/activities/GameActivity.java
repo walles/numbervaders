@@ -32,14 +32,15 @@ import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.io.IOException;
+import org.jetbrains.annotations.NonNls;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e. status bar and
- * navigation/system bar) with user interaction.
+ * A full-screen activity that shows and hides the system UI (i.e. status bar and navigation/system
+ * bar) with user interaction.
  */
 public class GameActivity extends MusicActivity {
-    private static final String GAME_TYPE_EXTRA = "gameType";
-    private static final String LEVEL_EXTRA = "level";
+    @NonNls private static final String GAME_TYPE_EXTRA = "gameType";
+    @NonNls private static final String LEVEL_EXTRA = "level";
 
     public static void start(Context context, GameType gameType, int level) {
         Intent intent = new Intent(context, GameActivity.class);
@@ -160,7 +161,7 @@ public class GameActivity extends MusicActivity {
                 new AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog_Alert)
                         .setMessage(lowestAnswer.question + "=" + lowestAnswer.answer)
                         .setNeutralButton(
-                                "OK",
+                                R.string.ok,
                                 (dialog, which) -> {
                                     dialog.dismiss();
 
