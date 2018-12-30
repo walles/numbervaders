@@ -102,6 +102,7 @@ public class PlayerStateV2 implements Serializable {
         persist();
     }
 
+    /** Returns the lowest not-yet-completed level */
     public int getLevel(GameType gameType) {
         Integer returnMe = levels.get(gameType.toString());
         if (returnMe == null) {
