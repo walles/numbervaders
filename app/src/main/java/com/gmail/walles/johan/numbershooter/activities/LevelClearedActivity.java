@@ -132,7 +132,7 @@ public class LevelClearedActivity extends MusicActivity {
         tada.play();
 
         Drawable medalDrawable = getResources().getDrawable(R.drawable.medal);
-        medalDrawable.setColorFilter(medal.flavor.color, PorterDuff.Mode.SRC_ATOP);
+        medalDrawable.setColorFilter(medal.flavor.getColor(), PorterDuff.Mode.SRC_ATOP);
 
         new AlertDialog.Builder(this)
                 .setMessage(medal.getDescription())

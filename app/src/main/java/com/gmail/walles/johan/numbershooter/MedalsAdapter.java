@@ -53,7 +53,7 @@ public class MedalsAdapter extends RecyclerView.Adapter<MedalsAdapter.MedalViewH
             imageView.setLayoutParams(
                     new LinearLayout.LayoutParams(medalSizePixels, medalSizePixels));
             imageView.setImageDrawable(medalDrawable);
-            imageView.setColorFilter(medal.flavor.color);
+            imageView.setColorFilter(medal.flavor.getColor());
 
             TextView description = itemView.findViewById(R.id.description);
             description.setText(medal.getDescription());

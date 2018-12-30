@@ -23,6 +23,10 @@ public class Medal {
     public final Flavor flavor;
 
     public Medal(Flavor flavor, String description) {
+        if (description == null) {
+            throw new NullPointerException("Description must not be null");
+        }
+
         this.description = description;
         this.flavor = flavor;
     }
@@ -32,10 +36,20 @@ public class Medal {
         SILVER(0x00, 0xff, 0xff, 0xff),
         GOLD(0x66, 0xff, 0xff, 0x00);
 
-        public final int color;
+        private final int a;
+        private final int r;
+        private final int g;
+        private final int b;
 
         Flavor(int a, int r, int g, int b) {
-            this.color = Color.argb(a, r, g, b);
+            this.a = a;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        public int getColor() {
+            return Color.argb(a, r, g, b);
         }
     }
 
