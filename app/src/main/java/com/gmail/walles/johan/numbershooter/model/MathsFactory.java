@@ -46,7 +46,6 @@ public abstract class MathsFactory {
                 return new DivisionFactory(level);
 
             default:
-                //noinspection StringConcatenation
                 throw new UnsupportedOperationException("Unhandled game type: " + gameType);
         }
     }

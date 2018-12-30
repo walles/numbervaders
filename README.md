@@ -29,7 +29,6 @@ NOTE: If you add to this list, also update
 # TODO Misc
 * After finishing Multiplication level 13 you only get medals for
   completing times tables 1 and 2. Verify that this is as it should.
-* Make everything translatable
 * Translate into Swedish
 * Move multiplication-medals-earned logic into MultiplicationFactory?
 * Add (more) addition medals
@@ -131,3 +130,4 @@ NOTE: If you add to this list, also update
 * Adapt font sizes to screen
 * Hand out medals for various achievements
 * Run `spotlessApply` automatically when building (in `app/build.gradle`)
+* Make everything translatable

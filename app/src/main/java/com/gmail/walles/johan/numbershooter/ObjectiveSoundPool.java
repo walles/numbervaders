@@ -52,7 +52,6 @@ public class ObjectiveSoundPool {
 
         public SoundEffect setVolume(double zeroToOne) {
             if (zeroToOne < 0 || zeroToOne > 1) {
-                //noinspection StringConcatenation
                 throw new IllegalArgumentException("Volume out of 0.0-1.0 bounds: " + zeroToOne);
             }
 
@@ -106,7 +105,6 @@ public class ObjectiveSoundPool {
             }
         }
 
-        //noinspection StringConcatenation,StringConcatenation
         throw new NoSuchElementException("Sample id " + sampleId + " not found");
     }
 
