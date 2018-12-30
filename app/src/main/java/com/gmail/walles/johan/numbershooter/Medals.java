@@ -109,11 +109,17 @@ public final class Medals {
 
         int maxDoneTable = 0;
         for (int table = 1; table <= 10; table++) {
+            Integer doneCount = doneCountsPerTable.get(table);
+            if (doneCount == null) {
+                // Table not started
+                continue;
+            }
+
             // 19 here is:
             // x * [1-10]: There are 10 of these
             // [1-10] * x: There are 10 of these
             // So it's 20, but one of them is x * x and we count that only once.
-            if (doneCountsPerTable.get(table) < 19) {
+            if (doneCount < 19) {
                 // Table not done
                 continue;
             }
