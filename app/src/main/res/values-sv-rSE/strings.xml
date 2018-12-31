@@ -16,7 +16,6 @@
   -->
 
 <resources>
-    <string name="app_name">Numbervaders</string>
     <string name="credits">Tack</string>
     <string name="view_source_code">Läs källkoden</string>
     <string name="medals">Medaljer</string>
@@ -31,4 +30,12 @@
     <string name="started_second_way_of_counting">Startat andra räknesättet</string>
     <string name="started_third_way_of_counting">Startat tredje räknesättet</string>
     <string name="started_final_way_of_counting">Startat sista räknesättet</string>
+    <string name="multiplication">Multiplikation</string>
+    <string name="addition">Addition</string>
+    <string name="division">Division</string>
+    <string name="subtraction">Subtraktion</string>
+    <string name="one_quarter_done">En fjärdedel klart</string>
+    <string name="half_done">Halvvägs klart</string>
+    <string name="three_quarters_done">Tre fjärdedelar klart</string>
+    <string name="all_done">Klart</string>
 </resources>

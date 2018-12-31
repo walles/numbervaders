@@ -76,7 +76,65 @@ public final class Medals {
         List<Medal> medals = new ArrayList<>();
 
         medals.addAll(getWaysOfCountingMedals(resources, gameTypeToNextLevel));
+        medals.addAll(getPercentCompleteMedals(resources, gameTypeToNextLevel));
         medals.addAll(getTimesTableMedals(resources, gameTypeToNextLevel));
+
+        return medals;
+    }
+
+    private static Collection<Medal> getPercentCompleteMedals(
+            Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
+        List<Medal> medals = new LinkedList<>();
+
+        for (GameType gameType : GameType.values()) {
+            MathsFactory maths = MathsFactory.create(gameType, 1234);
+            int topLevel = maths.getTopLevel();
+            int nextLevel = gameTypeToNextLevel.get(gameType);
+            int highestCompletedLevel = nextLevel - 1;
+            int percentDone = (int) Math.floor(100 * highestCompletedLevel / (double) topLevel);
+
+            String operationName = gameType.getLocalizedName(resources);
+            if (percentDone >= 25) {
+                String progress = resources.getString(R.string.one_quarter_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.BRONZE,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+            if (percentDone >= 50) {
+                String progress = resources.getString(R.string.half_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.BRONZE,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+            if (percentDone >= 75) {
+                String progress = resources.getString(R.string.three_quarters_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.SILVER,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+            if (percentDone >= 100) {
+                String progress = resources.getString(R.string.all_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.GOLD,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+        }
 
         return medals;
     }

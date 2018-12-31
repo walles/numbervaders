@@ -27,7 +27,6 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
-* Add medals for 25%, 50%, 75% and 100% done for each way of counting
 * Move multiplication-medals-earned logic into MultiplicationFactory?
 * Add (more) addition medals
 * Add (more) subtraction medals
@@ -134,3 +133,4 @@ NOTE: If you add to this list, also update
   completing times tables 1 and 2. Verify that this is as it should.
   Looks about right; 3*10 is on level 14, so after clearing level 14
   new medals will start dropping in.
+* Add medals for 25%, 50%, 75% and 100% done for each way of counting

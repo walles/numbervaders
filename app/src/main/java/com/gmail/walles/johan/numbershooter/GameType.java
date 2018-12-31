@@ -16,15 +16,23 @@
 
 package com.gmail.walles.johan.numbershooter;
 
+import android.content.res.Resources;
+
 public enum GameType {
-    MULTIPLICATION("×"),
-    ADDITION("+"),
-    DIVISION("÷"),
-    SUBTRACTION("-");
+    MULTIPLICATION("×", R.string.multiplication),
+    ADDITION("+", R.string.addition),
+    DIVISION("÷", R.string.division),
+    SUBTRACTION("-", R.string.subtraction);
 
     public final String buttonLabel;
+    private final int nameResourceId;
 
-    GameType(String buttonLabel) {
+    GameType(String buttonLabel, int nameResourceId) {
         this.buttonLabel = buttonLabel;
+        this.nameResourceId = nameResourceId;
+    }
+
+    public String getLocalizedName(Resources resources) {
+        return resources.getString(nameResourceId);
     }
 }

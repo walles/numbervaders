@@ -97,7 +97,7 @@ public abstract class MathsFactory {
     }
 
     public final Maths pickChallenge() {
-        int topLevel = allMaths.size() / NEW_MATHS_PER_LEVEL;
+        int topLevel = getTopLevel();
 
         // 0 - topLevel
         int pickFromLevel;
@@ -121,5 +121,9 @@ public abstract class MathsFactory {
         Maths maths = allMaths.get(index);
         maths.setEasiness(easiness, topEasiness);
         return maths;
+    }
+
+    public int getTopLevel() {
+        return allMaths.size() / NEW_MATHS_PER_LEVEL;
     }
 }

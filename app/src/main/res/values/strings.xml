@@ -31,4 +31,13 @@
     <string name="started_second_way_of_counting">Started second way of counting</string>
     <string name="started_third_way_of_counting">Started third way of counting</string>
     <string name="started_final_way_of_counting">Started final way of counting</string>
+    <string name="multiplication">Multiplication</string>
+    <string name="addition">Addition</string>
+    <string name="division">Division</string>
+    <string name="subtraction">Subtraction</string>
+    <string name="operation_colon_partly_done" translatable="false">%1$s: %2$s</string>
+    <string name="one_quarter_done">One quarter done</string>
+    <string name="half_done">Half done</string>
+    <string name="three_quarters_done">Three quarters done</string>
+    <string name="all_done">All done</string>
 </resources>
