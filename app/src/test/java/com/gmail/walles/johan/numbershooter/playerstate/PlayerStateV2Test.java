@@ -40,8 +40,8 @@ public class PlayerStateV2Test {
         Assert.assertThat(playerState.getLevel(), is(2));
 
         PlayerStateV2 testMe = PlayerStateV2.fromFile(file);
-        Assert.assertThat(testMe.getLevel(GameType.MULTIPLICATION), is(2));
-        Assert.assertThat(testMe.getLevel(GameType.ADDITION), is(1));
+        Assert.assertThat(testMe.getNextLevel(GameType.MULTIPLICATION), is(2));
+        Assert.assertThat(testMe.getNextLevel(GameType.ADDITION), is(1));
     }
 
     @Test
@@ -56,10 +56,10 @@ public class PlayerStateV2Test {
 
         PlayerStateV2 fromPersistence = PlayerStateV2.fromFile(file);
         Assert.assertThat(
-                fromPersistence.getLevel(GameType.MULTIPLICATION),
-                is(toPersist.getLevel(GameType.MULTIPLICATION)));
+                fromPersistence.getNextLevel(GameType.MULTIPLICATION),
+                is(toPersist.getNextLevel(GameType.MULTIPLICATION)));
         Assert.assertThat(
-                fromPersistence.getLevel(GameType.ADDITION),
-                is(toPersist.getLevel(GameType.ADDITION)));
+                fromPersistence.getNextLevel(GameType.ADDITION),
+                is(toPersist.getNextLevel(GameType.ADDITION)));
     }
 }

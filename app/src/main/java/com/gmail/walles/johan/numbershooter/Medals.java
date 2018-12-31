@@ -37,12 +37,12 @@ public final class Medals {
 
     /** @see #get(Resources, Map) */
     public static List<Medal> get(Resources resources, PlayerStateV2 playerState) {
-        Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
+        Map<GameType, Integer> gameTypeToNextLevel = new HashMap<>();
         for (GameType gameType : GameType.values()) {
-            gameTypeToLevel.put(gameType, playerState.getLevel(gameType));
+            gameTypeToNextLevel.put(gameType, playerState.getNextLevel(gameType));
         }
 
-        return get(resources, gameTypeToLevel);
+        return get(resources, gameTypeToNextLevel);
     }
 
     /**
@@ -52,43 +52,44 @@ public final class Medals {
      */
     public static List<Medal> getLatest(
             Resources resources, PlayerStateV2 playerState, GameType gameType) {
-        if (playerState.getLevel(gameType) == 1) {
+        if (playerState.getNextLevel(gameType) == 1) {
             Timber.w("Game type not started, why was this requested?");
             return Collections.emptyList();
         }
 
-        Map<GameType, Integer> gameTypeToLevel = new HashMap<>();
+        Map<GameType, Integer> gameTypeToNextLevel = new HashMap<>();
         for (GameType gameTypeIter : GameType.values()) {
-            gameTypeToLevel.put(gameTypeIter, playerState.getLevel(gameTypeIter));
+            gameTypeToNextLevel.put(gameTypeIter, playerState.getNextLevel(gameTypeIter));
         }
-        List<Medal> after = get(resources, gameTypeToLevel);
+        List<Medal> after = get(resources, gameTypeToNextLevel);
 
-        int level = gameTypeToLevel.get(gameType);
-        gameTypeToLevel.put(gameType, level - 1);
-        List<Medal> before = get(resources, gameTypeToLevel);
+        int nextLevel = gameTypeToNextLevel.get(gameType);
+        gameTypeToNextLevel.put(gameType, nextLevel - 1);
+        List<Medal> before = get(resources, gameTypeToNextLevel);
 
         after.removeAll(before);
         return after;
     }
 
-    private static List<Medal> get(Resources resources, Map<GameType, Integer> gameTypeToLevel) {
+    private static List<Medal> get(
+            Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
         List<Medal> medals = new ArrayList<>();
 
-        medals.addAll(getWaysOfCountingMedals(resources, gameTypeToLevel));
-        medals.addAll(getTimesTableMedals(resources, gameTypeToLevel));
+        medals.addAll(getWaysOfCountingMedals(resources, gameTypeToNextLevel));
+        medals.addAll(getTimesTableMedals(resources, gameTypeToNextLevel));
 
         return medals;
     }
 
     private static Collection<Medal> getTimesTableMedals(
-            Resources resources, Map<GameType, Integer> gameTypeToLevel) {
+            Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
         @SuppressLint("UseSparseArrays")
         Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
 
-        List<MathsFactory.Maths> mathsUpToLevelInclusive =
-                MultiplicationFactory.getMathsUpToLevelInclusive(
-                        gameTypeToLevel.get(GameType.MULTIPLICATION));
-        for (MathsFactory.Maths maths : mathsUpToLevelInclusive) {
+        List<MathsFactory.Maths> completedMaths =
+                MultiplicationFactory.getMathsUpToLevelExclusive(
+                        gameTypeToNextLevel.get(GameType.MULTIPLICATION));
+        for (MathsFactory.Maths maths : completedMaths) {
             Integer count = doneCountsPerTable.get(maths.a);
             if (count == null) {
                 count = 0;
@@ -146,12 +147,12 @@ public final class Medals {
 
     /** Figure out medals for how many ways of counting the user has tried out. */
     private static Collection<Medal> getWaysOfCountingMedals(
-            Resources resources, Map<GameType, Integer> gameTypeToLevel) {
+            Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
         List<Medal> medals = new LinkedList<>();
 
         int startedWaysOfCounting = 0;
-        for (int level : gameTypeToLevel.values()) {
-            if (level > 1) {
+        for (int nextLevel : gameTypeToNextLevel.values()) {
+            if (nextLevel > 1) {
                 startedWaysOfCounting++;
             }
         }

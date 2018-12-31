@@ -19,36 +19,50 @@ package com.gmail.walles.johan.numbershooter;
 import static org.hamcrest.CoreMatchers.is;
 
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
+import org.hamcrest.Matchers;
+import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 public class MedalsTest {
+    private static class TestableResources extends Resources {
+        public TestableResources() {
+            super(null, null, null);
+        }
+
+        @NonNull
+        @Override
+        public String getString(int id) throws NotFoundException {
+            return Integer.toString(id);
+        }
+
+        @NonNls
+        @NonNull
+        @Override
+        public String getString(int id, Object... formatArgs) throws NotFoundException {
+            return Integer.toString(id) + ": " + Arrays.toString(formatArgs);
+        }
+    }
+
     /** Validate that get() and getLatest() don't contradict each other. */
     @Test
     public void testGetVsGetLatest() {
-        // Mock both varargs and non-varargs flavors of the getString() method
-        Resources resources = Mockito.mock(Resources.class);
-        Mockito.when(resources.getString(Mockito.anyInt())).thenReturn("mock description");
-        Mockito.when(resources.getString(Mockito.anyInt(), ArgumentMatchers.any()))
-                .thenReturn("mock description");
-
-        // Validate our mocking
-        Assert.assertThat(resources.getString(12345), is("mock description"));
-        Assert.assertThat(resources.getString(12345, "any", "varargs"), is("mock description"));
+        Resources resources = new TestableResources();
 
         for (GameType gameType : GameType.values()) {
             for (int level = 1; level <= 45; level++) {
                 PlayerStateV2 playerStateNow = Mockito.mock(PlayerStateV2.class);
-                Mockito.when(playerStateNow.getLevel(gameType)).thenReturn(level);
+                Mockito.when(playerStateNow.getNextLevel(gameType)).thenReturn(level);
                 Collection<Medal> after = Medals.get(resources, playerStateNow);
 
                 PlayerStateV2 playerStateBefore = Mockito.mock(PlayerStateV2.class);
-                Mockito.when(playerStateBefore.getLevel(gameType)).thenReturn(level - 1);
+                Mockito.when(playerStateBefore.getNextLevel(gameType)).thenReturn(level - 1);
                 Collection<Medal> before = Medals.get(resources, playerStateBefore);
 
                 Collection<Medal> earnedAccordingToMedalsClass =
@@ -60,5 +74,25 @@ public class MedalsTest {
                 Assert.assertThat(earnedAccordingToMedalsClass, is(actuallyGained));
             }
         }
+    }
+
+    @Test
+    public void testOneTimesTableMedal() {
+        // We've just done levels 1 to 4, covering 1*1 - 1*10 / 10*1
+        final int LOWEST_NON_COMPLETED_LEVEL = 5;
+
+        Resources resources = new TestableResources();
+
+        PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
+        Mockito.when(playerState.getNextLevel(GameType.MULTIPLICATION))
+                .thenReturn(LOWEST_NON_COMPLETED_LEVEL);
+
+        Medal timesOneTableMedal =
+                new Medal(Medal.Flavor.BRONZE, R.string.n_times_table_done + ": [1]");
+
+        Collection<Medal> medalsEarned =
+                Medals.getLatest(resources, playerState, GameType.MULTIPLICATION);
+
+        Assert.assertThat(medalsEarned, Matchers.contains(timesOneTableMedal));
     }
 }

@@ -17,10 +17,17 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.graphics.Color;
+import org.jetbrains.annotations.NonNls;
 
 public class Medal {
     private final String description;
     public final Flavor flavor;
+
+    @Override
+    @NonNls
+    public String toString() {
+        return flavor + ": " + description;
+    }
 
     public Medal(Flavor flavor, String description) {
         if (description == null) {

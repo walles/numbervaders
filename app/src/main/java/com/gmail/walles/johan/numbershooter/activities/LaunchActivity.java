@@ -74,12 +74,12 @@ public class LaunchActivity extends MusicActivity {
                         getString(
                                 R.string.way_of_counting_level_n,
                                 gameType.buttonLabel,
-                                playerState.getLevel(gameType)));
+                                playerState.getNextLevel(gameType)));
         // Make operator bigger
         labelText.setSpan(new RelativeSizeSpan(2f), 0, 1, 0);
         button.setText(labelText);
 
-        int startLevel = playerState.getLevel(gameType);
+        int startLevel = playerState.getNextLevel(gameType);
         button.setOnClickListener(v -> GameActivity.start(this, gameType, startLevel));
     }
 

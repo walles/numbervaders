@@ -96,14 +96,18 @@ public class PlayerStateV2 implements Serializable {
 
     /** This method is expected to be called from GameActivity when the level is completed */
     public void increaseLevel(GameType gameType) throws IOException {
-        int level = getLevel(gameType);
+        int level = getNextLevel(gameType);
         levels.put(gameType.toString(), level + 1);
 
         persist();
     }
 
-    /** Returns the lowest not-yet-completed level */
-    public int getLevel(GameType gameType) {
+    /**
+     * Returns the next level this user will be presented with.
+     *
+     * <p>Or in other words, the lowest not-yet-completed level.
+     */
+    public int getNextLevel(GameType gameType) {
         Integer returnMe = levels.get(gameType.toString());
         if (returnMe == null) {
             return 1;
