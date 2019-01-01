@@ -59,7 +59,11 @@ public class MedalsActivity extends MusicActivity {
         /*
         // NOTE: Re-enable these to test various kinds of medals
         medals.add(0, new Medal(Medal.Flavor.GOLD, "Test: Gold medal"));
-        medals.add(1, new Medal(Medal.Flavor.SILVER, "Test: Silver medal with a lot of text so that the text in the description has to wrap and fill many lines"));
+        medals.add(
+                1,
+                new Medal(
+                        Medal.Flavor.SILVER,
+                        "Test: Silver medal with a lot of text so that the text in the description has to wrap and fill many lines"));
         medals.add(2, new Medal(Medal.Flavor.BRONZE, "Test: Bronze medal"));
         */
 

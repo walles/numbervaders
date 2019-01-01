@@ -31,8 +31,6 @@ NOTE: If you add to this list, also update
 * Add (more) addition medals
 * Add (more) subtraction medals
 * Add (more) division medals
-* Make the actual medal images look nicer; the silver one is OK, the
-  others not so much
 * In `LaunchClearedActivity`, ensure the fanfare plays when the dialog
   pops up
 * Make Spotless (in `app/build.gradle`) apply license headers
@@ -134,3 +132,5 @@ NOTE: If you add to this list, also update
   Looks about right; 3*10 is on level 14, so after clearing level 14
   new medals will start dropping in.
 * Add medals for 25%, 50%, 75% and 100% done for each way of counting
+* Make the actual medal images look nicer; the silver one is OK, the
+  others not so much
