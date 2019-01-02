@@ -19,17 +19,21 @@ package com.gmail.walles.johan.numbershooter;
 import android.content.res.Resources;
 
 public enum GameType {
-    MULTIPLICATION("×", R.string.multiplication),
-    ADDITION("+", R.string.addition),
-    DIVISION("÷", R.string.division),
-    SUBTRACTION("-", R.string.subtraction);
+    MULTIPLICATION("×", R.string.multiplication, true, 10),
+    ADDITION("+", R.string.addition, true, 15),
+    DIVISION("÷", R.string.division, false, 10),
+    SUBTRACTION("-", R.string.subtraction, false, 15);
 
     public final String prettyOperator;
     private final int nameResourceId;
+    public final boolean isCommutative;
+    public final int topNumber;
 
-    GameType(String prettyOperator, int nameResourceId) {
+    GameType(String prettyOperator, int nameResourceId, boolean isCommutative, int topNumber) {
         this.prettyOperator = prettyOperator;
         this.nameResourceId = nameResourceId;
+        this.isCommutative = isCommutative;
+        this.topNumber = topNumber;
     }
 
     public String getLocalizedName(Resources resources) {

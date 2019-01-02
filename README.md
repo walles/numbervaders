@@ -27,8 +27,7 @@ NOTE: If you add to this list, also update
 `app/src/main/res/raw/credits.txt`.
 
 # TODO Misc
-* Move multiplication-medals-earned logic into MultiplicationFactory?
-* Add (more) addition medals
+* Make commutative medals for each 10% increment of completeness
 * Add (more) subtraction medals
 * Add (more) division medals
 * In `LaunchClearedActivity`, ensure the fanfare plays when the dialog
@@ -134,3 +133,4 @@ NOTE: If you add to this list, also update
 * Add medals for 25%, 50%, 75% and 100% done for each way of counting
 * Make the actual medal images look nicer; the silver one is OK, the
   others not so much
+* Add (more) addition medals

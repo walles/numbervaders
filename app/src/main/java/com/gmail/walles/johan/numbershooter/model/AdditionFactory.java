@@ -16,6 +16,7 @@
 
 package com.gmail.walles.johan.numbershooter.model;
 
+import com.gmail.walles.johan.numbershooter.GameType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,8 @@ class AdditionFactory extends MathsFactory {
     @Override
     protected List<Maths> listAllMaths() {
         List<Maths> maths = new ArrayList<>(100);
-        for (int a = 1; a <= 15; a++) {
-            for (int b = 1; b <= 15; b++) {
+        for (int a = 1; a <= GameType.ADDITION.topNumber; a++) {
+            for (int b = 1; b <= GameType.ADDITION.topNumber; b++) {
                 maths.add(new Maths(a + "+" + b, a, b, a + b));
             }
         }

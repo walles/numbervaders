@@ -87,8 +87,7 @@ public class MedalsTest {
         Mockito.when(playerState.getNextLevel(GameType.MULTIPLICATION))
                 .thenReturn(LOWEST_NON_COMPLETED_LEVEL);
 
-        Medal timesOneTableMedal =
-                new Medal(Medal.Flavor.BRONZE, R.string.n_times_table_done + ": [1]");
+        Medal timesOneTableMedal = new Medal(Medal.Flavor.BRONZE, "2131558460: [2131558441, ×, 1]");
 
         Collection<Medal> medalsEarned =
                 Medals.getLatest(resources, playerState, GameType.MULTIPLICATION);

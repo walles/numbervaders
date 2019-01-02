@@ -16,6 +16,7 @@
 
 package com.gmail.walles.johan.numbershooter.model;
 
+import com.gmail.walles.johan.numbershooter.GameType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +29,8 @@ class DivisionFactory extends MathsFactory {
     protected List<Maths> listAllMaths() {
         List<Maths> maths = new ArrayList<>();
 
-        for (int answer = 1; answer <= 10; answer++) {
-            for (int b = 1; b <= 10; b++) {
+        for (int answer = 1; answer <= GameType.DIVISION.topNumber; answer++) {
+            for (int b = 1; b <= GameType.DIVISION.topNumber; b++) {
                 int a = answer * b;
                 maths.add(new Maths(a + "/" + b, a, b, answer));
             }

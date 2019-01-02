@@ -16,7 +16,6 @@
 
 package com.gmail.walles.johan.numbershooter;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.model.MultiplicationFactory;
@@ -77,7 +76,7 @@ public final class Medals {
 
         medals.addAll(getWaysOfCountingMedals(resources, gameTypeToNextLevel));
         medals.addAll(getPercentCompleteMedals(resources, gameTypeToNextLevel));
-        medals.addAll(getTimesTableMedals(resources, gameTypeToNextLevel));
+        medals.addAll(getCommutativeMedals(resources, gameTypeToNextLevel));
 
         return medals;
     }
@@ -139,70 +138,77 @@ public final class Medals {
         return medals;
     }
 
-    private static Collection<Medal> getTimesTableMedals(
+    private static Collection<Medal> getCommutativeMedals(
             Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
-        @SuppressLint("UseSparseArrays")
-        Map<Integer, Integer> doneCountsPerTable = new HashMap<>();
-
-        List<MathsFactory.Maths> completedMaths =
-                MultiplicationFactory.getMathsUpToLevelExclusive(
-                        gameTypeToNextLevel.get(GameType.MULTIPLICATION));
-        for (MathsFactory.Maths maths : completedMaths) {
-            Integer count = doneCountsPerTable.get(maths.a);
-            if (count == null) {
-                count = 0;
-            }
-            doneCountsPerTable.put(maths.a, count + 1);
-
-            if (maths.a == maths.b) {
-                // Don't count 5*5 twice
-                continue;
-            }
-
-            count = doneCountsPerTable.get(maths.b);
-            if (count == null) {
-                count = 0;
-            }
-            doneCountsPerTable.put(maths.b, count + 1);
-        }
-
-        int maxDoneTable = 0;
-        for (int table = 1; table <= 10; table++) {
-            Integer doneCount = doneCountsPerTable.get(table);
-            if (doneCount == null) {
-                // Table not started
-                continue;
-            }
-
-            // 19 here is:
-            // x * [1-10]: There are 10 of these
-            // [1-10] * x: There are 10 of these
-            // So it's 20, but one of them is x * x and we count that only once.
-            if (doneCount < 19) {
-                // Table not done
-                continue;
-            }
-
-            maxDoneTable = table;
-        }
 
         List<Medal> medals = new LinkedList<>();
-        for (int tableNumber = 1; tableNumber <= maxDoneTable; tableNumber++) {
-            Medal.Flavor flavor = Medal.Flavor.BRONZE;
-            if (tableNumber >= 6) {
-                flavor = Medal.Flavor.SILVER;
+
+        for (GameType gameType : GameType.values()) {
+            if (!gameType.isCommutative) {
+                continue;
             }
-            if (tableNumber >= 10) {
-                flavor = Medal.Flavor.GOLD;
+
+            Map<Integer, Integer> doneCountsPerNumber = new HashMap<>();
+
+            List<MathsFactory.Maths> completedMaths =
+                    MultiplicationFactory.getMathsUpToLevelExclusive(
+                            gameTypeToNextLevel.get(gameType));
+            for (MathsFactory.Maths maths : completedMaths) {
+                Integer count = doneCountsPerNumber.get(maths.a);
+                if (count == null) {
+                    count = 0;
+                }
+                doneCountsPerNumber.put(maths.a, count + 1);
+
+                if (maths.a == maths.b) {
+                    // Don't count 5*5 twice
+                    continue;
+                }
+
+                count = doneCountsPerNumber.get(maths.b);
+                if (count == null) {
+                    count = 0;
+                }
+                doneCountsPerNumber.put(maths.b, count + 1);
             }
-            medals.add(
-                    new Medal(
-                            flavor,
-                            resources.getString(
-                                    R.string.way_of_counting_colon_sign_number_done,
-                                    GameType.MULTIPLICATION.getLocalizedName(resources),
-                                    GameType.MULTIPLICATION.prettyOperator,
-                                    tableNumber)));
+
+            int maxDoneNumber = 0;
+            for (int number = 1; number <= gameType.topNumber; number++) {
+                Integer doneCount = doneCountsPerNumber.get(number);
+                if (doneCount == null) {
+                    // Table not started
+                    continue;
+                }
+
+                // 19 here is:
+                // x * [1-10]: There are 10 of these
+                // [1-10] * x: There are 10 of these
+                // So it's 20, but one of them is x * x and we count that only once.
+                if (doneCount < 2 * gameType.topNumber - 1) {
+                    // Number not done
+                    continue;
+                }
+
+                maxDoneNumber = number;
+            }
+
+            for (int number = 1; number <= maxDoneNumber; number++) {
+                Medal.Flavor flavor = Medal.Flavor.BRONZE;
+                if (number >= (gameType.topNumber * 6) / 10) {
+                    flavor = Medal.Flavor.SILVER;
+                }
+                if (number >= gameType.topNumber) {
+                    flavor = Medal.Flavor.GOLD;
+                }
+                medals.add(
+                        new Medal(
+                                flavor,
+                                resources.getString(
+                                        R.string.way_of_counting_colon_sign_number_done,
+                                        GameType.MULTIPLICATION.getLocalizedName(resources),
+                                        GameType.MULTIPLICATION.prettyOperator,
+                                        number)));
+            }
         }
 
         return medals;
