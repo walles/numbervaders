@@ -22,7 +22,7 @@
     <string name="medals">Medals</string>
     <string name="no_medals_yet">No Medals Yet!</string>
     <string name="ok">OK</string>
-    <string name="n_times_table_done">%d times table done</string>
+    <string name="way_of_counting_colon_sign_number_done">%1$s: %2$s%3$d complete</string>
     <string name="way_of_counting_level_n">%1$s\nLevel %2$d</string>
     <string name="level_n_cleared">Level %d cleared</string>
     <string name="level_n">Level %d</string>

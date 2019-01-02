@@ -197,7 +197,12 @@ public final class Medals {
             }
             medals.add(
                     new Medal(
-                            flavor, resources.getString(R.string.n_times_table_done, tableNumber)));
+                            flavor,
+                            resources.getString(
+                                    R.string.way_of_counting_colon_sign_number_done,
+                                    GameType.MULTIPLICATION.getLocalizedName(resources),
+                                    GameType.MULTIPLICATION.prettyOperator,
+                                    tableNumber)));
         }
 
         return medals;

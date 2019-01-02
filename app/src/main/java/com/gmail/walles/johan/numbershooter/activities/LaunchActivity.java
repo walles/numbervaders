@@ -73,7 +73,7 @@ public class LaunchActivity extends MusicActivity {
                 new SpannableString(
                         getString(
                                 R.string.way_of_counting_level_n,
-                                gameType.buttonLabel,
+                                gameType.prettyOperator,
                                 playerState.getNextLevel(gameType)));
         // Make operator bigger
         labelText.setSpan(new RelativeSizeSpan(2f), 0, 1, 0);

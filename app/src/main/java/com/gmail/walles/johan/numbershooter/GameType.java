@@ -24,11 +24,11 @@ public enum GameType {
     DIVISION("÷", R.string.division),
     SUBTRACTION("-", R.string.subtraction);
 
-    public final String buttonLabel;
+    public final String prettyOperator;
     private final int nameResourceId;
 
-    GameType(String buttonLabel, int nameResourceId) {
-        this.buttonLabel = buttonLabel;
+    GameType(String prettyOperator, int nameResourceId) {
+        this.prettyOperator = prettyOperator;
         this.nameResourceId = nameResourceId;
     }
 
