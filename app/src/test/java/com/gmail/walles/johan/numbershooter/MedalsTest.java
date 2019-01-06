@@ -94,4 +94,20 @@ public class MedalsTest {
 
         Assert.assertThat(medalsEarned, Matchers.contains(timesOneTableMedal));
     }
+
+    @Test
+    public void multiplicationMedalsOftenEnough() {
+        Assert.fail(
+                "Should verify that we get a multiplication medal at least every 4 completed levels");
+    }
+
+    @Test
+    public void multiplicationFewEnoughMedals() {
+        Assert.fail(
+                "Should verify that we get a multiplication no more often than every 2 completed levels on average");
+    }
+
+    // FIXME: Add medals frequency tests for addition
+    // FIXME: Add medals frequency tests for subtraction
+    // FIXME: Add medals frequency tests for division
 }
