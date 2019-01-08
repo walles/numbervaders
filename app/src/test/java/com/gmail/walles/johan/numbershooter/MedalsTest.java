@@ -118,25 +118,45 @@ public class MedalsTest {
         return returnMe;
     }
 
+    private void assertFewEnoughMedals(GameType gameType) {
+        Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(gameType);
+        int levelsWithMedals = medalsPerLevel.keySet().size();
+        int levelsCount = MathsFactory.getTopLevel(gameType);
+        double percentWithMedals = 100.0 * levelsWithMedals / (double) levelsCount;
+
+        Assert.assertThat(
+                gameType + ": Should get medals for at most 50% of all levels",
+                percentWithMedals,
+                lessThanOrEqualTo(50.0));
+    }
+
+    @Test
+    public void additionFewEnoughMedals() {
+        assertFewEnoughMedals(GameType.ADDITION);
+    }
+
+    @Test
+    public void subtractionFewEnoughMedals() {
+        assertFewEnoughMedals(GameType.SUBTRACTION);
+    }
+
+    @Test
+    public void multiplicationFewEnoughMedals() {
+        assertFewEnoughMedals(GameType.MULTIPLICATION);
+    }
+
+    @Test
+    public void divisionFewEnoughMedals() {
+        assertFewEnoughMedals(GameType.DIVISION);
+    }
+
     @Test
     public void multiplicationMedalsOftenEnough() {
         Assert.fail(
                 "Should verify that we get a multiplication medal at least every 4 completed levels");
     }
 
-    @Test
-    public void multiplicationFewEnoughMedals() {
-        Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(GameType.MULTIPLICATION);
-        int levelsWithMedals = medalsPerLevel.keySet().size();
-        int levelsCount = MathsFactory.getTopLevel(GameType.MULTIPLICATION);
-        double percentWithMedals = 100.0 * levelsWithMedals / (double) levelsCount;
-
-        Assert.assertThat(
-                "Should get medals for at most 50% of all levels",
-                percentWithMedals, lessThanOrEqualTo(50.0));
-    }
-
-    // FIXME: Add medals frequency tests for addition
-    // FIXME: Add medals frequency tests for subtraction
-    // FIXME: Add medals frequency tests for division
+    // FIXME: Add medals-often-enough tests for addition
+    // FIXME: Add medals-often-enough frequency tests for subtraction
+    // FIXME: Add medals-often-enough frequency tests for division
 }
