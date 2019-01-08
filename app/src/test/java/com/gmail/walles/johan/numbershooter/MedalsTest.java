@@ -17,7 +17,7 @@
 package com.gmail.walles.johan.numbershooter;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.number.OrderingComparison.*;
+import static org.hamcrest.Matchers.*;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.hamcrest.Matchers;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,7 +96,7 @@ public class MedalsTest {
         Collection<Medal> medalsEarned =
                 Medals.getLatest(resources, playerState, GameType.MULTIPLICATION);
 
-        Assert.assertThat(medalsEarned, Matchers.contains(timesOneTableMedal));
+        Assert.assertThat(medalsEarned, contains(timesOneTableMedal));
     }
 
     private Map<Integer, List<Medal>> getMedalsPerLevel(GameType gameType) {
@@ -150,13 +149,47 @@ public class MedalsTest {
         assertFewEnoughMedals(GameType.DIVISION);
     }
 
-    @Test
-    public void multiplicationMedalsOftenEnough() {
-        Assert.fail(
-                "Should verify that we get a multiplication medal at least every 4 completed levels");
+    private void assertFrequentEnoughMedals(GameType gameType) {
+        Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(gameType);
+
+        int lastLevelWithMedal = 0;
+        for (int level = 1; level <= MathsFactory.getTopLevel(gameType); level++) {
+            if (!medalsPerLevel.containsKey(level)) {
+                continue;
+            }
+
+            int levelsBetweenMedals = level - lastLevelWithMedal;
+            Assert.assertThat(
+                    gameType + ": Should get a medal at least every 4 levels",
+                    levelsBetweenMedals,
+                    lessThanOrEqualTo(4));
+
+            lastLevelWithMedal = level;
+        }
+
+        Assert.assertThat(
+                gameType + ": Should have gotten a medal for completing the top level",
+                medalsPerLevel,
+                hasKey(MathsFactory.getTopLevel(gameType)));
     }
 
-    // FIXME: Add medals-often-enough tests for addition
-    // FIXME: Add medals-often-enough frequency tests for subtraction
-    // FIXME: Add medals-often-enough frequency tests for division
+    @Test
+    public void additionMedalsOftenEnough() {
+        assertFrequentEnoughMedals(GameType.ADDITION);
+    }
+
+    @Test
+    public void subtractionMedalsOftenEnough() {
+        assertFrequentEnoughMedals(GameType.SUBTRACTION);
+    }
+
+    @Test
+    public void multiplicationMedalsOftenEnough() {
+        assertFrequentEnoughMedals(GameType.MULTIPLICATION);
+    }
+
+    @Test
+    public void divisionMedalsOftenEnough() {
+        assertFrequentEnoughMedals(GameType.DIVISION);
+    }
 }
