@@ -50,6 +50,10 @@ public abstract class MathsFactory {
         }
     }
 
+    public static int getTopLevel(GameType gameType) {
+        return create(gameType, 1234).getTopLevel();
+    }
+
     /** List all possible maths problems. For all levels, not just one. */
     protected abstract List<Maths> listAllMaths();
 
@@ -123,7 +127,7 @@ public abstract class MathsFactory {
         return maths;
     }
 
-    public int getTopLevel() {
+    private int getTopLevel() {
         return allMaths.size() / NEW_MATHS_PER_LEVEL;
     }
 }

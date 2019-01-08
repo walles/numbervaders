@@ -86,8 +86,7 @@ public final class Medals {
         List<Medal> medals = new LinkedList<>();
 
         for (GameType gameType : GameType.values()) {
-            MathsFactory maths = MathsFactory.create(gameType, 1234);
-            int topLevel = maths.getTopLevel();
+            int topLevel = MathsFactory.getTopLevel(gameType);
             int nextLevel = gameTypeToNextLevel.get(gameType);
             int highestCompletedLevel = nextLevel - 1;
             int percentDone = (int) Math.floor(100 * highestCompletedLevel / (double) topLevel);

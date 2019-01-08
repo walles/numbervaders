@@ -17,13 +17,18 @@
 package com.gmail.walles.johan.numbershooter;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.number.OrderingComparison.*;
 
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import org.hamcrest.Matchers;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
@@ -95,6 +100,24 @@ public class MedalsTest {
         Assert.assertThat(medalsEarned, Matchers.contains(timesOneTableMedal));
     }
 
+    private Map<Integer, List<Medal>> getMedalsPerLevel(GameType gameType) {
+        Map<Integer, List<Medal>> returnMe = new HashMap<>();
+
+        for (int level = 1; level <= MathsFactory.getTopLevel(gameType); level++) {
+            PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
+            Mockito.when(playerState.getNextLevel(gameType)).thenReturn(level + 1);
+
+            List<Medal> medals = Medals.getLatest(new TestableResources(), playerState, gameType);
+            if (medals.isEmpty()) {
+                continue;
+            }
+
+            returnMe.put(level, medals);
+        }
+
+        return returnMe;
+    }
+
     @Test
     public void multiplicationMedalsOftenEnough() {
         Assert.fail(
@@ -103,8 +126,14 @@ public class MedalsTest {
 
     @Test
     public void multiplicationFewEnoughMedals() {
-        Assert.fail(
-                "Should verify that we get a multiplication no more often than every 2 completed levels on average");
+        Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(GameType.MULTIPLICATION);
+        int levelsWithMedals = medalsPerLevel.keySet().size();
+        int levelsCount = MathsFactory.getTopLevel(GameType.MULTIPLICATION);
+        double percentWithMedals = 100.0 * levelsWithMedals / (double) levelsCount;
+
+        Assert.assertThat(
+                "Should get medals for at most 50% of all levels",
+                percentWithMedals, lessThanOrEqualTo(50.0));
     }
 
     // FIXME: Add medals frequency tests for addition
