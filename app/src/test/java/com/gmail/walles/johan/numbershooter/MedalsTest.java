@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
 import org.junit.Test;
@@ -117,6 +118,22 @@ public class MedalsTest {
         return returnMe;
     }
 
+    private String toString(Map<Integer, List<Medal>> medalsPerLevel) {
+        Map<Integer, List<Medal>> treeMap = new TreeMap<>(medalsPerLevel);
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Integer, List<Medal>> entry : treeMap.entrySet()) {
+            if (builder.length() > 0) {
+                builder.append("\n");
+            }
+
+            builder.append(entry.getKey())
+                    .append(": ")
+                    .append(Arrays.toString(entry.getValue().toArray()));
+        }
+
+        return builder.toString();
+    }
+
     private void assertFewEnoughMedals(GameType gameType) {
         Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(gameType);
         int levelsWithMedals = medalsPerLevel.keySet().size();
@@ -124,7 +141,9 @@ public class MedalsTest {
         double percentWithMedals = 100.0 * levelsWithMedals / (double) levelsCount;
 
         Assert.assertThat(
-                gameType + ": Should get medals for at most 50% of all levels",
+                gameType
+                        + ": Should get medals for at most 50% of all levels:\n"
+                        + toString(medalsPerLevel),
                 percentWithMedals,
                 lessThanOrEqualTo(50.0));
     }
@@ -160,7 +179,9 @@ public class MedalsTest {
 
             int levelsBetweenMedals = level - lastLevelWithMedal;
             Assert.assertThat(
-                    gameType + ": Should get a medal at least every 4 levels",
+                    gameType
+                            + ": Should get a medal at least every 4 levels\n"
+                            + toString(medalsPerLevel),
                     levelsBetweenMedals,
                     lessThanOrEqualTo(4));
 
@@ -168,7 +189,9 @@ public class MedalsTest {
         }
 
         Assert.assertThat(
-                gameType + ": Should have gotten a medal for completing the top level",
+                gameType
+                        + ": Should have gotten a medal for completing the top level\n"
+                        + toString(medalsPerLevel),
                 medalsPerLevel,
                 hasKey(MathsFactory.getTopLevel(gameType)));
     }
