@@ -28,22 +28,21 @@ public abstract class MathsFactory {
     protected static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
-    protected final List<Maths> allMaths;
-    private final int level;
+    protected final List<Maths> allMathsForAllLevels;
 
-    public static MathsFactory create(GameType gameType, int level) {
+    public static MathsFactory create(GameType gameType) {
         switch (gameType) {
             case ADDITION:
-                return new AdditionFactory(level);
+                return new AdditionFactory();
 
             case MULTIPLICATION:
-                return new MultiplicationFactory(level);
+                return new MultiplicationFactory();
 
             case SUBTRACTION:
-                return new SubtractionFactory(level);
+                return new SubtractionFactory();
 
             case DIVISION:
-                return new DivisionFactory(level);
+                return new DivisionFactory();
 
             default:
                 throw new UnsupportedOperationException("Unhandled game type: " + gameType);
@@ -51,11 +50,11 @@ public abstract class MathsFactory {
     }
 
     public static int getTopLevel(GameType gameType) {
-        return create(gameType, 1234).getTopLevel();
+        return create(gameType).getTopLevel();
     }
 
     /** List all possible maths problems. For all levels, not just one. */
-    protected abstract List<Maths> listAllMaths();
+    protected abstract List<Maths> listAllMathsForAllLevels();
 
     /**
      * -1 means o1 &lt; o2, 0 means o1 == o2, 1 means o1 &gt; o2.
@@ -91,16 +90,14 @@ public abstract class MathsFactory {
         }
     }
 
-    protected MathsFactory(int level) {
-        this.level = level;
-
-        List<Maths> maths = listAllMaths();
+    protected MathsFactory() {
+        List<Maths> maths = listAllMathsForAllLevels();
         Collections.sort(maths, this::compare);
 
-        allMaths = maths;
+        allMathsForAllLevels = maths;
     }
 
-    public final Maths pickChallenge() {
+    public final Maths pickChallenge(int level) {
         int topLevel = getTopLevel();
 
         // 0 - topLevel
@@ -122,12 +119,12 @@ public abstract class MathsFactory {
         int topEasiness = topLevel - 1;
 
         int index = RANDOM.nextInt(NEW_MATHS_PER_LEVEL) + (pickFromLevel - 1) * NEW_MATHS_PER_LEVEL;
-        Maths maths = allMaths.get(index);
+        Maths maths = allMathsForAllLevels.get(index);
         maths.setEasiness(easiness, topEasiness);
         return maths;
     }
 
     private int getTopLevel() {
-        return allMaths.size() / NEW_MATHS_PER_LEVEL;
+        return allMathsForAllLevels.size() / NEW_MATHS_PER_LEVEL;
     }
 }

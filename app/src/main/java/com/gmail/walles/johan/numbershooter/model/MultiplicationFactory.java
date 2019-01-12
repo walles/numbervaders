@@ -22,10 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MultiplicationFactory extends MathsFactory {
-    public MultiplicationFactory(int level) {
-        super(level);
-    }
-
     public static List<Maths> getMathsUpToLevelExclusive(int nextLevel) {
         int completedLevel = nextLevel - 1;
         int getCount = completedLevel * NEW_MATHS_PER_LEVEL;
@@ -33,8 +29,8 @@ public class MultiplicationFactory extends MathsFactory {
             return Collections.emptyList();
         }
 
-        MultiplicationFactory multiplicationFactory = new MultiplicationFactory(completedLevel);
-        List<Maths> allMaths = multiplicationFactory.allMaths;
+        MultiplicationFactory multiplicationFactory = new MultiplicationFactory();
+        List<Maths> allMaths = multiplicationFactory.allMathsForAllLevels;
         if (getCount > allMaths.size()) {
             getCount = allMaths.size();
         }
@@ -43,7 +39,7 @@ public class MultiplicationFactory extends MathsFactory {
     }
 
     @Override
-    protected List<Maths> listAllMaths() {
+    protected List<Maths> listAllMathsForAllLevels() {
         List<Maths> maths = new ArrayList<>(100);
         for (int a = 1; a <= GameType.MULTIPLICATION.topNumber; a++) {
             for (int b = 1; b <= GameType.MULTIPLICATION.topNumber; b++) {
