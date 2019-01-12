@@ -205,8 +205,8 @@ public final class Medals {
                                 flavor,
                                 resources.getString(
                                         R.string.way_of_counting_colon_sign_number_done,
-                                        GameType.MULTIPLICATION.getLocalizedName(resources),
-                                        GameType.MULTIPLICATION.prettyOperator,
+                                        gameType.getLocalizedName(resources),
+                                        gameType.prettyOperator,
                                         number)));
             }
         }
