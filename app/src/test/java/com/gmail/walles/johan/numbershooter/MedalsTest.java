@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
 import org.junit.Test;
@@ -119,16 +118,24 @@ public class MedalsTest {
     }
 
     private String toString(Map<Integer, List<Medal>> medalsPerLevel) {
-        Map<Integer, List<Medal>> treeMap = new TreeMap<>(medalsPerLevel);
+        int highestLevel = 0;
+        for (int level : medalsPerLevel.keySet()) {
+            highestLevel = Math.max(level, highestLevel);
+        }
+
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Integer, List<Medal>> entry : treeMap.entrySet()) {
+        for (int level = 1; level <= highestLevel; level++) {
             if (builder.length() > 0) {
                 builder.append("\n");
             }
 
-            builder.append(entry.getKey())
-                    .append(": ")
-                    .append(Arrays.toString(entry.getValue().toArray()));
+            builder.append(level).append(": ");
+            List<Medal> medals = medalsPerLevel.get(level);
+            if (medals == null) {
+                builder.append("-");
+            } else {
+                builder.append(Arrays.toString(medals.toArray()));
+            }
         }
 
         return builder.toString();
