@@ -127,4 +127,19 @@ public abstract class MathsFactory {
     private int getTopLevel() {
         return allMathsForAllLevels.size() / NEW_MATHS_PER_LEVEL;
     }
+
+    public List<Maths> getMathsUpToLevelInclusive(int completedLevel) {
+        int getCount = completedLevel * NEW_MATHS_PER_LEVEL;
+        if (getCount <= 0) {
+            return Collections.emptyList();
+        }
+
+        MultiplicationFactory multiplicationFactory = new MultiplicationFactory();
+        List<Maths> allMaths = multiplicationFactory.allMathsForAllLevels;
+        if (getCount > allMaths.size()) {
+            getCount = allMaths.size();
+        }
+
+        return allMaths.subList(0, getCount);
+    }
 }

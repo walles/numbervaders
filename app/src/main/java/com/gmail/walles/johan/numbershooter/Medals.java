@@ -18,7 +18,6 @@ package com.gmail.walles.johan.numbershooter;
 
 import android.content.res.Resources;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
-import com.gmail.walles.johan.numbershooter.model.MultiplicationFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -150,8 +149,8 @@ public final class Medals {
             Map<Integer, Integer> doneCountsPerNumber = new HashMap<>();
 
             List<MathsFactory.Maths> completedMaths =
-                    MultiplicationFactory.getMathsUpToLevelExclusive(
-                            gameTypeToNextLevel.get(gameType));
+                    MathsFactory.create(gameType)
+                            .getMathsUpToLevelInclusive(gameTypeToNextLevel.get(gameType) - 1);
             for (MathsFactory.Maths maths : completedMaths) {
                 Integer count = doneCountsPerNumber.get(maths.a);
                 if (count == null) {
