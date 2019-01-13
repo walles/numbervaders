@@ -142,10 +142,10 @@ public class MedalsTest {
 
         Assert.assertThat(
                 gameType
-                        + ": Should get medals for at most 50% of all levels:\n"
+                        + ": Should get medals for at most 66% of all levels:\n"
                         + toString(medalsPerLevel),
                 percentWithMedals,
-                lessThanOrEqualTo(50.0));
+                lessThanOrEqualTo(66.0));
     }
 
     @Test
