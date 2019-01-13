@@ -18,32 +18,11 @@ package com.gmail.walles.johan.numbershooter.model;
 
 import com.gmail.walles.johan.numbershooter.GameType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MultiplicationFactory extends MathsFactory {
-    public MultiplicationFactory(int level) {
-        super(level);
-    }
-
-    public static List<Maths> getMathsUpToLevelExclusive(int nextLevel) {
-        int completedLevel = nextLevel - 1;
-        int getCount = completedLevel * NEW_MATHS_PER_LEVEL;
-        if (getCount <= 0) {
-            return Collections.emptyList();
-        }
-
-        MultiplicationFactory multiplicationFactory = new MultiplicationFactory(completedLevel);
-        List<Maths> allMaths = multiplicationFactory.allMaths;
-        if (getCount > allMaths.size()) {
-            getCount = allMaths.size();
-        }
-
-        return allMaths.subList(0, getCount);
-    }
-
     @Override
-    protected List<Maths> listAllMaths() {
+    protected List<Maths> listAllMathsForAllLevels() {
         List<Maths> maths = new ArrayList<>(100);
         for (int a = 1; a <= GameType.MULTIPLICATION.topNumber; a++) {
             for (int b = 1; b <= GameType.MULTIPLICATION.topNumber; b++) {

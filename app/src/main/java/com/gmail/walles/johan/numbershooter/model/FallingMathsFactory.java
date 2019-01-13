@@ -31,19 +31,21 @@ public class FallingMathsFactory {
     private final ObjectiveSoundPool.SoundEffect mathsKilled;
     private final float objectSizePixels;
     private final MathsFactory mathsFactory;
+    private final int level;
 
     public FallingMathsFactory(
             GameType gameType,
             int level,
             float objectSizePixels,
             ObjectiveSoundPool.SoundEffect mathsKilled) {
-        this.mathsFactory = MathsFactory.create(gameType, level);
+        this.mathsFactory = MathsFactory.create(gameType);
+        this.level = level;
         this.objectSizePixels = objectSizePixels;
         this.mathsKilled = mathsKilled;
     }
 
     public final FallingMaths createChallenge(Model model) {
-        MathsFactory.Maths maths = mathsFactory.pickChallenge();
+        MathsFactory.Maths maths = mathsFactory.pickChallenge(level);
 
         double speedupPower = maths.easiness / (double) maths.topEasiness;
         double speedupFactor = Math.pow(SPEEDUP_FACTOR_AT_TOP_LEVEL, speedupPower);

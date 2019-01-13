@@ -21,12 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AdditionFactory extends MathsFactory {
-    public AdditionFactory(int level) {
-        super(level);
-    }
-
     @Override
-    protected List<Maths> listAllMaths() {
+    protected List<Maths> listAllMathsForAllLevels() {
         List<Maths> maths = new ArrayList<>(100);
         for (int a = 1; a <= GameType.ADDITION.topNumber; a++) {
             for (int b = 1; b <= GameType.ADDITION.topNumber; b++) {

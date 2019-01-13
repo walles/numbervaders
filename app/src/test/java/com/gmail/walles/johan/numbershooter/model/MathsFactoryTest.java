@@ -16,27 +16,25 @@
 
 package com.gmail.walles.johan.numbershooter.model;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
+import com.gmail.walles.johan.numbershooter.GameType;
 import java.util.Collections;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MultiplicationFactoryTest {
+public class MathsFactoryTest {
     @Test
-    public void getMathsUpToLevelExclusive() {
+    public void getMathsUpToLevelInclusive() {
         Assert.assertThat(
-                MultiplicationFactory.getMathsUpToLevelExclusive(0),
+                MathsFactory.create(GameType.MULTIPLICATION).getMathsUpToLevelInclusive(-1),
                 CoreMatchers.is(Collections.emptyList()));
 
         Assert.assertThat(
-                MultiplicationFactory.getMathsUpToLevelExclusive(1),
+                MathsFactory.create(GameType.MULTIPLICATION).getMathsUpToLevelInclusive(0),
                 CoreMatchers.is(Collections.emptyList()));
 
         Assert.assertThat(
-                MultiplicationFactory.getMathsUpToLevelExclusive(2).size(),
-                CoreMatchers.is(MultiplicationFactory.NEW_MATHS_PER_LEVEL));
+                MathsFactory.create(GameType.MULTIPLICATION).getMathsUpToLevelInclusive(1).size(),
+                CoreMatchers.is(MathsFactory.NEW_MATHS_PER_LEVEL));
     }
 }

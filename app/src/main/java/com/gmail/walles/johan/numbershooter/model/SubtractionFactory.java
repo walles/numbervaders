@@ -21,12 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class SubtractionFactory extends MathsFactory {
-    public SubtractionFactory(int level) {
-        super(level);
-    }
-
     @Override
-    protected List<Maths> listAllMaths() {
+    protected List<Maths> listAllMathsForAllLevels() {
         List<Maths> maths = new ArrayList<>();
 
         for (int answer = 1; answer <= GameType.SUBTRACTION.topNumber; answer++) {
