@@ -74,8 +74,12 @@ public final class Medals {
         List<Medal> medals = new ArrayList<>();
 
         medals.addAll(getWaysOfCountingMedals(resources, gameTypeToNextLevel));
+
         medals.addAll(getPercentCompleteMedals(resources, gameTypeToNextLevel));
+
         medals.addAll(getCommutativeMedals(resources, gameTypeToNextLevel));
+
+        medals.addAll(getNonCommutativeMedals(resources, gameTypeToNextLevel));
 
         return medals;
     }
@@ -183,6 +187,67 @@ public final class Medals {
                 // [1-10] * x: There are 10 of these
                 // So it's 20, but one of them is x * x and we count that only once.
                 if (doneCount < 2 * gameType.topNumber - 1) {
+                    // Number not done
+                    continue;
+                }
+
+                maxDoneNumber = number;
+            }
+
+            for (int number = 1; number <= maxDoneNumber; number++) {
+                Medal.Flavor flavor = Medal.Flavor.BRONZE;
+                if (number >= (gameType.topNumber * 6) / 10) {
+                    flavor = Medal.Flavor.SILVER;
+                }
+                if (number >= gameType.topNumber) {
+                    flavor = Medal.Flavor.GOLD;
+                }
+                medals.add(
+                        new Medal(
+                                flavor,
+                                resources.getString(
+                                        R.string.way_of_counting_colon_sign_number_done,
+                                        gameType.getLocalizedName(resources),
+                                        gameType.prettyOperator,
+                                        number)));
+            }
+        }
+
+        return medals;
+    }
+
+    private static Collection<Medal> getNonCommutativeMedals(
+            Resources resources, Map<GameType, Integer> gameTypeToNextLevel) {
+
+        List<Medal> medals = new LinkedList<>();
+
+        for (GameType gameType : GameType.values()) {
+            if (gameType.isCommutative) {
+                continue;
+            }
+
+            Map<Integer, Integer> doneCountsPerNumber = new HashMap<>();
+
+            List<MathsFactory.Maths> completedMaths =
+                    MathsFactory.create(gameType)
+                            .getMathsUpToLevelInclusive(gameTypeToNextLevel.get(gameType) - 1);
+            for (MathsFactory.Maths maths : completedMaths) {
+                Integer count = doneCountsPerNumber.get(maths.b);
+                if (count == null) {
+                    count = 0;
+                }
+                doneCountsPerNumber.put(maths.b, count + 1);
+            }
+
+            int maxDoneNumber = 0;
+            for (int number = 1; number <= gameType.topNumber; number++) {
+                Integer doneCount = doneCountsPerNumber.get(number);
+                if (doneCount == null) {
+                    // Number not started
+                    continue;
+                }
+
+                if (doneCount < gameType.topNumber) {
                     // Number not done
                     continue;
                 }

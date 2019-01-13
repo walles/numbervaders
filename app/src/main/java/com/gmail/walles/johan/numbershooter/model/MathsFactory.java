@@ -134,12 +134,10 @@ public abstract class MathsFactory {
             return Collections.emptyList();
         }
 
-        MultiplicationFactory multiplicationFactory = new MultiplicationFactory();
-        List<Maths> allMaths = multiplicationFactory.allMathsForAllLevels;
-        if (getCount > allMaths.size()) {
-            getCount = allMaths.size();
+        if (getCount > allMathsForAllLevels.size()) {
+            getCount = allMathsForAllLevels.size();
         }
 
-        return allMaths.subList(0, getCount);
+        return allMathsForAllLevels.subList(0, getCount);
     }
 }
