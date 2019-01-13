@@ -92,6 +92,30 @@ public final class Medals {
             int percentDone = (int) Math.floor(100 * highestCompletedLevel / (double) topLevel);
 
             String operationName = gameType.getLocalizedName(resources);
+            if (percentDone >= 10 && gameType == GameType.ADDITION) {
+                // We need this to get addition medals often enough
+                String progress = resources.getString(R.string.one_tenth_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.BRONZE,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+
+            if (percentDone >= 20 && gameType == GameType.ADDITION) {
+                // We need this to get addition medals often enough
+                String progress = resources.getString(R.string.one_fifth_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.BRONZE,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+
             if (percentDone >= 25) {
                 String progress = resources.getString(R.string.one_quarter_done);
                 medals.add(
@@ -103,8 +127,9 @@ public final class Medals {
                                         progress)));
             }
 
-            if (percentDone >= 33 && gameType == GameType.MULTIPLICATION) {
-                // We need this to get multiplication medals often enough
+            if (percentDone >= 33
+                    && (gameType == GameType.MULTIPLICATION || gameType == GameType.ADDITION)) {
+                // We need this to get multiplication and addition medals often enough
                 String progress = resources.getString(R.string.one_third_done);
                 medals.add(
                         new Medal(

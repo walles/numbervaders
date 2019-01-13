@@ -41,4 +41,6 @@
     <string name="three_quarters_done">Three quarters done</string>
     <string name="all_done">All done</string>
     <string name="one_third_done">One third done</string>
+    <string name="one_tenth_done">One tenth done</string>
+    <string name="one_fifth_done">One fifth done</string>
 </resources>
