@@ -74,11 +74,8 @@ public final class Medals {
         List<Medal> medals = new ArrayList<>();
 
         medals.addAll(getWaysOfCountingMedals(resources, gameTypeToNextLevel));
-
         medals.addAll(getPercentCompleteMedals(resources, gameTypeToNextLevel));
-
         medals.addAll(getCommutativeMedals(resources, gameTypeToNextLevel));
-
         medals.addAll(getNonCommutativeMedals(resources, gameTypeToNextLevel));
 
         return medals;
@@ -105,6 +102,19 @@ public final class Medals {
                                         operationName,
                                         progress)));
             }
+
+            if (percentDone >= 33 && gameType == GameType.MULTIPLICATION) {
+                // We need this to get multiplication medals often enough
+                String progress = resources.getString(R.string.one_third_done);
+                medals.add(
+                        new Medal(
+                                Medal.Flavor.BRONZE,
+                                resources.getString(
+                                        R.string.operation_colon_partly_done,
+                                        operationName,
+                                        progress)));
+            }
+
             if (percentDone >= 50) {
                 String progress = resources.getString(R.string.half_done);
                 medals.add(

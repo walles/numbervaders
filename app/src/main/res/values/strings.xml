@@ -40,4 +40,5 @@
     <string name="half_done">Half done</string>
     <string name="three_quarters_done">Three quarters done</string>
     <string name="all_done">All done</string>
+    <string name="one_third_done">One third done</string>
 </resources>

@@ -38,4 +38,5 @@
     <string name="three_quarters_done">Tre fjärdedelar klart</string>
     <string name="all_done">Klart</string>
     <string name="way_of_counting_colon_sign_number_done">%1$s: %2$s%3$d klart</string>
+    <string name="one_third_done">En tredjedel klart</string>
 </resources>
