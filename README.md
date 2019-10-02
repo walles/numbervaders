@@ -43,7 +43,6 @@ NOTE: If you add to this list, also update
 * Cheerier level-cleared image
 * Make sure that a `RuntimeException` from `GameActivity.levelCleared()`
   crashes the app
-* Make a more numbery icon
 * Add to the launch screen a list of cleared levels and how many seconds
   each took down to one decimal. Enable the player to select an older
   level and re-play it.
@@ -134,3 +133,4 @@ NOTE: If you add to this list, also update
 * Make the actual medal images look nicer; the silver one is OK, the
   others not so much
 * Add (more) addition medals
+* Make a more numbery icon
