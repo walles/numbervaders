@@ -18,8 +18,8 @@ package com.gmail.walles.johan.numbershooter;
 
 import android.content.Context;
 import android.media.SoundPool;
-import android.support.annotation.Nullable;
-import android.support.annotation.RawRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.RawRes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

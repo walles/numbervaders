@@ -20,7 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.*;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
 import java.util.Arrays;
@@ -94,7 +94,7 @@ public class MedalsTest {
         Medal timesOneTableMedal =
                 new Medal(
                         Medal.Flavor.BRONZE,
-                        R.string.way_of_counting_colon_sign_number_done + ": [2131558441, ×, 1]");
+                        R.string.way_of_counting_colon_sign_number_done + ": [2131623980, ×, 1]");
 
         Collection<Medal> medalsEarned =
                 Medals.getLatest(resources, playerState, GameType.MULTIPLICATION);
