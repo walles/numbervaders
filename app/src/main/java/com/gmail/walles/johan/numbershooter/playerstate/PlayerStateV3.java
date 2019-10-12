@@ -118,15 +118,16 @@ public class PlayerStateV3 implements Serializable {
 
     /** This method is expected to be called from GameActivity when a level is completed */
     public void reportSuccess(GameType gameType) throws IOException {
-        Integer next = nextToPlayLevels.get(gameType.toString());
-        if (next == null) {
-            next = 1;
+        Integer oldNext = nextToPlayLevels.get(gameType.toString());
+        if (oldNext == null) {
+            oldNext = 1;
         }
-        nextToPlayLevels.put(gameType.toString(), next);
+        int newNext = oldNext + 1;
+        nextToPlayLevels.put(gameType.toString(), newNext);
 
         Integer hardest = hardestLevels.get(gameType.toString());
-        if (hardest != null && hardest < next) {
-            hardest = next;
+        if (hardest != null && hardest < newNext) {
+            hardest = newNext;
             hardestLevels.put(gameType.toString(), hardest);
         }
 
