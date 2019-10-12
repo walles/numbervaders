@@ -50,7 +50,7 @@ public class MedalsTest {
         @NonNull
         @Override
         public String getString(int id, Object... formatArgs) throws NotFoundException {
-            return Integer.toString(id) + ": " + Arrays.toString(formatArgs);
+            return id + ": " + Arrays.toString(formatArgs);
         }
     }
 

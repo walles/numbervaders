@@ -16,7 +16,6 @@
 
 package com.gmail.walles.johan.numbershooter.playerstate;
 
-import android.content.Context;
 import androidx.annotation.VisibleForTesting;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.PlayerState;
@@ -77,10 +76,6 @@ public class PlayerStateV2 implements Serializable {
         PlayerStateV2 returnMe = new PlayerStateV2(playerState.file);
         returnMe.levels.put(GameType.MULTIPLICATION.toString(), playerState.level);
         return returnMe;
-    }
-
-    public static PlayerStateV2 fromContext(Context context) throws IOException {
-        return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }
 
     /** Atomically persist to disk via a tempfile */

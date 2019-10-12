@@ -28,7 +28,7 @@ public abstract class MathsFactory {
     protected static final int NEW_MATHS_PER_LEVEL = 5;
 
     private static final Random RANDOM = new Random();
-    protected final List<Maths> allMathsForAllLevels;
+    private final List<Maths> allMathsForAllLevels;
 
     public static MathsFactory create(GameType gameType) {
         switch (gameType) {
