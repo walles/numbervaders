@@ -64,6 +64,7 @@ public class PlayerStateV3Test {
         toPersist.reportSuccess(GameType.ADDITION);
 
         toPersist.setMedalsAwarded(GameType.DIVISION);
+        toPersist.setMedalsAwarded(GameType.MULTIPLICATION);
         Assert.assertThat(toPersist.medalsAlreadyAwarded(GameType.DIVISION), is(true));
         Assert.assertThat(toPersist.medalsAlreadyAwarded(GameType.MULTIPLICATION), is(true));
 
