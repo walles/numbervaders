@@ -2,12 +2,13 @@ A game where maths challenges fall down from the sky and you can shoot
 them by typing the correct answer.
 
 # Releasing a new Version
+* Do `git tag | cat` and decide on the new version number
 * Update `VersionName` and `VersionCode` in `/app/build.gradle`
 * Commit this change
 * `git push`
-* `git tag <new version name>`, do `git tag | cat` for inspiration
-* In Android Studio, do *Build* / *Generate Signed APK...*
-* Upload the new APK to [Google Play](https://play.google.com/apps/publish)
+* `git tag <new version number>`
+* In Android Studio, do *Build* / *Generate Signed Bundle / APK...*
+* Upload the new AAB to [Google Play](https://play.google.com/apps/publish)
 * `git push --tags`
 
 # Credits
