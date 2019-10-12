@@ -19,7 +19,6 @@ package com.gmail.walles.johan.numbershooter;
 import android.content.res.Resources;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

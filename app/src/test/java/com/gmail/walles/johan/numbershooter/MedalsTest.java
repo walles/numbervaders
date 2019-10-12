@@ -23,7 +23,6 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;

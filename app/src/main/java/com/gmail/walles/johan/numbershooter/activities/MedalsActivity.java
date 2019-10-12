@@ -29,7 +29,6 @@ import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
-
 import java.io.IOException;
 import java.util.List;
 

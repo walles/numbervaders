@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;

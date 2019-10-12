@@ -17,11 +17,8 @@
 package com.gmail.walles.johan.numbershooter.playerstate;
 
 import android.content.Context;
-
+import androidx.annotation.VisibleForTesting;
 import com.gmail.walles.johan.numbershooter.GameType;
-
-import org.jetbrains.annotations.NonNls;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,12 +29,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
-
-import androidx.annotation.VisibleForTesting;
+import org.jetbrains.annotations.NonNls;
 
 /**
- * Note that this class needs to stay in the {@link com.gmail.walles.johan.numbershooter.playerstate}
- * package for deserialization of old player states to work.
+ * Note that this class needs to stay in the {@link
+ * com.gmail.walles.johan.numbershooter.playerstate} package for deserialization of old player
+ * states to work.
  */
 public class PlayerStateV3 implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -55,7 +52,7 @@ public class PlayerStateV3 implements Serializable {
     /**
      * The next level that the user will get to play for each game type.
      *
-     * This can be sometimes be lower than hardestLevels, but not too low.
+     * <p>This can be sometimes be lower than hardestLevels, but not too low.
      *
      * <p>Note that we store the enum {@link GameType} as a {@link String} to be able to support
      * more types in the future without more data migrations.
@@ -72,7 +69,8 @@ public class PlayerStateV3 implements Serializable {
     @VisibleForTesting
     static PlayerStateV3 fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-            // FIXME: Look at the file timestamp here to determine if we should drop one or more levels?
+            // FIXME: Look at the file timestamp here to determine if we should drop one or more
+            // levels?
             return (PlayerStateV3) in.readObject();
         } catch (ClassCastException | ClassNotFoundException | InvalidClassException e) {
             return migrate(PlayerStateV2.fromFile(file));
@@ -152,6 +150,7 @@ public class PlayerStateV3 implements Serializable {
         if (next < atLeast) {
             next = atLeast;
         }
+        nextToPlayLevels.put(gameType.toString(), next);
 
         persist();
     }

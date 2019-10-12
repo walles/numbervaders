@@ -32,8 +32,8 @@ import timber.log.Timber;
 // Consider replacing Serializable with SQLite and Flyway to support database migrations
 
 /**
- * Deprecated Player State, see
- * {@link com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2}
+ * Deprecated Player State, see {@link
+ * com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2}
  */
 public class PlayerState implements Serializable {
     private static final long serialVersionUID = 1L;

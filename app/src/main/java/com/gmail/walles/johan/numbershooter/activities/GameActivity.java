@@ -31,7 +31,6 @@ import com.gmail.walles.johan.numbershooter.KeyboardView;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
 import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
-
 import java.io.IOException;
 import org.jetbrains.annotations.NonNls;
 
@@ -124,6 +123,14 @@ public class GameActivity extends MusicActivity {
                 new GameView.OnGameOverListener() {
                     @Override
                     public void onPlayerDied(Iterable<FallingMaths> failedMaths) {
+                        // Update the stored level now, but...
+                        try {
+                            PlayerStateV3.fromContext(GameActivity.this).reportFailure(gameType);
+                        } catch (IOException e) {
+                            throw new RuntimeException("Decreasing player level failed", e);
+                        }
+
+                        // ... wait a bit before telling the player that they died
                         handler.postDelayed(() -> tellPlayerItDied(failedMaths), 2000);
                     }
 
@@ -131,7 +138,7 @@ public class GameActivity extends MusicActivity {
                     public void onLevelCleared() {
                         // Update the stored level now, but...
                         try {
-                            PlayerStateV3.fromContext(GameActivity.this).increaseLevel(gameType);
+                            PlayerStateV3.fromContext(GameActivity.this).reportSuccess(gameType);
                         } catch (IOException e) {
                             throw new RuntimeException("Increasing player level failed", e);
                         }
