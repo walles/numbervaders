@@ -22,7 +22,8 @@ import static org.hamcrest.Matchers.*;
 import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,11 +62,11 @@ public class MedalsTest {
 
         for (GameType gameType : GameType.values()) {
             for (int level = 1; level <= 45; level++) {
-                PlayerStateV2 playerStateNow = Mockito.mock(PlayerStateV2.class);
+                PlayerStateV3 playerStateNow = Mockito.mock(PlayerStateV3.class);
                 Mockito.when(playerStateNow.getNextLevel(gameType)).thenReturn(level);
                 Collection<Medal> after = Medals.get(resources, playerStateNow);
 
-                PlayerStateV2 playerStateBefore = Mockito.mock(PlayerStateV2.class);
+                PlayerStateV3 playerStateBefore = Mockito.mock(PlayerStateV3.class);
                 Mockito.when(playerStateBefore.getNextLevel(gameType)).thenReturn(level - 1);
                 Collection<Medal> before = Medals.get(resources, playerStateBefore);
 
@@ -87,7 +88,7 @@ public class MedalsTest {
 
         Resources resources = new TestableResources();
 
-        PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
+        PlayerStateV3 playerState = Mockito.mock(PlayerStateV3.class);
         Mockito.when(playerState.getNextLevel(GameType.MULTIPLICATION))
                 .thenReturn(LOWEST_NON_COMPLETED_LEVEL);
 
@@ -106,7 +107,7 @@ public class MedalsTest {
         Map<Integer, List<Medal>> returnMe = new HashMap<>();
 
         for (int level = 1; level <= MathsFactory.getTopLevel(gameType); level++) {
-            PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
+            PlayerStateV3 playerState = Mockito.mock(PlayerStateV3.class);
             Mockito.when(playerState.getNextLevel(gameType)).thenReturn(level + 1);
 
             List<Medal> medals = Medals.getLatest(new TestableResources(), playerState, gameType);

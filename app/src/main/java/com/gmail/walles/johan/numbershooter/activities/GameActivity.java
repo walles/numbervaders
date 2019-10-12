@@ -30,7 +30,8 @@ import com.gmail.walles.johan.numbershooter.GameView;
 import com.gmail.walles.johan.numbershooter.KeyboardView;
 import com.gmail.walles.johan.numbershooter.R;
 import com.gmail.walles.johan.numbershooter.model.FallingMaths;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
+
 import java.io.IOException;
 import org.jetbrains.annotations.NonNls;
 
@@ -130,7 +131,7 @@ public class GameActivity extends MusicActivity {
                     public void onLevelCleared() {
                         // Update the stored level now, but...
                         try {
-                            PlayerStateV2.fromContext(GameActivity.this).increaseLevel(gameType);
+                            PlayerStateV3.fromContext(GameActivity.this).increaseLevel(gameType);
                         } catch (IOException e) {
                             throw new RuntimeException("Increasing player level failed", e);
                         }
