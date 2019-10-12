@@ -59,9 +59,7 @@ public class PlayerStateV3 implements Serializable {
      */
     private HashMap<String, Integer> nextToPlayLevels = new HashMap<>();
 
-    /**
-     * Maps game type name to the highest level + 1 for which medals have been awarded.
-     */
+    /** Maps game type name to the highest level + 1 for which medals have been awarded. */
     private HashMap<String, Integer> highestMedalsAwardedLevels = new HashMap<>();
 
     /** This is our on-disk backing store. */
@@ -72,7 +70,7 @@ public class PlayerStateV3 implements Serializable {
     }
 
     @VisibleForTesting
-    private static PlayerStateV3 fromFile(@NonNls File file) throws IOException {
+    static PlayerStateV3 fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             // FIXME: Look at the file timestamp here to determine if we should drop one or more
             // levels?
@@ -160,9 +158,7 @@ public class PlayerStateV3 implements Serializable {
         persist();
     }
 
-    /**
-     * Returns the next level this user will be presented with.
-     */
+    /** Returns the next level this user will be presented with. */
     public int getNextLevel(GameType gameType) {
         Integer returnMe = nextToPlayLevels.get(gameType.toString());
         if (returnMe == null) {
@@ -182,7 +178,7 @@ public class PlayerStateV3 implements Serializable {
         return highestAwardLevel >= nextLevel;
     }
 
-    public void setMedalsAwarded(GameType gameType) {
+    public void setMedalsAwarded(GameType gameType) throws IOException {
         Integer highestAwardLevel = highestMedalsAwardedLevels.get(gameType.toString());
         if (highestAwardLevel == null) {
             highestAwardLevel = 0;
@@ -192,5 +188,7 @@ public class PlayerStateV3 implements Serializable {
         if (nextLevel > highestAwardLevel) {
             highestMedalsAwardedLevels.put(gameType.toString(), nextLevel);
         }
+
+        persist();
     }
 }

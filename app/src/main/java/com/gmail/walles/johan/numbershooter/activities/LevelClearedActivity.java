@@ -96,15 +96,15 @@ public class LevelClearedActivity extends MusicActivity {
         PlayerStateV3 playerState;
         try {
             playerState = PlayerStateV3.fromContext(this);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to get player state", e);
-        }
 
-        if (playerState.medalsAlreadyAwarded(gameType)) {
-            // Medals already awarded for this level, never mind
-            return;
+            if (playerState.medalsAlreadyAwarded(gameType)) {
+                // Medals already awarded for this level, never mind
+                return;
+            }
+            playerState.setMedalsAwarded(gameType);
+        } catch (IOException e) {
+            throw new RuntimeException("Accessing player state before listing medals failed", e);
         }
-        playerState.setMedalsAwarded(gameType);
 
         List<Medal> medalsEarned = Medals.getLatest(getResources(), playerState, gameType);
 
