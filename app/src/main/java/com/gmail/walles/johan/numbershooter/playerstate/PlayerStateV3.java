@@ -70,7 +70,7 @@ public class PlayerStateV3 implements Serializable {
     }
 
     @VisibleForTesting
-    static PlayerStateV3 fromFile(@NonNls File file) throws IOException {
+    public static PlayerStateV3 fromFile(@NonNls File file) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
             // FIXME: Look at the file timestamp here to determine if we should drop one or more
             // levels?
@@ -195,5 +195,14 @@ public class PlayerStateV3 implements Serializable {
         }
 
         persist();
+    }
+
+    public int getHardestLevel(GameType gameType) {
+        Integer hardest = hardestLevels.get(gameType.toString());
+        if (hardest == null) {
+            return 1;
+        }
+
+        return hardest;
     }
 }

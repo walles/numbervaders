@@ -37,7 +37,7 @@ public final class Medals {
     public static List<Medal> get(Resources resources, PlayerStateV3 playerState) {
         Map<GameType, Integer> gameTypeToNextLevel = new HashMap<>();
         for (GameType gameType : GameType.values()) {
-            gameTypeToNextLevel.put(gameType, playerState.getNextLevel(gameType));
+            gameTypeToNextLevel.put(gameType, playerState.getHardestLevel(gameType));
         }
 
         return get(resources, gameTypeToNextLevel);
