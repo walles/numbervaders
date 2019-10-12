@@ -33,7 +33,7 @@ import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.ObjectiveSoundPool;
 import com.gmail.walles.johan.numbershooter.R;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -93,11 +93,17 @@ public class LevelClearedActivity extends MusicActivity {
     }
 
     private void listMedals() {
-        PlayerStateV2 playerState;
+        PlayerStateV3 playerState;
         try {
-            playerState = PlayerStateV2.fromContext(this);
+            playerState = PlayerStateV3.fromContext(this);
+
+            if (playerState.medalsAlreadyAwarded(gameType)) {
+                // Medals already awarded for this level, never mind
+                return;
+            }
+            playerState.setMedalsAwarded(gameType);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to get player state", e);
+            throw new RuntimeException("Accessing player state before listing medals failed", e);
         }
 
         List<Medal> medalsEarned = Medals.getLatest(getResources(), playerState, gameType);

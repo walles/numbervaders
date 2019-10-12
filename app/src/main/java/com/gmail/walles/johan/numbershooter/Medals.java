@@ -18,7 +18,7 @@ package com.gmail.walles.johan.numbershooter;
 
 import android.content.res.Resources;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,10 +34,10 @@ public final class Medals {
     }
 
     /** @see #get(Resources, Map) */
-    public static List<Medal> get(Resources resources, PlayerStateV2 playerState) {
+    public static List<Medal> get(Resources resources, PlayerStateV3 playerState) {
         Map<GameType, Integer> gameTypeToNextLevel = new HashMap<>();
         for (GameType gameType : GameType.values()) {
-            gameTypeToNextLevel.put(gameType, playerState.getNextLevel(gameType));
+            gameTypeToNextLevel.put(gameType, playerState.getHardestLevel(gameType));
         }
 
         return get(resources, gameTypeToNextLevel);
@@ -49,7 +49,7 @@ public final class Medals {
      * @see #get(Resources, Map)
      */
     public static List<Medal> getLatest(
-            Resources resources, PlayerStateV2 playerState, GameType gameType) {
+            Resources resources, PlayerStateV3 playerState, GameType gameType) {
         if (playerState.getNextLevel(gameType) == 1) {
             Timber.w("Game type not started, why was this requested?");
             return Collections.emptyList();

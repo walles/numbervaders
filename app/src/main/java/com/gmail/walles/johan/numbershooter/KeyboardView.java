@@ -213,7 +213,6 @@ public class KeyboardView extends View {
         float x2 = width / 2 + keyWidth;
 
         float rowHeight = height / 4f;
-        //noinspection UnnecessaryLocalVariable
         float y0 = 1 * rowHeight;
         float y1 = 2 * rowHeight;
         float y2 = 3 * rowHeight;

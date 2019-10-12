@@ -30,7 +30,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.R;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -49,9 +49,9 @@ public class LaunchActivity extends MusicActivity {
     protected void onResume() {
         super.onResume();
 
-        PlayerStateV2 playerState;
+        PlayerStateV3 playerState;
         try {
-            playerState = PlayerStateV2.fromContext(this);
+            playerState = PlayerStateV3.fromContext(this);
         } catch (IOException e) {
             throw new RuntimeException("Failed to get player state", e);
         }
@@ -66,7 +66,7 @@ public class LaunchActivity extends MusicActivity {
     }
 
     private void configureButton(
-            @IdRes int buttonId, PlayerStateV2 playerState, GameType gameType) {
+            @IdRes int buttonId, PlayerStateV3 playerState, GameType gameType) {
         Button button = findViewById(buttonId);
 
         SpannableString labelText =

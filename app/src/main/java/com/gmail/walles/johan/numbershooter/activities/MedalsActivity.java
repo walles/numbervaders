@@ -28,7 +28,7 @@ import com.gmail.walles.johan.numbershooter.Medal;
 import com.gmail.walles.johan.numbershooter.Medals;
 import com.gmail.walles.johan.numbershooter.MedalsAdapter;
 import com.gmail.walles.johan.numbershooter.R;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
 import java.io.IOException;
 import java.util.List;
 
@@ -43,9 +43,9 @@ public class MedalsActivity extends MusicActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medals);
 
-        PlayerStateV2 playerState;
+        PlayerStateV3 playerState;
         try {
-            playerState = PlayerStateV2.fromContext(this);
+            playerState = PlayerStateV3.fromContext(this);
         } catch (IOException e) {
             throw new RuntimeException("Failed to get player state", e);
         }
@@ -82,11 +82,10 @@ public class MedalsActivity extends MusicActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                LaunchActivity.start(this);
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            LaunchActivity.start(this);
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

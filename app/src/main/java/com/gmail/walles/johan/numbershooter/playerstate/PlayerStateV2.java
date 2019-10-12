@@ -16,7 +16,6 @@
 
 package com.gmail.walles.johan.numbershooter.playerstate;
 
-import android.content.Context;
 import androidx.annotation.VisibleForTesting;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.PlayerState;
@@ -32,9 +31,13 @@ import java.io.Serializable;
 import java.util.HashMap;
 import org.jetbrains.annotations.NonNls;
 
-/**
+/*
  * Note that PlayerState needs to be in the {@link com.gmail.walles.johan.numbershooter.playerstate}
  * package for deserialization of old player states to work.
+ */
+/**
+ * Deprecated Player State, see {@link
+ * com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3}
  */
 public class PlayerStateV2 implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -49,10 +52,10 @@ public class PlayerStateV2 implements Serializable {
      * <p>Note that we store the enum {@link GameType} as a {@link String} to be able to support
      * more types in the future without more data migrations.
      */
-    private HashMap<String, Integer> levels = new HashMap<>();
+    HashMap<String, Integer> levels = new HashMap<>();
 
     /** This is our on-disk backing store. */
-    private final File file;
+    final File file;
 
     private PlayerStateV2(File file) {
         this.file = file;
@@ -73,10 +76,6 @@ public class PlayerStateV2 implements Serializable {
         PlayerStateV2 returnMe = new PlayerStateV2(playerState.file);
         returnMe.levels.put(GameType.MULTIPLICATION.toString(), playerState.level);
         return returnMe;
-    }
-
-    public static PlayerStateV2 fromContext(Context context) throws IOException {
-        return fromFile(new File(context.getFilesDir(), PLAYER_STATE_FILE_NAME));
     }
 
     /** Atomically persist to disk via a tempfile */

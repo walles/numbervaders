@@ -22,19 +22,25 @@ import static org.hamcrest.Matchers.*;
 import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import com.gmail.walles.johan.numbershooter.model.MathsFactory;
-import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV2;
+import com.gmail.walles.johan.numbershooter.playerstate.PlayerStateV3;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.hamcrest.number.OrderingComparison;
 import org.jetbrains.annotations.NonNls;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.rules.TemporaryFolder;
 
 public class MedalsTest {
+    @Rule public TemporaryFolder folder = new TemporaryFolder();
+
     private static class TestableResources extends Resources {
         public TestableResources() {
             super(null, null, null);
@@ -50,23 +56,36 @@ public class MedalsTest {
         @NonNull
         @Override
         public String getString(int id, Object... formatArgs) throws NotFoundException {
-            return Integer.toString(id) + ": " + Arrays.toString(formatArgs);
+            return id + ": " + Arrays.toString(formatArgs);
         }
+    }
+
+    private PlayerStateV3 getPlayerStateAtLevel(GameType gameType, int level) throws IOException {
+        Assert.assertThat(level, OrderingComparison.greaterThanOrEqualTo(1));
+
+        File file = folder.newFile();
+        Assert.assertThat(file.delete(), is(true));
+
+        PlayerStateV3 returnMe = PlayerStateV3.fromFile(file);
+        for (int l = 1; l < level; l++) {
+            returnMe.reportSuccess(gameType);
+            // FIXME: Do we want to returnMe.setMedalsAwarded() here
+        }
+
+        return returnMe;
     }
 
     /** Validate that get() and getLatest() don't contradict each other. */
     @Test
-    public void testGetVsGetLatest() {
+    public void testGetVsGetLatest() throws IOException {
         Resources resources = new TestableResources();
 
         for (GameType gameType : GameType.values()) {
-            for (int level = 1; level <= 45; level++) {
-                PlayerStateV2 playerStateNow = Mockito.mock(PlayerStateV2.class);
-                Mockito.when(playerStateNow.getNextLevel(gameType)).thenReturn(level);
+            for (int level = 2; level <= 45; level++) {
+                PlayerStateV3 playerStateNow = getPlayerStateAtLevel(gameType, level);
                 Collection<Medal> after = Medals.get(resources, playerStateNow);
 
-                PlayerStateV2 playerStateBefore = Mockito.mock(PlayerStateV2.class);
-                Mockito.when(playerStateBefore.getNextLevel(gameType)).thenReturn(level - 1);
+                PlayerStateV3 playerStateBefore = getPlayerStateAtLevel(gameType, level - 1);
                 Collection<Medal> before = Medals.get(resources, playerStateBefore);
 
                 Collection<Medal> earnedAccordingToMedalsClass =
@@ -75,21 +94,23 @@ public class MedalsTest {
                 Collection<Medal> actuallyGained = new LinkedList<>(after);
                 actuallyGained.removeAll(before);
 
-                Assert.assertThat(earnedAccordingToMedalsClass, is(actuallyGained));
+                Assert.assertThat(
+                        gameType + " level " + level,
+                        earnedAccordingToMedalsClass,
+                        is(actuallyGained));
             }
         }
     }
 
     @Test
-    public void testOneTimesTableMedal() {
+    public void testOneTimesTableMedal() throws IOException {
         // We've just done levels 1 to 4, covering 1*1 - 1*10 / 10*1
         final int LOWEST_NON_COMPLETED_LEVEL = 5;
 
         Resources resources = new TestableResources();
 
-        PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
-        Mockito.when(playerState.getNextLevel(GameType.MULTIPLICATION))
-                .thenReturn(LOWEST_NON_COMPLETED_LEVEL);
+        PlayerStateV3 playerState =
+                getPlayerStateAtLevel(GameType.MULTIPLICATION, LOWEST_NON_COMPLETED_LEVEL);
 
         Medal timesOneTableMedal =
                 new Medal(
@@ -102,12 +123,11 @@ public class MedalsTest {
         Assert.assertThat(medalsEarned, contains(timesOneTableMedal));
     }
 
-    private Map<Integer, List<Medal>> getMedalsPerLevel(GameType gameType) {
+    private Map<Integer, List<Medal>> getMedalsPerLevel(GameType gameType) throws IOException {
         Map<Integer, List<Medal>> returnMe = new HashMap<>();
 
         for (int level = 1; level <= MathsFactory.getTopLevel(gameType); level++) {
-            PlayerStateV2 playerState = Mockito.mock(PlayerStateV2.class);
-            Mockito.when(playerState.getNextLevel(gameType)).thenReturn(level + 1);
+            PlayerStateV3 playerState = getPlayerStateAtLevel(gameType, level + 1);
 
             List<Medal> medals = Medals.getLatest(new TestableResources(), playerState, gameType);
             if (medals.isEmpty()) {
@@ -144,7 +164,7 @@ public class MedalsTest {
         return builder.toString();
     }
 
-    private void assertFewEnoughMedals(GameType gameType) {
+    private void assertFewEnoughMedals(GameType gameType) throws IOException {
         Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(gameType);
         int levelsWithMedals = medalsPerLevel.keySet().size();
         int levelsCount = MathsFactory.getTopLevel(gameType);
@@ -159,26 +179,26 @@ public class MedalsTest {
     }
 
     @Test
-    public void additionFewEnoughMedals() {
+    public void additionFewEnoughMedals() throws IOException {
         assertFewEnoughMedals(GameType.ADDITION);
     }
 
     @Test
-    public void subtractionFewEnoughMedals() {
+    public void subtractionFewEnoughMedals() throws IOException {
         assertFewEnoughMedals(GameType.SUBTRACTION);
     }
 
     @Test
-    public void multiplicationFewEnoughMedals() {
+    public void multiplicationFewEnoughMedals() throws IOException {
         assertFewEnoughMedals(GameType.MULTIPLICATION);
     }
 
     @Test
-    public void divisionFewEnoughMedals() {
+    public void divisionFewEnoughMedals() throws IOException {
         assertFewEnoughMedals(GameType.DIVISION);
     }
 
-    private void assertFrequentEnoughMedals(GameType gameType) {
+    private void assertFrequentEnoughMedals(GameType gameType) throws IOException {
         Map<Integer, List<Medal>> medalsPerLevel = getMedalsPerLevel(gameType);
 
         int lastLevelWithMedal = 0;
@@ -207,22 +227,22 @@ public class MedalsTest {
     }
 
     @Test
-    public void additionMedalsOftenEnough() {
+    public void additionMedalsOftenEnough() throws IOException {
         assertFrequentEnoughMedals(GameType.ADDITION);
     }
 
     @Test
-    public void subtractionMedalsOftenEnough() {
+    public void subtractionMedalsOftenEnough() throws IOException {
         assertFrequentEnoughMedals(GameType.SUBTRACTION);
     }
 
     @Test
-    public void multiplicationMedalsOftenEnough() {
+    public void multiplicationMedalsOftenEnough() throws IOException {
         assertFrequentEnoughMedals(GameType.MULTIPLICATION);
     }
 
     @Test
-    public void divisionMedalsOftenEnough() {
+    public void divisionMedalsOftenEnough() throws IOException {
         assertFrequentEnoughMedals(GameType.DIVISION);
     }
 }
