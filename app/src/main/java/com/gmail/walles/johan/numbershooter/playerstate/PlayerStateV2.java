@@ -49,10 +49,10 @@ public class PlayerStateV2 implements Serializable {
      * <p>Note that we store the enum {@link GameType} as a {@link String} to be able to support
      * more types in the future without more data migrations.
      */
-    private HashMap<String, Integer> levels = new HashMap<>();
+    HashMap<String, Integer> levels = new HashMap<>();
 
     /** This is our on-disk backing store. */
-    private final File file;
+    final File file;
 
     private PlayerStateV2(File file) {
         this.file = file;
