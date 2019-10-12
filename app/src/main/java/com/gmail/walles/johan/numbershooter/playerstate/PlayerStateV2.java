@@ -17,7 +17,7 @@
 package com.gmail.walles.johan.numbershooter.playerstate;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import com.gmail.walles.johan.numbershooter.GameType;
 import com.gmail.walles.johan.numbershooter.PlayerState;
 import java.io.File;

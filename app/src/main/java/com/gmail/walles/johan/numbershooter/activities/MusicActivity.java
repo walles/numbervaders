@@ -19,8 +19,8 @@ package com.gmail.walles.johan.numbershooter.activities;
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import com.gmail.walles.johan.numbershooter.R;
 
 /** An activity with background music. */

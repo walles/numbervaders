@@ -17,7 +17,7 @@
 package com.gmail.walles.johan.numbershooter;
 
 import android.app.Application;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 import timber.log.Timber;
 
