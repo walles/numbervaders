@@ -126,7 +126,7 @@ public class PlayerStateV3 implements Serializable {
         nextToPlayLevels.put(gameType.toString(), newNext);
 
         Integer hardest = hardestLevels.get(gameType.toString());
-        if (hardest != null && hardest < newNext) {
+        if (hardest == null || hardest < newNext) {
             hardest = newNext;
             hardestLevels.put(gameType.toString(), hardest);
         }
