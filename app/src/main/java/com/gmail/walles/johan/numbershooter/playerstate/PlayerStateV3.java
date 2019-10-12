@@ -82,10 +82,14 @@ public class PlayerStateV3 implements Serializable {
         }
     }
 
-    private static PlayerStateV3 migrate(PlayerStateV2 playerState) {
+    private static PlayerStateV3 migrate(PlayerStateV2 playerState) throws IOException {
         PlayerStateV3 returnMe = new PlayerStateV3(playerState.file);
         returnMe.hardestLevels = new HashMap<>(playerState.levels);
         returnMe.nextToPlayLevels = new HashMap<>(playerState.levels);
+        returnMe.highestMedalsAwardedLevels = new HashMap<>();
+        for (GameType gameType : GameType.values()) {
+            returnMe.setMedalsAwarded(gameType);
+        }
 
         // FIXME: Look at the file timestamp here to determine if we should drop one or more levels?
 

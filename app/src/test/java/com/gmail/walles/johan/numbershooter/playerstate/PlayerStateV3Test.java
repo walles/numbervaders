@@ -81,6 +81,8 @@ public class PlayerStateV3Test {
     @Test
     public void shouldBackOff() throws IOException {
         File file = folder.newFile();
+        Assert.assertThat(file.delete(), is(true));
+
         PlayerStateV3 testMe = PlayerStateV3.fromFile(file);
 
         testMe.reportSuccess(GameType.DIVISION);
