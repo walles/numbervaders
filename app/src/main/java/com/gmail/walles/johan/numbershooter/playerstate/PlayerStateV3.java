@@ -142,7 +142,7 @@ public class PlayerStateV3 implements Serializable {
         }
 
         // How low can you go?
-        int atLeast = hardest - 3;
+        int atLeast = hardest - 2;
         if (atLeast < 1) {
             atLeast = 1;
         }
@@ -152,8 +152,10 @@ public class PlayerStateV3 implements Serializable {
             next = hardest;
         }
 
-        // This is to simplify for people so that they get to succeed at at least 2/3 levels
-        next -= 2;
+        // This is to simplify for people so that they get to succeed at least half of all levels
+        //
+        // Having it on -2 to succeed 2/3 of all games was dissed in testing.
+        next -= 1;
 
         if (next < atLeast) {
             next = atLeast;

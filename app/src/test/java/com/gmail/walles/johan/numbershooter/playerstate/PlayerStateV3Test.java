@@ -98,18 +98,14 @@ public class PlayerStateV3Test {
         Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
 
         testMe.reportFailure(GameType.DIVISION);
+        Assert.assertThat(testMe.getNextLevel(GameType.DIVISION), is(4));
+        Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
+
+        testMe.reportFailure(GameType.DIVISION);
         Assert.assertThat(testMe.getNextLevel(GameType.DIVISION), is(3));
         Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
 
         testMe.reportFailure(GameType.DIVISION);
-        Assert.assertThat(testMe.getNextLevel(GameType.DIVISION), is(2));
-        Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
-
-        testMe.reportFailure(GameType.DIVISION);
-        Assert.assertThat(testMe.getNextLevel(GameType.DIVISION), is(2));
-        Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
-
-        testMe.reportSuccess(GameType.DIVISION);
         Assert.assertThat(testMe.getNextLevel(GameType.DIVISION), is(3));
         Assert.assertThat(testMe.medalsAlreadyAwarded(GameType.DIVISION), is(true));
 
